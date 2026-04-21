@@ -3,25 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DFCA Research | Evidence for Development</title>
-  <meta name="description" content="DFCA Research produces rigorous, policy-relevant evidence on development, governance, health, and resilience in KPK and FATA, Pakistan." />
+  <title>DFCA Research | Evidence for Development in Pakistan</title>
+  <meta name="description" content="DFCA Research produces rigorous, policy-relevant evidence on development, health, governance, and resilience across KPK and FATA, Pakistan." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #06090f;
-      --bg2:       #0c1120;
-      --surface:   rgba(255,255,255,0.04);
-      --border:    rgba(255,255,255,0.08);
-      --accent:    #00c8ff;
-      --accent2:   #3b82f6;
-      --accent3:   #8b5cf6;
-      --text:      #f0f4ff;
-      --muted:     #8899bb;
-      --card-glow: rgba(0,200,255,0.07);
+      --navy:      #1a2744;
+      --navy-mid:  #243459;
+      --teal:      #1a6b5c;
+      --teal-lt:   #e8f4f1;
+      --gold:      #b5893a;
+      --gold-lt:   #fdf6e8;
+      --bg:        #ffffff;
+      --bg-warm:   #fafaf8;
+      --bg-rule:   #f0ede8;
+      --text:      #1c1c1c;
+      --text-mid:  #444444;
+      --text-soft: #767676;
+      --rule:      #d8d3cc;
+      --serif:     'Lora', Georgia, serif;
+      --sans:      'Inter', system-ui, sans-serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -29,923 +35,1175 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: var(--sans);
       font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── Canvas Background ─── */
-    #bg-canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.45;
-    }
+    img { display: block; max-width: 100%; }
 
-    /* ─── Nav ─── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
+    /* ═══════════════════════════════════════
+       TOP BAR
+    ═══════════════════════════════════════ */
+    .top-bar {
+      background: var(--navy);
+      padding: 9px 7%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 6%;
-      height: 68px;
-      background: rgba(6, 9, 15, 0.8);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      transition: background 0.3s;
+      gap: 16px;
     }
 
-    .nav-logo {
+    .top-bar-left {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.04em;
+    }
+
+    .top-bar-left a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .top-bar-left a:hover { color: #fff; }
+
+    .top-bar-right {
+      display: flex;
+      gap: 20px;
+    }
+
+    .top-bar-right a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+
+    .top-bar-right a:hover { color: #fff; }
+
+    /* ═══════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 7%;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
       text-decoration: none;
     }
 
-    .nav-logo-mark {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--accent), var(--accent3));
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: #fff;
-      letter-spacing: -0.5px;
-      flex-shrink: 0;
+    .nav-brand img {
+      height: 40px;
+      width: auto;
     }
 
-    .nav-logo-text {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--text);
+    /* Fallback if image not loaded */
+    .nav-brand-fallback {
+      display: flex;
+      flex-direction: column;
       line-height: 1.2;
     }
 
-    .nav-logo-text span {
-      display: block;
-      font-size: 10px;
-      font-weight: 400;
-      color: var(--muted);
-      letter-spacing: 0.08em;
+    .nav-brand-name {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-brand-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--rule);
     }
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
 
     .nav-links a {
-      text-decoration: none;
       font-size: 13.5px;
       font-weight: 500;
-      color: var(--muted);
-      letter-spacing: 0.02em;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 0.01em;
       transition: color 0.2s;
+      padding-bottom: 3px;
+      border-bottom: 2px solid transparent;
     }
 
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover {
+      color: var(--navy);
+      border-bottom-color: var(--teal);
+    }
 
-    .nav-cta {
-      padding: 8px 20px;
-      background: transparent;
-      border: 1px solid var(--accent);
-      border-radius: 6px;
+    .nav-contact-btn {
+      padding: 9px 22px;
+      background: var(--navy);
+      border-radius: 4px;
       font-size: 13px;
       font-weight: 500;
-      color: var(--accent);
+      color: #fff;
       text-decoration: none;
-      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
     }
 
-    .nav-cta:hover {
-      background: var(--accent);
-      color: #000;
-    }
+    .nav-contact-btn:hover { background: var(--navy-mid); }
 
-    /* ─── Sections ─── */
-    section { position: relative; z-index: 1; }
-
-    /* ─── Hero ─── */
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
     #hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 100px 6% 80px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border: 1px solid rgba(0,200,255,0.3);
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(0,200,255,0.06);
-      margin-bottom: 28px;
-      animation: fadeUp 0.8s ease both;
-    }
-
-    .hero-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 2s infinite;
-    }
-
-    .hero-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.6rem, 6vw, 5rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      max-width: 820px;
-      animation: fadeUp 0.8s 0.1s ease both;
-    }
-
-    .hero-title .line-accent {
-      background: linear-gradient(90deg, var(--accent), var(--accent3));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      margin-top: 22px;
-      font-size: clamp(1rem, 1.5vw, 1.15rem);
-      color: var(--muted);
-      max-width: 560px;
-      line-height: 1.75;
-      animation: fadeUp 0.8s 0.2s ease both;
-    }
-
-    .hero-actions {
-      margin-top: 40px;
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp 0.8s 0.3s ease both;
-    }
-
-    .btn-primary {
-      padding: 13px 28px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
-    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
-    .btn-ghost {
-      padding: 13px 28px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      text-decoration: none;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .btn-ghost:hover { border-color: var(--accent); transform: translateY(-1px); }
-
-    .hero-stats {
-      margin-top: 72px;
-      display: flex;
-      gap: 48px;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp 0.8s 0.4s ease both;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--text);
-      background: linear-gradient(135deg, #fff, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    /* ─── Divider ─── */
-    .section-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 0 6%;
-    }
-
-    /* ─── Section Headers ─── */
-    .section-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-
-    .section-desc {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.75;
-      max-width: 520px;
-    }
-
-    /* ─── About ─── */
-    #about {
-      padding: 100px 6%;
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--rule);
+      padding: 80px 7% 72px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 380px;
       gap: 80px;
       align-items: center;
     }
 
-    .about-visual {
-      position: relative;
-    }
-
-    .about-card-stack {
-      position: relative;
-      height: 340px;
-    }
-
-    .acard {
-      position: absolute;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px 28px;
-      backdrop-filter: blur(10px);
-    }
-
-    .acard-main {
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      background: linear-gradient(135deg, rgba(0,200,255,0.06), rgba(139,92,246,0.04));
-    }
-
-    .acard-float {
-      width: 200px;
-      bottom: -20px;
-      right: -20px;
-      background: rgba(12,17,32,0.9);
-      border-color: rgba(59,130,246,0.3);
-    }
-
-    .acard-label {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .acard-value {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-
-    .acard-row {
+    .hero-eyebrow {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      margin-bottom: 22px;
     }
 
-    .acard-icon {
+    .hero-eyebrow-line {
+      width: 32px;
+      height: 2px;
+      background: var(--teal);
+    }
+
+    .hero-eyebrow-text {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.22;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--teal);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      max-width: 560px;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-navy {
+      padding: 12px 26px;
+      background: var(--navy);
+      border-radius: 4px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+
+    .btn-navy:hover { background: var(--navy-mid); }
+
+    .btn-outline {
+      padding: 12px 26px;
+      background: transparent;
+      border: 1.5px solid var(--navy);
+      border-radius: 4px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--navy); color: #fff; }
+
+    /* Hero card panel */
+    .hero-panel {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .hero-panel-header {
+      background: var(--navy);
+      padding: 18px 24px;
+    }
+
+    .hero-panel-header-title {
+      font-family: var(--serif);
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+
+    .hero-panel-body {
+      padding: 0;
+    }
+
+    .hero-panel-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--bg-rule);
+      transition: background 0.15s;
+    }
+
+    .hero-panel-row:last-child { border-bottom: none; }
+    .hero-panel-row:hover { background: var(--bg-warm); }
+
+    .panel-icon {
       width: 36px;
       height: 36px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      font-size: 16px;
     }
 
-    .acard-icon svg { width: 18px; height: 18px; fill: none; stroke: #000; stroke-width: 2; }
+    .panel-row-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
 
-    .acard-meta { font-size: 13px; color: var(--muted); }
-    .acard-meta strong { display: block; color: var(--text); font-weight: 600; }
-
-    .progress-bar-wrap { margin-top: 4px; }
-    .progress-bar-label {
-      display: flex;
-      justify-content: space-between;
+    .panel-row-text span {
       font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px;
+      color: var(--text-soft);
     }
 
-    .progress-track {
-      height: 5px;
-      background: var(--border);
-      border-radius: 100px;
-      overflow: hidden;
+    /* ═══════════════════════════════════════
+       SECTION COMMONS
+    ═══════════════════════════════════════ */
+    .section-wrap {
+      padding: 80px 7%;
     }
 
-    .progress-fill {
-      height: 100%;
-      border-radius: 100px;
-      background: linear-gradient(90deg, var(--accent), var(--accent3));
-      transform-origin: left;
-      animation: grow 1.5s 0.5s ease both;
+    .section-wrap-alt {
+      padding: 80px 7%;
+      background: var(--bg-warm);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
     }
 
-    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-
-    /* ─── Research Areas ─── */
-    #research {
-      padding: 100px 6%;
-      background: var(--bg2);
-    }
-
-    #research .inner-header {
-      max-width: 580px;
-      margin-bottom: 56px;
-    }
-
-    .research-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .r-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      transition: border-color 0.25s, transform 0.25s, background 0.25s;
-      cursor: default;
-    }
-
-    .r-card:hover {
-      border-color: rgba(0,200,255,0.3);
-      background: var(--card-glow);
-      transform: translateY(-3px);
-    }
-
-    .r-card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+    .section-label {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      font-size: 22px;
-    }
-
-    .r-card h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 600;
+      gap: 10px;
       margin-bottom: 10px;
     }
 
-    .r-card p {
-      font-size: 13.5px;
-      color: var(--muted);
+    .section-label-line {
+      width: 24px;
+      height: 2px;
+      background: var(--teal);
+    }
+
+    .section-label-text {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .section-desc {
+      margin-top: 12px;
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      max-width: 600px;
+    }
+
+    /* ═══════════════════════════════════════
+       STATS BAND
+    ═══════════════════════════════════════ */
+    #stats {
+      background: var(--navy);
+      padding: 48px 7%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background-image: linear-gradient(var(--navy-mid), var(--navy-mid));
+    }
+
+    .stat-block {
+      background: var(--navy);
+      padding: 28px 32px;
+      text-align: center;
+    }
+
+    .stat-block-num {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-block-num span {
+      color: #a8d5cc;
+    }
+
+    .stat-block-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════════════════
+       ABOUT / MISSION
+    ═══════════════════════════════════════ */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+      margin-top: 48px;
+    }
+
+    .about-body p {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+
+    .about-body p:last-child { margin-bottom: 0; }
+
+    .about-quote {
+      border-left: 3px solid var(--teal);
+      padding: 18px 24px;
+      background: var(--teal-lt);
+      border-radius: 0 4px 4px 0;
+      margin-top: 28px;
+    }
+
+    .about-quote p {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--navy);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* About sidebar */
+    .about-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .about-sidebar-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 24px;
+    }
+
+    .about-sidebar-card-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+
+    .about-sidebar-card h4 {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .about-sidebar-card p {
+      font-size: 13px;
+      color: var(--text-mid);
       line-height: 1.7;
     }
 
-    .r-card-tag {
-      display: inline-block;
-      margin-top: 16px;
-      font-size: 11px;
-      color: var(--accent);
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      padding: 4px 12px;
+      border-radius: 3px;
+      font-size: 11.5px;
       font-weight: 500;
-      letter-spacing: 0.04em;
+      background: var(--bg-rule);
+      color: var(--text-mid);
+      border: 1px solid var(--rule);
     }
 
-    /* ─── Approach ─── */
-    #approach {
-      padding: 100px 6%;
-    }
-
-    .approach-grid {
+    /* ═══════════════════════════════════════
+       RESEARCH AREAS
+    ═══════════════════════════════════════ */
+    #research .research-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 48px;
+    }
+
+    .r-card {
+      background: #fff;
+      padding: 32px 28px;
+      transition: background 0.2s;
+    }
+
+    .r-card:hover { background: var(--bg-warm); }
+
+    .r-card-num {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--rule);
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .r-card h3 {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .r-card p {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+
+    .r-card-footer {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--bg-rule);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--teal);
+      cursor: default;
+    }
+
+    .r-card-footer svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* ═══════════════════════════════════════
+       METHODOLOGY
+    ═══════════════════════════════════════ */
+    #approach .approach-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
       gap: 80px;
       align-items: start;
-      margin-top: 60px;
+      margin-top: 48px;
     }
 
-    .approach-steps { display: flex; flex-direction: column; gap: 0; }
+    .approach-intro {
+      position: sticky;
+      top: 88px;
+    }
+
+    .approach-intro p {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-top: 16px;
+    }
+
+    .approach-sdgs {
+      margin-top: 28px;
+      padding: 20px;
+      background: var(--gold-lt);
+      border: 1px solid #e8d8b8;
+      border-radius: 4px;
+    }
+
+    .approach-sdgs-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .sdg-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 500;
+      background: rgba(181,137,58,0.1);
+      color: #8a6020;
+      border: 1px solid rgba(181,137,58,0.25);
+      margin: 3px 3px 3px 0;
+    }
+
+    .steps { display: flex; flex-direction: column; }
 
     .step {
       display: flex;
       gap: 24px;
       padding: 28px 0;
-      border-bottom: 1px solid var(--border);
-      transition: padding-left 0.25s;
+      border-bottom: 1px solid var(--rule);
     }
 
     .step:last-child { border-bottom: none; }
-    .step:hover { padding-left: 6px; }
 
     .step-num {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--accent);
-      width: 28px;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--rule);
+      width: 32px;
       flex-shrink: 0;
       padding-top: 2px;
     }
 
-    .step-content h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem;
+    .step h4 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
       font-weight: 600;
+      color: var(--navy);
       margin-bottom: 8px;
     }
 
-    .step-content p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
-
-    .approach-callout {
-      background: linear-gradient(135deg, rgba(0,200,255,0.07), rgba(139,92,246,0.05));
-      border: 1px solid rgba(0,200,255,0.15);
-      border-radius: 20px;
-      padding: 40px;
+    .step p {
+      font-size: 13.5px;
+      color: var(--text-mid);
+      line-height: 1.75;
     }
 
-    .callout-quote {
-      font-size: 1.2rem;
-      font-style: italic;
-      line-height: 1.7;
-      color: var(--text);
-      margin-bottom: 24px;
-    }
-
-    .callout-quote::before { content: '\201C'; color: var(--accent); font-size: 2rem; line-height: 0; vertical-align: -0.5rem; margin-right: 4px; }
-
-    .callout-sdgs {
-      margin-top: 32px;
-    }
-
-    .callout-sdgs-label {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 12px;
-    }
-
-    .sdg-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .sdg-pill {
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 500;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .sdg-pill:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* ─── Partners ─── */
+    /* ═══════════════════════════════════════
+       PARTNERS
+    ═══════════════════════════════════════ */
     #partners {
-      padding: 80px 6%;
-      background: var(--bg2);
-      text-align: center;
+      padding: 64px 7%;
+      background: var(--bg-warm);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
     }
 
-    .partners-label {
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+    .partners-header {
+      text-align: center;
       margin-bottom: 40px;
+    }
+
+    .partners-header-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 8px;
     }
 
     .partners-row {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: center;
-      gap: 40px;
       flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .partner-chip {
-      padding: 10px 24px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .partner-chip:hover { border-color: var(--accent); color: var(--text); }
-
-    /* ─── Contact / CTA ─── */
-    #contact {
-      padding: 100px 6%;
+    .partner-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 5px;
+      padding: 14px 28px;
       text-align: center;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .cta-wrap {
-      max-width: 640px;
-      margin: 0 auto;
+    .partner-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 2px 12px rgba(26,107,92,0.08);
     }
 
-    .cta-glow {
-      position: absolute;
-      width: 500px;
-      height: 300px;
-      background: radial-gradient(ellipse, rgba(0,200,255,0.12), transparent 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+    .partner-card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
     }
 
-    #contact .section-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 16px; }
+    .partner-card-desc {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 3px;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    #contact {
+      padding: 80px 7%;
+    }
 
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
       margin-top: 48px;
-      text-align: left;
     }
 
-    .contact-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      transition: border-color 0.2s;
+    .contact-body p {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 16px;
     }
 
-    .contact-card:hover { border-color: rgba(0,200,255,0.3); }
+    .contact-details {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-    .contact-card-label {
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .contact-row-icon {
+      width: 20px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      color: var(--teal);
+    }
+
+    .contact-row-label {
       font-size: 11px;
-      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
+      color: var(--text-soft);
+      margin-bottom: 2px;
     }
 
-    .contact-card-value {
+    .contact-row-value {
       font-size: 14px;
       color: var(--text);
-      font-weight: 500;
     }
 
-    .contact-card-value a {
-      color: var(--accent);
+    .contact-row-value a {
+      color: var(--teal);
       text-decoration: none;
     }
 
-    /* ─── Footer ─── */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 40px 6%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
+    .contact-row-value a:hover { text-decoration: underline; }
+
+    .contact-form-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 36px;
     }
 
-    .footer-left { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .footer-left a { color: var(--accent); text-decoration: none; }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
+    .contact-form-card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
     }
 
-    .footer-links a {
+    .contact-form-card p {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--text-soft);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-mid);
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 13.5px;
+      color: var(--text);
+      background: #fff;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: var(--teal);
+    }
+
+    .form-field textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 12px;
+      background: var(--navy);
+      border: none;
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+      margin-top: 4px;
+    }
+
+    .form-submit:hover { background: var(--navy-mid); }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      background: var(--navy);
+      padding: 48px 7% 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 28px;
+    }
+
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+    }
+
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+
+    .footer-col ul a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
       text-decoration: none;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: var(--text); }
+    .footer-col ul a:hover { color: #fff; }
 
-    /* ─── Animations ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+    .footer-bottom p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
     }
 
-    /* ─── Responsive ─── */
-    @media (max-width: 900px) {
-      #about { grid-template-columns: 1fr; gap: 40px; }
-      .approach-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .footer-bottom a:hover { color: #fff; }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-panel { display: none; }
+      #about .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      #research .research-grid { grid-template-columns: repeat(2, 1fr); }
+      #approach .approach-grid { grid-template-columns: 1fr; }
+      .approach-intro { position: static; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      #stats { grid-template-columns: repeat(2, 1fr); }
+      #research .research-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
-      .about-card-stack { height: auto; }
-      .acard { position: relative; }
-      .acard-float { bottom: 0; right: 0; width: 100%; }
-    }
-
-    @media (max-width: 600px) {
-      .hero-stats { gap: 28px; }
-      footer { flex-direction: column; align-items: flex-start; }
+      .top-bar-right { display: none; }
+      .footer-top { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Animated Background -->
-  <canvas id="bg-canvas"></canvas>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a>
+      &nbsp;·&nbsp; Serving KPK &amp; FATA, Pakistan since 2007
+    </div>
+    <div class="top-bar-right">
+      <a href="https://cerp.org.pk" target="_blank" rel="noopener">CERP Pakistan</a>
+      <a href="https://cdpr.org.pk" target="_blank" rel="noopener">CDPR Pakistan</a>
+      <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid ↗</a>
+    </div>
+  </div>
 
   <!-- Navigation -->
   <nav>
-    <a href="/" class="nav-logo">
-      <div class="nav-logo-mark">DR</div>
-      <div class="nav-logo-text">
-        DFCA Research
-        <span>Evidence for Development</span>
-      </div>
+    <a href="/" class="nav-brand">
+      <img src="pics/logo.png" alt="DFCA Research Logo" style="height:42px;width:auto;" />
     </a>
+    <div class="nav-divider"></div>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#research">Research</a></li>
-      <li><a href="#approach">Approach</a></li>
+      <li><a href="#approach">Methodology</a></li>
       <li><a href="#partners">Partners</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
+    <a href="#contact" class="nav-contact-btn">Collaborate</a>
   </nav>
 
   <!-- Hero -->
   <section id="hero">
-    <div class="hero-badge">Subsidiary of DFCA · Est. 2007</div>
-    <h1 class="hero-title">
-      Rigorous Research.<br />
-      <span class="line-accent">Real Impact.</span>
-    </h1>
-    <p class="hero-sub">
-      DFCA Research generates independent, policy-relevant evidence on development, governance, health, and resilience across KPK and FATA, Pakistan.
-    </p>
-    <div class="hero-actions">
-      <a href="#research" class="btn-primary">Explore Research Areas</a>
-      <a href="#about" class="btn-ghost">About Us</a>
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <img src="pics/DFCA-RESEARCH-BADGE.png" alt="DFCA Research Badge" style="height:48px;width:auto;" />
+        <div class="hero-eyebrow-line" style="margin-left:4px;"></div>
+        <span class="hero-eyebrow-text">Est. 2007 · KPK &amp; FATA, Pakistan</span>
+      </div>
+      <h1 class="hero-title">
+        Generating evidence<br />
+        that <em>changes</em> what<br />
+        happens on the ground.
+      </h1>
+      <p class="hero-desc">
+        DFCA Research is the independent evidence and evaluation arm of Direct Focus Community Aid. We produce rigorous, policy-relevant research on health, governance, education, and resilience across Pakistan's KPK and FATA regions.
+      </p>
+      <div class="hero-actions">
+        <a href="#research" class="btn-navy">Explore Our Research</a>
+        <a href="#contact" class="btn-outline">Partner with Us</a>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-number">23+</div>
-        <div class="stat-label">Districts</div>
+    <div class="hero-panel">
+      <div class="hero-panel-header">
+        <div class="hero-panel-header-title">Active Research Streams</div>
       </div>
-      <div class="stat">
-        <div class="stat-number">17</div>
-        <div class="stat-label">Years of Field Work</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">11</div>
-        <div class="stat-label">SDGs Addressed</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">2K+</div>
-        <div class="stat-label">Field Staff</div>
+      <div class="hero-panel-body">
+        <div class="hero-panel-row">
+          <div class="panel-icon" style="background:#e8f4f1;">🏥</div>
+          <div class="panel-row-text">
+            <strong>Health &amp; Nutrition</strong>
+            <span>Maternal health · Child outcomes · CHW programmes</span>
+          </div>
+        </div>
+        <div class="hero-panel-row">
+          <div class="panel-icon" style="background:#eef2ff;">🏛️</div>
+          <div class="panel-row-text">
+            <strong>Governance</strong>
+            <span>Post-merger reforms · Accountability · Service delivery</span>
+          </div>
+        </div>
+        <div class="hero-panel-row">
+          <div class="panel-icon" style="background:#fdf6e8;">📚</div>
+          <div class="panel-row-text">
+            <strong>Education</strong>
+            <span>Girls' enrolment · Learning outcomes · Conflict settings</span>
+          </div>
+        </div>
+        <div class="hero-panel-row">
+          <div class="panel-icon" style="background:#f0fdf4;">🌾</div>
+          <div class="panel-row-text">
+            <strong>Livelihoods &amp; Food Security</strong>
+            <span>Cash transfers · Agricultural support · Poverty</span>
+          </div>
+        </div>
+        <div class="hero-panel-row">
+          <div class="panel-icon" style="background:#fff7ed;">🛡️</div>
+          <div class="panel-row-text">
+            <strong>Resilience &amp; Displacement</strong>
+            <span>IDP recovery · Conflict · Disaster response</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="section-divider"></div>
+  <!-- Stats Band -->
+  <div id="stats">
+    <div class="stat-block">
+      <div class="stat-block-num">23<span>+</span></div>
+      <div class="stat-block-label">Districts<br/>Covered</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">17<span>+</span></div>
+      <div class="stat-block-label">Years of Field<br/>Presence</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">11</div>
+      <div class="stat-block-label">UN SDGs<br/>Addressed</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">2<span>K+</span></div>
+      <div class="stat-block-label">Field<br/>Practitioners</div>
+    </div>
+  </div>
 
   <!-- About -->
-  <section id="about">
-    <div class="about-text">
-      <div class="section-tag">Who We Are</div>
-      <h2 class="section-title">Research grounded in two decades of field presence</h2>
-      <p class="section-desc">
-        DFCA Research is the evidence and evaluation arm of Direct Focus Community Aid (DFCA), one of Pakistan's leading development NGOs. We translate deep community knowledge into actionable insights that inform policy and programme design across conflict-affected and disaster-prone regions.
-      </p>
-      <p class="section-desc" style="margin-top:14px;">
-        Drawing on DFCA's network of over 2,000 field practitioners, we conduct rigorous mixed-methods studies, randomised evaluations, and longitudinal assessments — ensuring findings are both scientifically credible and contextually grounded.
-      </p>
+  <section id="about" class="section-wrap">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">About</span>
     </div>
-    <div class="about-visual">
-      <div class="about-card-stack">
-        <div class="acard acard-main">
-          <div class="acard-row">
-            <div class="acard-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-            </div>
-            <div class="acard-meta">
-              <strong>Active Research Streams</strong>
-              Health · Governance · Livelihoods · Education
-            </div>
-          </div>
-          <div>
-            <div class="progress-bar-wrap">
-              <div class="progress-bar-label"><span>Health & Nutrition</span><span>Active</span></div>
-              <div class="progress-track"><div class="progress-fill" style="width:88%"></div></div>
-            </div>
-          </div>
-          <div>
-            <div class="progress-bar-wrap">
-              <div class="progress-bar-label"><span>Governance & Accountability</span><span>Active</span></div>
-              <div class="progress-track"><div class="progress-fill" style="width:74%;animation-delay:0.7s"></div></div>
-            </div>
-          </div>
-          <div>
-            <div class="progress-bar-wrap">
-              <div class="progress-bar-label"><span>Resilience & Displacement</span><span>Active</span></div>
-              <div class="progress-track"><div class="progress-fill" style="width:61%;animation-delay:0.9s"></div></div>
-            </div>
-          </div>
-          <div>
-            <div class="progress-bar-wrap">
-              <div class="progress-bar-label"><span>WASH & Food Security</span><span>Active</span></div>
-              <div class="progress-track"><div class="progress-fill" style="width:80%;animation-delay:1.1s"></div></div>
-            </div>
+    <h2 class="section-title">Rooted in context.<br/>Held to global standards.</h2>
+    <div class="about-grid">
+      <div class="about-body">
+        <p>
+          DFCA Research is the evidence and evaluation arm of <a href="https://dfcaid.org" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;font-weight:500;">Direct Focus Community Aid (DFCA)</a>, one of Pakistan's largest community-based development organisations, operating across 23 districts in KPK and FATA since 2007.
+        </p>
+        <p>
+          Our work draws on DFCA's unmatched field presence and the trust it has built with communities over two decades — translating that access into independent, scientifically credible research that informs programmes and policies at the provincial, national, and international level.
+        </p>
+        <p>
+          We collaborate closely with Pakistan's leading research institutions — including CERP and CDPR — and align our work with international evaluation standards to ensure our findings are both rigorously produced and practically actionable.
+        </p>
+        <div class="about-quote">
+          <p>"Research that doesn't reach a policymaker's desk, a donor's strategy, or a programme manager's design is research that hasn't finished its job."</p>
+        </div>
+      </div>
+      <div class="about-sidebar">
+        <div class="about-sidebar-card">
+          <div class="about-sidebar-card-label">Organisational Structure</div>
+          <h4>A subsidiary of DFCA Aid</h4>
+          <p>DFCA Research operates with editorial independence under the DFCA Aid umbrella, ensuring scientific integrity while maintaining proximity to programme realities.</p>
+        </div>
+        <div class="about-sidebar-card">
+          <div class="about-sidebar-card-label">Geographic Focus</div>
+          <h4>KPK &amp; FATA, Pakistan</h4>
+          <p>We specialise in conflict-affected, post-merger, and disaster-prone contexts — areas that remain systematically under-researched despite acute development needs.</p>
+          <div class="tag-list">
+            <span class="tag">Peshawar</span>
+            <span class="tag">Merged Districts</span>
+            <span class="tag">South Waziristan</span>
+            <span class="tag">Swat</span>
+            <span class="tag">Bajaur</span>
+            <span class="tag">+18 more</span>
           </div>
         </div>
-        <div class="acard acard-float">
-          <div class="acard-label">Coverage</div>
-          <div class="acard-value">KPK &amp; FATA</div>
-          <div class="acard-meta" style="margin-top:4px;">Pakistan</div>
+        <div class="about-sidebar-card">
+          <div class="about-sidebar-card-label">Registration</div>
+          <p style="font-size:13px;color:var(--text-mid);line-height:1.7;">Registered under the Voluntary Social Welfare Agencies Ordinance (1961) and the Societies Act (1860), Government of Pakistan.</p>
         </div>
       </div>
     </div>
   </section>
-
-  <div class="section-divider"></div>
 
   <!-- Research Areas -->
-  <section id="research">
-    <div class="inner-header">
-      <div class="section-tag">Research Areas</div>
-      <h2 class="section-title">What We Study</h2>
-      <p class="section-desc">Our work spans six interconnected domains, each designed to fill critical evidence gaps in Pakistan's most underserved regions.</p>
+  <section id="research" class="section-wrap-alt">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Research Areas</span>
     </div>
+    <h2 class="section-title">What we study</h2>
+    <p class="section-desc">Six interconnected domains — each chosen to fill a critical evidence gap in Pakistan's most underserved regions.</p>
+
     <div class="research-grid">
-
       <div class="r-card">
-        <div class="r-card-icon" style="background:rgba(0,200,255,0.1)">🏥</div>
-        <h3>Health Systems & Nutrition</h3>
+        <div class="r-card-num">01</div>
+        <h3>Health Systems &amp; Nutrition</h3>
         <p>Evaluating maternal and child health interventions, community health worker programmes, and healthcare facility performance across KPK districts.</p>
-        <span class="r-card-tag">→ View Projects</span>
+        <div class="r-card-footer">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          View Projects
+        </div>
       </div>
-
       <div class="r-card">
-        <div class="r-card-icon" style="background:rgba(139,92,246,0.12)">🏛️</div>
-        <h3>Governance & Accountability</h3>
+        <div class="r-card-num">02</div>
+        <h3>Governance &amp; Accountability</h3>
         <p>Studying local government effectiveness, service-delivery accountability, and citizen engagement in post-FATA-merger administrative reforms.</p>
-        <span class="r-card-tag">→ View Projects</span>
+        <div class="r-card-footer">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          View Projects
+        </div>
       </div>
-
       <div class="r-card">
-        <div class="r-card-icon" style="background:rgba(59,130,246,0.12)">📚</div>
-        <h3>Education & Human Capital</h3>
+        <div class="r-card-num">03</div>
+        <h3>Education &amp; Human Capital</h3>
         <p>Assessing learning outcomes, girls' enrolment barriers, and community-based education models in conflict-affected settings.</p>
-        <span class="r-card-tag">→ View Projects</span>
+        <div class="r-card-footer">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          View Projects
+        </div>
       </div>
-
       <div class="r-card">
-        <div class="r-card-icon" style="background:rgba(16,185,129,0.12)">🌾</div>
-        <h3>Food Security & Livelihoods</h3>
+        <div class="r-card-num">04</div>
+        <h3>Food Security &amp; Livelihoods</h3>
         <p>Measuring the impact of agricultural support, cash transfers, and livelihood programmes on household poverty and resilience.</p>
-        <span class="r-card-tag">→ View Projects</span>
+        <div class="r-card-footer">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          View Projects
+        </div>
       </div>
-
       <div class="r-card">
-        <div class="r-card-icon" style="background:rgba(245,158,11,0.1)">💧</div>
-        <h3>WASH & Environmental Health</h3>
-        <p>Generating evidence on water access, sanitation behaviour change, and the links between hygiene and child health outcomes.</p>
-        <span class="r-card-tag">→ View Projects</span>
+        <div class="r-card-num">05</div>
+        <h3>WASH &amp; Environmental Health</h3>
+        <p>Generating evidence on water access, sanitation behaviour change, and the links between hygiene practices and child health outcomes.</p>
+        <div class="r-card-footer">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          View Projects
+        </div>
       </div>
-
       <div class="r-card">
-        <div class="r-card-icon" style="background:rgba(239,68,68,0.1)">🛡️</div>
-        <h3>Resilience & Displacement</h3>
+        <div class="r-card-num">06</div>
+        <h3>Resilience &amp; Displacement</h3>
         <p>Documenting displacement patterns, post-conflict recovery trajectories, and programme effectiveness for internally displaced populations.</p>
-        <span class="r-card-tag">→ View Projects</span>
+        <div class="r-card-footer">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          View Projects
+        </div>
       </div>
-
     </div>
   </section>
 
-  <div class="section-divider"></div>
-
-  <!-- Approach -->
-  <section id="approach">
-    <div class="section-tag">Our Methodology</div>
-    <h2 class="section-title">How We Work</h2>
+  <!-- Methodology -->
+  <section id="approach" class="section-wrap">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Methodology</span>
+    </div>
+    <h2 class="section-title">How we work</h2>
     <div class="approach-grid">
-      <div class="approach-steps">
-        <div class="step">
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <h4>Co-design with Communities</h4>
-            <p>Research questions are shaped alongside the communities and practitioners we serve, ensuring relevance and ownership from day one.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <h4>Rigorous Mixed Methods</h4>
-            <p>We combine randomised controlled trials, quasi-experimental designs, and deep ethnographic work to build robust, multi-dimensional evidence.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <h4>Independent Analysis</h4>
-            <p>Findings are analysed and reported independently of programme operations, safeguarding scientific integrity and credibility.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <h4>Policy Translation</h4>
-            <p>Every study produces a policy brief and stakeholder briefing designed for government partners, donors, and practitioner audiences.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">05</div>
-          <div class="step-content">
-            <h4>Open Knowledge</h4>
-            <p>We publish datasets, tools, and findings openly so the broader research community can build on our work.</p>
-          </div>
-        </div>
-      </div>
-      <div class="approach-callout">
-        <p class="callout-quote">Our goal is not just to produce research — it is to produce research that changes what happens on the ground.</p>
-        <p style="font-size:13.5px;color:var(--muted);line-height:1.7;">DFCA Research collaborates with Pakistan's leading research institutions including CERP and CDPR to ensure our work meets the highest international standards of evidence.</p>
-        <div class="callout-sdgs">
-          <div class="callout-sdgs-label">Contributing to SDGs</div>
-          <div class="sdg-pills">
+      <div class="approach-intro">
+        <p>
+          Our methodology combines international standards of scientific rigour with a deep, contextually informed understanding of the communities we study. Every project is designed to produce both credible evidence and actionable recommendations.
+        </p>
+        <p style="margin-top:14px;">
+          We work in partnership with CERP and CDPR — Pakistan's foremost research organisations — and draw on DFCA's network of over 2,000 field practitioners to enable research that is operationally grounded.
+        </p>
+        <div class="approach-sdgs">
+          <div class="approach-sdgs-label">Contributing to</div>
+          <div>
             <span class="sdg-pill">SDG 1 — No Poverty</span>
             <span class="sdg-pill">SDG 2 — Zero Hunger</span>
             <span class="sdg-pill">SDG 3 — Good Health</span>
@@ -957,149 +1215,206 @@
           </div>
         </div>
       </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h4>Co-design with Communities</h4>
+            <p>Research questions are shaped alongside the communities and practitioners we serve, ensuring relevance and ownership from the outset.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h4>Rigorous Mixed Methods</h4>
+            <p>We combine randomised controlled trials, quasi-experimental designs, and in-depth qualitative work to build multi-dimensional evidence.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h4>Independent Analysis</h4>
+            <p>Findings are analysed and reported independently of DFCA's programme operations, safeguarding scientific integrity and credibility.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div>
+            <h4>Policy Translation</h4>
+            <p>Every study produces a policy brief and stakeholder briefing designed for government counterparts, international donors, and practitioner audiences.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">05</div>
+          <div>
+            <h4>Open Knowledge</h4>
+            <p>We publish datasets, methodological tools, and findings openly so the broader research and practitioner community can build on our work.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <div class="section-divider"></div>
-
   <!-- Partners -->
   <section id="partners">
-    <div class="partners-label">Affiliated with &amp; partnered by</div>
+    <div class="partners-header">
+      <div class="partners-header-label">Affiliated with &amp; partnered by</div>
+    </div>
     <div class="partners-row">
-      <a href="https://dfcaid.org" target="_blank" rel="noopener" class="partner-chip">DFCA</a>
-      <a href="https://cerp.org.pk" target="_blank" rel="noopener" class="partner-chip">CERP Pakistan</a>
-      <a href="https://cdpr.org.pk" target="_blank" rel="noopener" class="partner-chip">CDPR Pakistan</a>
-      <span class="partner-chip">UN Women</span>
-      <span class="partner-chip">UNHCR</span>
-      <span class="partner-chip">UNICEF</span>
-      <span class="partner-chip">Grand Challenges Canada</span>
+      <a href="https://dfcaid.org" target="_blank" rel="noopener" class="partner-card">
+        <div class="partner-card-name">DFCA Aid</div>
+        <div class="partner-card-desc">Parent Organisation · Pakistan</div>
+      </a>
+      <a href="https://cerp.org.pk" target="_blank" rel="noopener" class="partner-card">
+        <div class="partner-card-name">CERP</div>
+        <div class="partner-card-desc">Centre for Economic Research · Pakistan</div>
+      </a>
+      <a href="https://cdpr.org.pk" target="_blank" rel="noopener" class="partner-card">
+        <div class="partner-card-name">CDPR</div>
+        <div class="partner-card-desc">Centre for Development Policy Research · Pakistan</div>
+      </a>
+      <span class="partner-card">
+        <div class="partner-card-name">UN Women</div>
+        <div class="partner-card-desc">United Nations</div>
+      </span>
+      <span class="partner-card">
+        <div class="partner-card-name">UNHCR</div>
+        <div class="partner-card-desc">United Nations</div>
+      </span>
+      <span class="partner-card">
+        <div class="partner-card-name">UNICEF</div>
+        <div class="partner-card-desc">United Nations</div>
+      </span>
+      <span class="partner-card">
+        <div class="partner-card-name">Grand Challenges Canada</div>
+        <div class="partner-card-desc">Global Health Funder</div>
+      </span>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact">
-    <div class="cta-glow"></div>
-    <div class="cta-wrap">
-      <div class="section-tag">Get in Touch</div>
-      <h2 class="section-title">Collaborate with Us</h2>
-      <p class="section-desc" style="margin: 0 auto;">
-        We welcome partnerships with academics, governments, and development organisations. Reach us at DFCA's Peshawar headquarters or connect through our parent organisation.
-      </p>
+  <section id="contact" class="section-wrap" style="border-top: 1px solid var(--rule);">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Contact</span>
     </div>
+    <h2 class="section-title">Work with us</h2>
     <div class="contact-grid">
-      <div class="contact-card">
-        <div class="contact-card-label">Parent Organisation</div>
-        <div class="contact-card-value"><a href="https://dfcaid.org" target="_blank" rel="noopener">dfcaid.org</a></div>
+      <div class="contact-body">
+        <p>
+          We welcome collaborations with academic institutions, government agencies, international NGOs, and philanthropic foundations. Whether you are interested in joint research, evaluation partnerships, or data access, we would be glad to hear from you.
+        </p>
+        <p>
+          For general inquiries, please reach us through DFCA Aid's Peshawar headquarters.
+        </p>
+        <div class="contact-details">
+          <div class="contact-row">
+            <div class="contact-row-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="contact-row-label">Email</div>
+              <div class="contact-row-value"><a href="mailto:dfca.dfa@gmail.com">dfca.dfa@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.94 6.94l1.51-1.51a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="contact-row-label">Phone</div>
+              <div class="contact-row-value">+92 300 5899623 &nbsp;·&nbsp; +92 333 9122369</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="contact-row-label">Location</div>
+              <div class="contact-row-value">Peshawar, Khyber Pakhtunkhwa, Pakistan</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+            </div>
+            <div>
+              <div class="contact-row-label">Parent Organisation</div>
+              <div class="contact-row-value"><a href="https://dfcaid.org" target="_blank" rel="noopener">dfcaid.org</a></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="contact-card">
-        <div class="contact-card-label">Email</div>
-        <div class="contact-card-value">TBD</div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-card-label">Phone</div>
-        <div class="contact-card-value">TBD</div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-card-label">Location</div>
-        <div class="contact-card-value">TBD</div>
+      <div class="contact-form-card">
+        <h3>Send us a message</h3>
+        <p>We respond to all inquiries within 3 business days.</p>
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-field">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Dr. Jane Smith" required />
+          </div>
+          <div class="form-field">
+            <label>Institution / Organisation</label>
+            <input type="text" name="institution" placeholder="Harvard Kennedy School" />
+          </div>
+          <div class="form-field">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="jane@example.edu" required />
+          </div>
+          <div class="form-field">
+            <label>Nature of Inquiry</label>
+            <select name="inquiry_type">
+              <option value="">Select one…</option>
+              <option>Research Collaboration</option>
+              <option>Grant / Funding Partnership</option>
+              <option>Data Access Request</option>
+              <option>Evaluation Partnership</option>
+              <option>Media / Press</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Message</label>
+            <textarea name="message" placeholder="Briefly describe your interest…" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="footer-left">
-      &copy; 2025 DFCA Research · A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA</a><br/>
-      Registered under Voluntary Social Welfare Agencies Ordinance (1961) &amp; Societies Act (1860)
+    <div class="footer-top">
+      <div>
+        <img src="pics/DFCA-RESEARCH-BADGE.png" alt="DFCA Research" style="height:52px;width:auto;margin-bottom:14px;opacity:0.9;" />
+        <p class="footer-brand-desc">The independent evidence and evaluation arm of Direct Focus Community Aid. Generating policy-relevant research across KPK and FATA, Pakistan.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Site</div>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#research">Research Areas</a></li>
+          <li><a href="#approach">Methodology</a></li>
+          <li><a href="#partners">Partners</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">External Links</div>
+        <ul>
+          <li><a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a></li>
+          <li><a href="https://cerp.org.pk" target="_blank" rel="noopener">CERP Pakistan</a></li>
+          <li><a href="https://cdpr.org.pk" target="_blank" rel="noopener">CDPR Pakistan</a></li>
+        </ul>
+      </div>
     </div>
-    <ul class="footer-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#partners">Partners</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA ↗</a></li>
-    </ul>
+    <div class="footer-bottom">
+      <p>&copy; 2025 DFCA Research · A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a> · Peshawar, Pakistan</p>
+      <p>Registered under VSW Agencies Ordinance (1961) &amp; Societies Act (1860)</p>
+    </div>
   </footer>
-
-  <!-- Animated Canvas -->
-  <script>
-    (function () {
-      const canvas = document.getElementById('bg-canvas');
-      const ctx = canvas.getContext('2d');
-      let W, H, dots, animId;
-
-      function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-        init();
-      }
-
-      function init() {
-        dots = Array.from({ length: 90 }, () => ({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          r: Math.random() * 1.4 + 0.3,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          a: Math.random(),
-        }));
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, W, H);
-
-        // Draw connection lines
-        for (let i = 0; i < dots.length; i++) {
-          for (let j = i + 1; j < dots.length; j++) {
-            const dx = dots[i].x - dots[j].x;
-            const dy = dots[i].y - dots[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 140) {
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(0,200,255,${0.12 * (1 - dist / 140)})`;
-              ctx.lineWidth = 0.6;
-              ctx.moveTo(dots[i].x, dots[i].y);
-              ctx.lineTo(dots[j].x, dots[j].y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        // Draw dots
-        dots.forEach(d => {
-          ctx.beginPath();
-          ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(0,200,255,${d.a * 0.6})`;
-          ctx.fill();
-
-          d.x += d.vx;
-          d.y += d.vy;
-          if (d.x < 0 || d.x > W) d.vx *= -1;
-          if (d.y < 0 || d.y > H) d.vy *= -1;
-        });
-
-        animId = requestAnimationFrame(draw);
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
-      draw();
-    })();
-
-    // Scroll-reveal
-    (function () {
-      const els = document.querySelectorAll('.r-card, .step, .contact-card, .acard');
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.style.animation = 'fadeUp 0.6s ease both';
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      els.forEach(el => obs.observe(el));
-    })();
-  </script>
 
 </body>
 </html>
