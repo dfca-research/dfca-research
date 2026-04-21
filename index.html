@@ -123,7 +123,7 @@
     .nav-brand:hover { transform: translateX(-2px); }
 
     .nav-brand img {
-      height: 44px;
+      height: 58px;
       width: auto;
       mix-blend-mode: multiply;
     }
@@ -247,7 +247,7 @@
       animation: fadeUp 0.8s var(--ease) 0.1s forwards;
     }
 
-    .hero-eyebrow img { height: 48px; width: auto; mix-blend-mode: multiply; }
+    .hero-eyebrow img { height: 72px; width: auto; mix-blend-mode: multiply; }
 
     .hero-eyebrow-line {
       width: 36px;
@@ -455,23 +455,17 @@
       height: auto;
     }
 
-    .map-svg .province {
-      fill: var(--ivory-warm);
-      stroke: var(--rule);
+    .map-svg .neighbour {
+      fill: #E4DDD0;
+      stroke: #CFC8BB;
       stroke-width: 0.5;
-      transition: fill 0.4s var(--ease);
     }
 
     .map-svg .province-kpk {
-      fill: rgba(14,79,58,0.12);
+      fill: rgba(14,79,58,0.16);
       stroke: var(--emerald);
-      stroke-width: 0.8;
-    }
-
-    .map-svg .province-fata {
-      fill: rgba(14,79,58,0.18);
-      stroke: var(--emerald);
-      stroke-width: 0.8;
+      stroke-width: 1.2;
+      filter: drop-shadow(0 2px 6px rgba(14,79,58,0.18));
     }
 
     .district-dot {
@@ -1452,8 +1446,6 @@
       A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a> &nbsp;·&nbsp; Serving KPK &amp; FATA, Pakistan since 2007
     </div>
     <div class="top-bar-right">
-      <a href="https://cerp.org.pk" target="_blank" rel="noopener">CERP Pakistan ↗</a>
-      <a href="https://cdpr.org.pk" target="_blank" rel="noopener">CDPR Pakistan ↗</a>
       <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid ↗</a>
     </div>
   </div>
@@ -1518,68 +1510,119 @@
             </span>
           </div>
 
-          <svg class="map-svg" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg" aria-label="Map of Pakistan highlighting KPK and FATA research regions">
-            <!-- Pakistan outline (simplified) -->
-            <path class="province" d="M 105,40 L 150,30 L 200,50 L 230,40 L 265,60 L 270,100 L 290,130 L 310,160 L 330,200 L 340,240 L 320,270 L 290,290 L 260,310 L 220,330 L 180,340 L 150,325 L 130,310 L 110,285 L 95,250 L 85,210 L 75,175 L 70,140 L 75,105 L 90,70 Z"/>
-            <!-- Sindh -->
-            <path class="province" d="M 180,340 L 150,325 L 135,300 L 145,270 L 170,260 L 195,275 L 210,305 L 200,335 Z" opacity="0.5"/>
-            <!-- Punjab -->
-            <path class="province" d="M 195,275 L 170,260 L 160,230 L 180,200 L 220,195 L 245,215 L 250,245 L 230,270 Z" opacity="0.5"/>
-            <!-- Balochistan (big area west) -->
-            <path class="province" d="M 145,270 L 135,300 L 110,285 L 95,250 L 85,210 L 110,205 L 140,220 L 155,245 Z" opacity="0.45"/>
+          <svg class="map-svg" viewBox="-30 -20 430 430" xmlns="http://www.w3.org/2000/svg" aria-label="KPK and Merged Districts, Pakistan">
 
-            <!-- KPK - highlighted -->
-            <path class="province-kpk" d="M 150,30 L 200,50 L 215,85 L 210,115 L 195,140 L 180,160 L 160,165 L 140,155 L 125,135 L 115,110 L 110,80 L 120,55 Z"/>
+            <!-- Background — Afghanistan + surrounding areas -->
+            <rect x="-30" y="-20" width="430" height="430" fill="#EAE4D6" rx="4"/>
 
-            <!-- FATA corridor (west of KPK) - highlighted -->
-            <path class="province-fata" d="M 115,110 L 100,120 L 85,140 L 80,175 L 95,195 L 115,180 L 125,155 L 130,130 Z"/>
+            <!-- Gilgit-Baltistan / AJK (northeast context) -->
+            <path class="neighbour" d="M 202,14 L 288,7 L 331,14 L 367,50 L 400,30 L 400,-20 L 180,-20 Z"/>
 
-            <!-- District dots (approximate positions for key districts in KPK/FATA) -->
-            <!-- Peshawar -->
-            <circle class="district-ring" cx="155" cy="105" r="2"/>
-            <circle class="district-dot" cx="155" cy="105" r="3.2"/>
-            <!-- Swat -->
-            <circle class="district-dot" cx="165" cy="70" r="2.5"/>
+            <!-- Punjab + Balochistan (east / south context) -->
+            <path class="neighbour" d="M 317,202 L 288,223 L 252,245 L 202,273 L 173,302 L 158,331 L 137,360 L 108,374 L 65,374 L 65,410 L 400,410 L 400,202 Z"/>
+
+            <!-- KPK + Merged Districts — geographically accurate boundary -->
+            <!--
+              Coordinates derived from actual lat/lon:
+                x = (longitude − 69.0) × 72
+                y = (37.0 − latitude)  × 72
+              Key anchors (clockwise from Chitral NW):
+                Chitral NW 36.8°N 71.8°E → (202,14)
+                Darkot/GB  36.9°N 73.0°E → (288, 7)
+                Kohistan   36.3°N 74.1°E → (367,50)
+                Mansehra E 34.6°N 73.5°E → (324,173)
+                Abbottabad 34.2°N 73.4°E → (317,202)
+                Haripur    33.9°N 73.0°E → (288,223)
+                Attock     33.6°N 72.5°E → (252,245)
+                DI Khan E  32.4°N 71.2°E → (158,331)
+                SW corner  31.8°N 69.9°E → ( 65,374)
+                Afghan border going north back to Chitral
+            -->
+            <path class="province-kpk" d="
+              M 202,14
+              L 288,7
+              L 331,14
+              L 367,50
+              L 360,79
+              L 353,108
+              L 331,136
+              L 324,173
+              L 317,202
+              L 288,223
+              L 252,245
+              L 202,273
+              L 173,302
+              L 158,331
+              L 137,360
+              L 108,374
+              L 65,374
+              L 29,346
+              L 43,288
+              L 72,245
+              L 101,223
+              L 130,202
+              L 144,173
+              L 166,144
+              L 180,108
+              L 158,79
+              L 166,50
+              Z"/>
+
+            <!-- Afghan border (dashed line on western edge) -->
+            <path fill="none" stroke="rgba(140,130,105,0.55)" stroke-width="1.2" stroke-dasharray="5,3"
+              d="M 202,14 L 166,50 L 158,79 L 180,108 L 166,144 L 144,173 L 130,202 L 101,223 L 72,245 L 43,288 L 29,346 L 65,374"/>
+
+            <!-- ── District dots ── -->
+            <!-- Peshawar (capital) -->
+            <circle class="district-ring" cx="180" cy="216" r="3"/>
+            <circle class="district-dot" cx="180" cy="216" r="4.5"/>
             <!-- Mardan -->
-            <circle class="district-dot" cx="175" cy="95" r="2.5"/>
-            <!-- Buner -->
-            <circle class="district-dot" cx="180" cy="80" r="2.5"/>
-            <!-- Kohat -->
-            <circle class="district-dot" cx="150" cy="130" r="2.5"/>
-            <!-- Bannu -->
-            <circle class="district-dot" cx="140" cy="155" r="2.5"/>
-            <!-- DI Khan -->
-            <circle class="district-dot" cx="155" cy="175" r="2.5"/>
-            <!-- Chitral -->
-            <circle class="district-dot" cx="140" cy="42" r="2.5"/>
+            <circle class="district-dot" cx="216" cy="202" r="2.8"/>
+            <!-- Swabi -->
+            <circle class="district-dot" cx="245" cy="209" r="2.5"/>
+            <!-- Swat / Saidu Sharif -->
+            <circle class="district-dot" cx="238" cy="166" r="2.8"/>
             <!-- Dir -->
-            <circle class="district-dot" cx="150" cy="60" r="2.5"/>
-            <!-- Malakand -->
-            <circle class="district-dot" cx="160" cy="85" r="2.5"/>
-            <!-- Shangla -->
-            <circle class="district-dot" cx="175" cy="72" r="2.5"/>
-            <!-- FATA dots -->
-            <circle class="district-ring" cx="110" cy="145" r="2"/>
-            <circle class="district-dot" cx="110" cy="145" r="3.2"/>
-            <circle class="district-dot" cx="100" cy="125" r="2.5"/>
-            <circle class="district-dot" cx="95" cy="170" r="2.5"/>
-            <circle class="district-dot" cx="115" cy="180" r="2.5"/>
-            <circle class="district-dot" cx="105" cy="160" r="2.5"/>
-            <circle class="district-dot" cx="125" cy="145" r="2.5"/>
-            <!-- Additional -->
-            <circle class="district-dot" cx="190" cy="120" r="2.5"/>
-            <circle class="district-dot" cx="170" cy="140" r="2.5"/>
-            <circle class="district-dot" cx="135" cy="90" r="2.5"/>
-            <circle class="district-dot" cx="185" cy="150" r="2.5"/>
-            <circle class="district-dot" cx="165" cy="115" r="2.5"/>
-            <circle class="district-dot" cx="145" cy="115" r="2.5"/>
+            <circle class="district-dot" cx="202" cy="130" r="2.5"/>
+            <!-- Chitral -->
+            <circle class="district-dot" cx="200" cy="82" r="2.5"/>
+            <!-- Mansehra -->
+            <circle class="district-dot" cx="302" cy="194" r="2.5"/>
+            <!-- Abbottabad -->
+            <circle class="district-dot" cx="295" cy="209" r="2.5"/>
+            <!-- Haripur -->
+            <circle class="district-dot" cx="275" cy="223" r="2.5"/>
+            <!-- Kohat -->
+            <circle class="district-dot" cx="173" cy="245" r="2.5"/>
+            <!-- Karak -->
+            <circle class="district-dot" cx="151" cy="280" r="2.5"/>
+            <!-- Bannu -->
+            <circle class="district-dot" cx="115" cy="288" r="2.5"/>
+            <!-- Lakki Marwat -->
+            <circle class="district-dot" cx="137" cy="317" r="2.5"/>
+            <!-- Dera Ismail Khan -->
+            <circle class="district-ring" cx="137" cy="358" r="2.5" style="animation-delay:0.6s"/>
+            <circle class="district-dot" cx="137" cy="358" r="3.5"/>
+            <!-- Tank -->
+            <circle class="district-dot" cx="101" cy="345" r="2.5"/>
+            <!-- Bajaur (merged) -->
+            <circle class="district-dot" cx="162" cy="166" r="2.5"/>
+            <!-- Khyber (merged) -->
+            <circle class="district-dot" cx="148" cy="209" r="2.5"/>
+            <!-- Kurram (merged) -->
+            <circle class="district-ring" cx="72" cy="260" r="2" style="animation-delay:1.1s"/>
+            <circle class="district-dot" cx="72" cy="260" r="3"/>
+            <!-- North Waziristan (merged) -->
+            <circle class="district-dot" cx="68" cy="302" r="2.5"/>
+            <!-- South Waziristan (merged) -->
+            <circle class="district-dot" cx="60" cy="345" r="2.5"/>
 
-            <!-- Label markers -->
-            <text x="240" y="80" font-family="Fraunces" font-size="11" fill="#0E4F3A" font-style="italic" font-weight="500">KPK</text>
-            <text x="60" y="160" font-family="Fraunces" font-size="10" fill="#0E4F3A" font-style="italic" font-weight="500">FATA</text>
-            <text x="200" y="260" font-family="Inter" font-size="8" fill="#9e9478" letter-spacing="0.5">PUNJAB</text>
-            <text x="150" y="320" font-family="Inter" font-size="8" fill="#9e9478" letter-spacing="0.5">SINDH</text>
-            <text x="100" y="235" font-family="Inter" font-size="8" fill="#9e9478" letter-spacing="0.5">BALOCHISTAN</text>
+            <!-- ── Labels ── -->
+            <text x="186" y="233" font-family="Inter" font-size="8.5" font-weight="700" fill="#0E4F3A" letter-spacing="0.4">Peshawar</text>
+            <text x="220" y="148" font-family="Fraunces" font-size="15" font-weight="500" font-style="italic" fill="rgba(14,79,58,0.35)">KPK</text>
+            <text x="50" y="420" font-family="Inter" font-size="7.5" fill="rgba(110,100,80,0.7)" letter-spacing="0.6" transform="rotate(-90,50,420)">Afghanistan</text>
+            <text x="335" y="320" font-family="Inter" font-size="8" fill="rgba(110,100,80,0.65)" letter-spacing="0.5">Punjab</text>
+            <text x="330" y="20" font-family="Inter" font-size="8" fill="rgba(110,100,80,0.65)" letter-spacing="0.4">G-B</text>
           </svg>
 
           <div class="map-bottom-strip">
@@ -1639,7 +1682,7 @@
           DFCA Research is the evidence and evaluation arm of <a href="https://dfcaid.org" target="_blank" rel="noopener" class="highlight">Direct Focus Community Aid</a>, one of Pakistan's largest community-based development organisations — operating across 23 districts in KPK and FATA since 2007, with a network of over 2,000 field practitioners.
         </p>
         <p>
-          Our work translates two decades of deep community access into independent, scientifically credible research that informs programmes and policies at the provincial, national, and international level. We collaborate with Pakistan's leading research institutions — including <a href="https://cerp.org.pk" target="_blank" rel="noopener" class="highlight">CERP</a> and <a href="https://cdpr.org.pk" target="_blank" rel="noopener" class="highlight">CDPR</a> — and align our methods with international evaluation standards.
+          Our work translates two decades of deep community access into independent, scientifically credible research that informs programmes and policies at the provincial, national, and international level — aligned with international evaluation standards.
         </p>
         <p>
           We work where the evidence is thinnest, and the need is greatest.
@@ -1792,7 +1835,7 @@
           Our flagship multi-year study follows the integration of formerly tribal areas into mainstream KPK administration, measuring how changes in governance translate into health, education, and service-delivery outcomes for communities emerging from two decades of conflict.
         </p>
         <p>
-          Working with CERP, CDPR, and international academic partners, we produce quarterly policy briefs designed to inform KP Government reforms in real time.
+          Working with international academic partners, we produce quarterly policy briefs designed to inform KP Government reforms in real time.
         </p>
         <div class="featured-meta">
           <div>
@@ -1839,7 +1882,7 @@
           Our methodology combines international standards of scientific rigour with contextually informed understanding of the communities we study. Every project is designed to produce both credible evidence and actionable recommendations.
         </p>
         <p>
-          We work in partnership with CERP and CDPR — Pakistan's foremost research organisations — and draw on DFCA's network of 2,000+ field practitioners to enable research that is operationally grounded.
+          We draw on DFCA's network of 2,000+ field practitioners to enable research that is operationally grounded and contextually credible.
         </p>
         <div class="approach-sdgs">
           <div class="approach-sdgs-label">Aligned with UN SDGs</div>
