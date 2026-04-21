@@ -35,9 +35,105 @@
 
       /* Motion */
       --ease:         cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out:  cubic-bezier(0.25, 0.1, 0.25, 1);
     }
 
     html { scroll-behavior: smooth; }
+
+/* Floating animation for hero elements */
+.hero-eyebrow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero-title .word {
+  animation-delay: calc(0.2s * var(--word-index, 0)) !important;
+}
+
+/* Enhanced hover effects on cards and interactive elements */
+.r-card, .ab-card, .partner-card, .contact-card {
+  transition: all 0.4s var(--ease-out);
+}
+
+.r-card:hover, .ab-card:hover, .partner-card:hover, .contact-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px -12px rgba(10,30,63,0.15);
+}
+
+/* Subtle pulse animation for live indicators */
+.live-dot {
+  animation: pulse 2s ease-out infinite;
+}
+
+/* Enhanced button hover effects */
+.btn-primary:hover::before {
+  transition-delay: 0.05s;
+}
+
+.btn-outline:hover {
+  box-shadow: 0 8px 24px -8px rgba(10,30,63,0.2);
+}
+
+/* Animated counters with easing */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section entrance animations with stagger */
+.reveal.in {
+  animation: fadeInUp 0.8s var(--ease-out) forwards;
+}
+
+/* Enhanced navigation hover */
+.nav-links a:hover::after {
+  transition: transform 0.5s var(--ease-out);
+}
+
+.nav-cta:hover::before {
+  transition: transform 0.5s var(--ease-out);
+}
+
+/* Footer link enhancements */
+.footer-col ul a:hover {
+  animation: slideInLeft 0.3s var(--ease-out);
+}
+
+/* Floating background elements */
+.hero::before,
+.hero::after,
+#stats::before,
+#featured::before,
+footer::before {
+  animation: drift 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
     body {
       background: var(--ivory);
