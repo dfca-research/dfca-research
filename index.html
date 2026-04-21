@@ -12,16 +12,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #06090f;
-      --bg2:       #0c1120;
+      --bg:        #080b1a;
+      --bg2:       #0f1429;
       --surface:   rgba(255,255,255,0.04);
-      --border:    rgba(255,255,255,0.08);
-      --accent:    #00c8ff;
-      --accent2:   #3b82f6;
-      --accent3:   #8b5cf6;
-      --text:      #f0f4ff;
-      --muted:     #8899bb;
-      --card-glow: rgba(0,200,255,0.07);
+      --border:    #1c2040;
+      --accent:    #e8a020;
+      --accent2:   #c9302c;
+      --accent3:   #3d5afe;
+      --text:      #edeef5;
+      --muted:     #7a7f9a;
+      --card-glow: rgba(232,160,32,0.08);
     }
 
     html { scroll-behavior: smooth; }
@@ -54,7 +54,7 @@
       justify-content: space-between;
       padding: 0 6%;
       height: 68px;
-      background: rgba(6, 9, 15, 0.8);
+      background: rgba(8, 11, 26, 0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       transition: background 0.3s;
@@ -153,14 +153,13 @@
       align-items: center;
       gap: 8px;
       padding: 6px 16px;
-      border: 1px solid rgba(0,200,255,0.3);
-      border-radius: 100px;
+border: 1px solid rgba(232,160,32,0.3);
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--accent);
-      background: rgba(0,200,255,0.06);
+      background: rgba(232,160,32,0.06);
       margin-bottom: 28px;
       animation: fadeUp 0.8s ease both;
     }
@@ -337,15 +336,15 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      background: linear-gradient(135deg, rgba(0,200,255,0.06), rgba(139,92,246,0.04));
+      background: linear-gradient(135deg, rgba(232,160,32,0.06), rgba(201,48,44,0.04));
     }
 
     .acard-float {
       width: 200px;
       bottom: -20px;
       right: -20px;
-      background: rgba(12,17,32,0.9);
-      border-color: rgba(59,130,246,0.3);
+      background: rgba(15,20,41,0.9);
+      border-color: rgba(201,48,44,0.3);
     }
 
     .acard-label {
@@ -436,7 +435,7 @@
     }
 
     .r-card:hover {
-      border-color: rgba(0,200,255,0.3);
+border-color: rgba(232,160,32,0.3);
       background: var(--card-glow);
       transform: translateY(-3px);
     }
@@ -520,8 +519,8 @@
     .step-content p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
 
     .approach-callout {
-      background: linear-gradient(135deg, rgba(0,200,255,0.07), rgba(139,92,246,0.05));
-      border: 1px solid rgba(0,200,255,0.15);
+      background: linear-gradient(135deg, rgba(232,160,32,0.07), rgba(201,48,44,0.05));
+      border: 1px solid rgba(232,160,32,0.15);
       border-radius: 20px;
       padding: 40px;
     }
@@ -618,7 +617,7 @@
       position: absolute;
       width: 500px;
       height: 300px;
-      background: radial-gradient(ellipse, rgba(0,200,255,0.12), transparent 70%);
+      background: radial-gradient(ellipse, rgba(232,160,32,0.12), transparent 70%);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -643,7 +642,7 @@
       transition: border-color 0.2s;
     }
 
-    .contact-card:hover { border-color: rgba(0,200,255,0.3); }
+    .contact-card:hover { border-color: rgba(232,160,32,0.3); }
 
     .contact-card-label {
       font-size: 11px;
@@ -852,7 +851,7 @@
     <div class="research-grid">
 
       <div class="r-card">
-        <div class="r-card-icon" style="background:rgba(0,200,255,0.1)">🏥</div>
+        <div class="r-card-icon" style="background:rgba(232,160,32,0.12)">🏥</div>
         <h3>Health Systems & Nutrition</h3>
         <p>Evaluating maternal and child health interventions, community health worker programmes, and healthcare facility performance across KPK districts.</p>
         <span class="r-card-tag">→ View Projects</span>
