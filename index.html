@@ -725,6 +725,52 @@
     /* About sidebar cards */
     .about-sidebar { display: flex; flex-direction: column; gap: 18px; }
 
+    /* ─── Field Photo Strip ─── */
+    .field-strip {
+      padding: 80px 7%;
+      background: var(--navy-deep);
+      text-align: center;
+    }
+
+    .field-strip-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 40px;
+    }
+
+    .field-photo-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .field-photo-grid img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .field-photo-grid .tall { height: 576px; }
+
+    .field-photo-caption {
+      max-width: 600px;
+      margin: 28px auto 0;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
     .ab-card {
       background: var(--paper);
       border: 1px solid var(--rule-soft);
@@ -961,23 +1007,24 @@
     .featured-visual {
       position: relative;
       aspect-ratio: 4 / 3.6;
-      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-mid) 100%);
       border-radius: 8px;
       overflow: hidden;
-      padding: 40px;
+    }
+
+    .featured-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .featured-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6,20,40,0.85) 0%, rgba(6,20,40,0.2) 60%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-    }
-
-    .featured-visual::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(0,0,0,0.15), transparent 40%);
-      pointer-events: none;
+      padding: 40px;
     }
 
     .featured-quote {
@@ -1443,10 +1490,10 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-left">
-      A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a> &nbsp;·&nbsp; Serving KPK &amp; FATA, Pakistan since 2007
+      A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA</a> &nbsp;·&nbsp; Serving KPK &amp; FATA, Pakistan since 2007
     </div>
     <div class="top-bar-right">
-      <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid ↗</a>
+      <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA ↗</a>
     </div>
   </div>
 
@@ -1695,8 +1742,8 @@
       <div class="about-sidebar">
         <div class="ab-card reveal">
           <div class="ab-card-label">Organisational Structure</div>
-          <h4>A subsidiary of DFCA Aid</h4>
-          <p>DFCA Research operates with editorial and scientific independence under the DFCA Aid umbrella, ensuring rigour while maintaining proximity to programme realities.</p>
+          <h4>A subsidiary of DFCA</h4>
+          <p>DFCA Research operates with editorial and scientific independence under the DFCA umbrella, ensuring rigour while maintaining proximity to programme realities.</p>
         </div>
         <div class="ab-card reveal">
           <div class="ab-card-label">Geographic Focus</div>
@@ -1716,6 +1763,17 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- Field in Action — Photo Strip -->
+  <section class="field-strip">
+    <div class="field-strip-label">Field in Action</div>
+<div class="field-photo-grid">
+      <img class="tall" src="https://images.pexels.com/photos/5905418/pexels-photo-5905418.jpeg?auto=compress&w=600" alt="Field research in KPK, Pakistan" loading="lazy" />
+      <img src="https://images.pexels.com/photos/5905440/pexels-photo-5905440.jpeg?auto=compress&w=400" alt="Community health workers" loading="lazy" />
+      <img src="https://images.pexels.com/photos/7129170/pexels-photo-7129170.jpeg?auto=compress&w=400" alt="Research survey work" loading="lazy" />
+    </div>
+    <p class="field-photo-caption">Research that begins — and ends — with the communities it is meant to serve.</p>
   </section>
 
   <!-- Research Areas -->
@@ -1854,13 +1912,16 @@
       </div>
 
       <div class="featured-visual reveal">
-        <div class="featured-quote">
-          <div class="featured-quote-mark">"</div>
-          <p>The communities we serve have been promised transformation for generations. Our role is to measure, honestly, what is actually changing — and what isn't.</p>
-        </div>
-        <div class="featured-attr">
-          <strong>DFCA Research Team</strong>
-          Merged Districts Longitudinal Study · 2023–2028
+        <img src="https://images.pexels.com/photos/7129170/pexels-photo-7129170.jpeg?auto=compress&w=900" alt="Field research team in Pakistan" loading="lazy" />
+        <div class="featured-visual-overlay">
+          <div class="featured-quote">
+            <div class="featured-quote-mark">"</div>
+            <p>The communities we serve have been promised transformation for generations. Our role is to measure, honestly, what is actually changing — and what isn't.</p>
+          </div>
+          <div class="featured-attr">
+            <strong>DFCA Research Team</strong>
+            Merged Districts Longitudinal Study · 2023–2028
+          </div>
         </div>
       </div>
     </div>
@@ -1955,7 +2016,7 @@
           We welcome collaborations with academic institutions, government agencies, international NGOs, and philanthropic foundations. Whether you are interested in joint research, evaluation partnerships, or data access — we would be glad to hear from you.
         </p>
         <p>
-          For general inquiries, please reach us through DFCA Aid's Peshawar headquarters.
+          For general inquiries, please reach us through DFCA's Peshawar headquarters.
         </p>
         <div class="contact-details">
           <div class="contact-row">
@@ -2055,7 +2116,7 @@
       <div class="footer-col">
         <div class="footer-col-title">External</div>
         <ul>
-          <li><a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid ↗</a></li>
+          <li><a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA ↗</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2068,7 +2129,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 DFCA Research · A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a></p>
+      <p>&copy; 2025 DFCA Research · A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA</a></p>
       <p>Registered under VSW Agencies Ordinance (1961) &amp; Societies Act (1860)</p>
     </div>
   </footer>
