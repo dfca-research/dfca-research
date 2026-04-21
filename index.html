@@ -13,21 +13,23 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Tight 3-color system: Navy · Emerald · Ivory */
-      --navy:         #0A1E3F;
-      --navy-deep:    #061428;
-      --navy-soft:    #1a3057;
-      --emerald:      #0E4F3A;
-      --emerald-mid:  #176952;
-      --emerald-soft: #E3EDE8;
-      --ivory:        #F6F2E9;
-      --ivory-warm:   #EFE9DB;
-      --paper:        #FDFBF5;
-      --ink:          #14181F;
-      --ink-mid:      #3d434d;
-      --ink-soft:     #6f7683;
-      --rule:         #D8CFB8;
-      --rule-soft:    #E6DEC8;
+      /* Elevated Foundation Palette: Navy · Slate · Teal · Warm Ivory */
+      --navy:         #0A1E3F;         /* Primary - Trust, Stability */
+      --navy-deep:    #061428;         /* Darker navy for depth */
+      --slate:        #2D3748;         /* Secondary - Sophistication, Seriousness */
+      --slate-light:  #4A5568;         /* Lighter slate for accents */
+      --teal:         #006D77;         /* Accent - Wisdom, Balance, Impact */
+      --teal-light:   #008A91;         /* Lighter teal for highlights */
+      --teal-soft:    #E0F2F1;         /* Soft teal for backgrounds */
+      --ivory:        #F8F4E9;         /* Warm neutral - Approachability */
+      --ivory-warm:   #F0E9D2;         /* Slightly warmer ivory */
+      --paper:        #FFFFFF;         /* Pure white for contrast */
+      --ink:          #1A202C;         /* Dark text - Readability */
+      --ink-mid:      #2D3748;         /* Medium text */
+      --ink-soft:     #4A5568;         /* Soft text */
+      --rule:         #E2E8F0;         /* Subtle borders */
+      --rule-soft:    #EDF2F7;         /* Even softer borders */
+      --shadow:       rgba(10, 30, 63, 0.08); /* Soft shadow */
 
       /* Typography */
       --serif:        'Fraunces', Georgia, serif;
@@ -148,7 +150,7 @@ footer::before {
     img { display: block; max-width: 100%; }
     a { color: inherit; }
 
-    ::selection { background: var(--emerald); color: var(--ivory); }
+    ::selection { background: var(--teal); color: var(--ivory); }
 
     /* ═════════════════════════════════════════════════════════
        TOP BAR
