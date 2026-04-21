@@ -13,23 +13,21 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Core palette - restrained, editorial, prestigious */
+      /* Tight 3-color system: Navy · Emerald · Ivory */
       --navy:         #0A1E3F;
       --navy-deep:    #061428;
       --navy-soft:    #1a3057;
       --emerald:      #0E4F3A;
       --emerald-mid:  #176952;
-      --emerald-soft: #d9ebe4;
-      --terracotta:   #B54A3A;
-      --ivory:        #FAF6EE;
-      --ivory-warm:   #F4EEDF;
-      --sand:         #E8DEC9;
-      --paper:        #ffffff;
+      --emerald-soft: #E3EDE8;
+      --ivory:        #F6F2E9;
+      --ivory-warm:   #EFE9DB;
+      --paper:        #FDFBF5;
       --ink:          #14181F;
       --ink-mid:      #3d434d;
       --ink-soft:     #6f7683;
-      --rule:         #d9d0bc;
-      --rule-soft:    #e8e0ca;
+      --rule:         #D8CFB8;
+      --rule-soft:    #E6DEC8;
 
       /* Typography */
       --serif:        'Fraunces', Georgia, serif;
@@ -127,6 +125,11 @@
     .nav-brand img {
       height: 44px;
       width: auto;
+      mix-blend-mode: multiply;
+    }
+
+    .hero-eyebrow img {
+      mix-blend-mode: multiply;
     }
 
     .nav-links {
@@ -244,7 +247,7 @@
       animation: fadeUp 0.8s var(--ease) 0.1s forwards;
     }
 
-    .hero-eyebrow img { height: 48px; width: auto; }
+    .hero-eyebrow img { height: 48px; width: auto; mix-blend-mode: multiply; }
 
     .hero-eyebrow-line {
       width: 36px;
@@ -1046,7 +1049,7 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--terracotta);
+      color: var(--emerald);
       margin-bottom: 14px;
     }
 
@@ -1056,9 +1059,9 @@
       border-radius: 100px;
       font-size: 11px;
       font-weight: 500;
-      background: rgba(181,74,58,0.08);
-      color: var(--terracotta);
-      border: 1px solid rgba(181,74,58,0.2);
+      background: var(--emerald-soft);
+      color: var(--emerald);
+      border: 1px solid rgba(14,79,58,0.2);
       margin: 3px 3px 3px 0;
     }
 
@@ -1465,7 +1468,6 @@
       <li><a href="#research">Research</a></li>
       <li><a href="#featured">Featured</a></li>
       <li><a href="#approach">Methodology</a></li>
-      <li><a href="#partners">Partners</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="#contact" class="nav-cta"><span>Collaborate →</span></a>
@@ -1894,41 +1896,6 @@
     </div>
   </section>
 
-  <!-- Partners -->
-  <section id="partners">
-    <div class="partners-label">Affiliated with &amp; partnered by</div>
-    <div class="partners-row">
-      <a href="https://dfcaid.org" target="_blank" rel="noopener" class="partner-card">
-        <div class="partner-card-name">DFCA Aid</div>
-        <div class="partner-card-desc">Parent Organisation</div>
-      </a>
-      <a href="https://cerp.org.pk" target="_blank" rel="noopener" class="partner-card">
-        <div class="partner-card-name">CERP</div>
-        <div class="partner-card-desc">Centre for Economic Research · Pakistan</div>
-      </a>
-      <a href="https://cdpr.org.pk" target="_blank" rel="noopener" class="partner-card">
-        <div class="partner-card-name">CDPR</div>
-        <div class="partner-card-desc">Centre for Development Policy Research</div>
-      </a>
-      <span class="partner-card">
-        <div class="partner-card-name">UN Women</div>
-        <div class="partner-card-desc">United Nations</div>
-      </span>
-      <span class="partner-card">
-        <div class="partner-card-name">UNHCR</div>
-        <div class="partner-card-desc">United Nations</div>
-      </span>
-      <span class="partner-card">
-        <div class="partner-card-name">UNICEF</div>
-        <div class="partner-card-desc">United Nations</div>
-      </span>
-      <span class="partner-card">
-        <div class="partner-card-name">Grand Challenges Canada</div>
-        <div class="partner-card-desc">Global Health Funder</div>
-      </span>
-    </div>
-  </section>
-
   <!-- Contact -->
   <section id="contact">
     <div class="section-head reveal">
@@ -1954,7 +1921,7 @@
             </div>
             <div>
               <div class="contact-row-label">Email</div>
-              <div class="contact-row-value"><a href="mailto:dfca.dfa@gmail.com">dfca.dfa@gmail.com</a></div>
+              <div class="contact-row-value" style="color:var(--ink-soft);font-style:italic;font-weight:400;">TBD</div>
             </div>
           </div>
           <div class="contact-row">
@@ -1963,7 +1930,7 @@
             </div>
             <div>
               <div class="contact-row-label">Phone</div>
-              <div class="contact-row-value">+92 300 5899623 &nbsp;·&nbsp; +92 333 9122369</div>
+              <div class="contact-row-value" style="color:var(--ink-soft);font-style:italic;font-weight:400;">TBD</div>
             </div>
           </div>
           <div class="contact-row">
@@ -1972,7 +1939,7 @@
             </div>
             <div>
               <div class="contact-row-label">Location</div>
-              <div class="contact-row-value">Peshawar, Khyber Pakhtunkhwa, Pakistan</div>
+              <div class="contact-row-value" style="color:var(--ink-soft);font-style:italic;font-weight:400;">TBD</div>
             </div>
           </div>
           <div class="contact-row">
@@ -1981,7 +1948,7 @@
             </div>
             <div>
               <div class="contact-row-label">Parent Organisation</div>
-              <div class="contact-row-value"><a href="https://dfcaid.org" target="_blank" rel="noopener">dfcaid.org</a></div>
+              <div class="contact-row-value" style="color:var(--ink-soft);font-style:italic;font-weight:400;">TBD</div>
             </div>
           </div>
         </div>
@@ -2029,7 +1996,8 @@
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="pics/DFCA-RESEARCH-BADGE.png" alt="DFCA Research" />
+        <div style="font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--ivory); letter-spacing: -0.01em; margin-bottom: 6px;">DFCA Research</div>
+        <div style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 18px;">Evidence for Development</div>
         <p class="footer-brand-desc">The independent evidence and evaluation arm of Direct Focus Community Aid. Generating policy-relevant research across KPK and FATA, Pakistan.</p>
       </div>
       <div class="footer-col">
@@ -2042,19 +2010,17 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Partners</div>
+        <div class="footer-col-title">External</div>
         <ul>
           <li><a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid ↗</a></li>
-          <li><a href="https://cerp.org.pk" target="_blank" rel="noopener">CERP Pakistan ↗</a></li>
-          <li><a href="https://cdpr.org.pk" target="_blank" rel="noopener">CDPR Pakistan ↗</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Contact</div>
         <ul>
-          <li><a href="mailto:dfca.dfa@gmail.com">dfca.dfa@gmail.com</a></li>
-          <li><a href="#contact">+92 300 5899623</a></li>
-          <li><span style="color:rgba(255,255,255,0.5);font-size:13.5px;">Peshawar, Pakistan</span></li>
+          <li><span style="color:rgba(255,255,255,0.4);font-size:13.5px;font-style:italic;">Email · TBD</span></li>
+          <li><span style="color:rgba(255,255,255,0.4);font-size:13.5px;font-style:italic;">Phone · TBD</span></li>
+          <li><span style="color:rgba(255,255,255,0.4);font-size:13.5px;font-style:italic;">Location · TBD</span></li>
         </ul>
       </div>
     </div>
