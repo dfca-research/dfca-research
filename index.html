@@ -7,186 +7,230 @@
   <meta name="description" content="DFCA Research produces rigorous, policy-relevant evidence on development, health, governance, and resilience across KPK and FATA, Pakistan." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:      #1a2744;
-      --navy-mid:  #243459;
-      --teal:      #1a6b5c;
-      --teal-lt:   #e8f4f1;
-      --gold:      #b5893a;
-      --gold-lt:   #fdf6e8;
-      --bg:        #ffffff;
-      --bg-warm:   #fafaf8;
-      --bg-rule:   #f0ede8;
-      --text:      #1c1c1c;
-      --text-mid:  #444444;
-      --text-soft: #767676;
-      --rule:      #d8d3cc;
-      --serif:     'Lora', Georgia, serif;
-      --sans:      'Inter', system-ui, sans-serif;
+      /* Core palette - restrained, editorial, prestigious */
+      --navy:         #0A1E3F;
+      --navy-deep:    #061428;
+      --navy-soft:    #1a3057;
+      --emerald:      #0E4F3A;
+      --emerald-mid:  #176952;
+      --emerald-soft: #d9ebe4;
+      --terracotta:   #B54A3A;
+      --ivory:        #FAF6EE;
+      --ivory-warm:   #F4EEDF;
+      --sand:         #E8DEC9;
+      --paper:        #ffffff;
+      --ink:          #14181F;
+      --ink-mid:      #3d434d;
+      --ink-soft:     #6f7683;
+      --rule:         #d9d0bc;
+      --rule-soft:    #e8e0ca;
+
+      /* Typography */
+      --serif:        'Fraunces', Georgia, serif;
+      --sans:         'Inter', system-ui, -apple-system, sans-serif;
+
+      /* Motion */
+      --ease:         cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--ivory);
+      color: var(--ink);
       font-family: var(--sans);
       font-size: 16px;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     img { display: block; max-width: 100%; }
+    a { color: inherit; }
 
-    /* ═══════════════════════════════════════
+    ::selection { background: var(--emerald); color: var(--ivory); }
+
+    /* ═════════════════════════════════════════════════════════
        TOP BAR
-    ═══════════════════════════════════════ */
+    ═════════════════════════════════════════════════════════ */
     .top-bar {
-      background: var(--navy);
-      padding: 9px 7%;
+      background: var(--navy-deep);
+      padding: 10px 7%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      font-size: 12px;
+      letter-spacing: 0.02em;
     }
 
     .top-bar-left {
-      font-size: 12px;
       color: rgba(255,255,255,0.55);
-      letter-spacing: 0.04em;
     }
 
     .top-bar-left a {
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.85);
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.2s;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s;
     }
 
-    .top-bar-left a:hover { color: #fff; }
+    .top-bar-left a:hover { border-bottom-color: currentColor; }
 
     .top-bar-right {
       display: flex;
-      gap: 20px;
+      gap: 22px;
     }
 
     .top-bar-right a {
-      font-size: 12px;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.6);
       text-decoration: none;
-      letter-spacing: 0.03em;
       transition: color 0.2s;
     }
 
     .top-bar-right a:hover { color: #fff; }
 
-    /* ═══════════════════════════════════════
+    /* ═════════════════════════════════════════════════════════
        NAVIGATION
-    ═══════════════════════════════════════ */
+    ═════════════════════════════════════════════════════════ */
     nav {
       position: sticky;
       top: 0;
       z-index: 200;
-      background: var(--bg);
-      border-bottom: 1px solid var(--rule);
+      background: rgba(250, 246, 238, 0.85);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      border-bottom: 1px solid var(--rule-soft);
       padding: 0 7%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 72px;
+      height: 76px;
     }
 
     .nav-brand {
       display: flex;
       align-items: center;
-      gap: 14px;
       text-decoration: none;
+      transition: transform 0.3s var(--ease);
     }
+
+    .nav-brand:hover { transform: translateX(-2px); }
 
     .nav-brand img {
-      height: 40px;
+      height: 44px;
       width: auto;
-    }
-
-    /* Fallback if image not loaded */
-    .nav-brand-fallback {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .nav-brand-name {
-      font-family: var(--serif);
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--navy);
-      letter-spacing: -0.01em;
-    }
-
-    .nav-brand-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 400;
-    }
-
-    .nav-divider {
-      width: 1px;
-      height: 28px;
-      background: var(--rule);
     }
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 34px;
       list-style: none;
     }
 
     .nav-links a {
-      font-size: 13.5px;
+      position: relative;
+      font-size: 14px;
       font-weight: 500;
-      color: var(--text-mid);
+      color: var(--ink-mid);
       text-decoration: none;
       letter-spacing: 0.01em;
-      transition: color 0.2s;
-      padding-bottom: 3px;
-      border-bottom: 2px solid transparent;
+      padding: 6px 0;
+      transition: color 0.25s;
     }
 
-    .nav-links a:hover {
-      color: var(--navy);
-      border-bottom-color: var(--teal);
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%;
+      height: 1.5px;
+      background: var(--emerald);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.35s var(--ease);
     }
 
-    .nav-contact-btn {
-      padding: 9px 22px;
+    .nav-links a:hover { color: var(--navy); }
+    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    .nav-cta {
+      position: relative;
+      padding: 10px 22px;
       background: var(--navy);
-      border-radius: 4px;
+      border-radius: 3px;
       font-size: 13px;
       font-weight: 500;
-      color: #fff;
+      color: var(--ivory);
       text-decoration: none;
       letter-spacing: 0.02em;
-      transition: background 0.2s;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease);
     }
 
-    .nav-contact-btn:hover { background: var(--navy-mid); }
+    .nav-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--emerald);
+      transform: translateY(100%);
+      transition: transform 0.35s var(--ease);
+      z-index: 0;
+    }
 
-    /* ═══════════════════════════════════════
+    .nav-cta span { position: relative; z-index: 1; }
+
+    .nav-cta:hover::before { transform: translateY(0); }
+    .nav-cta:hover { transform: translateY(-1px); }
+
+    /* ═════════════════════════════════════════════════════════
        HERO
-    ═══════════════════════════════════════ */
+    ═════════════════════════════════════════════════════════ */
     #hero {
-      background: var(--bg-warm);
-      border-bottom: 1px solid var(--rule);
-      padding: 80px 7% 72px;
+      position: relative;
+      padding: 100px 7% 120px;
+      overflow: hidden;
+      background: var(--ivory);
+    }
+
+    /* Subtle animated background texture */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -300px; right: -200px;
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(14,79,58,0.08), transparent 60%);
+      pointer-events: none;
+      animation: drift 18s ease-in-out infinite;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -400px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(10,30,63,0.05), transparent 60%);
+      pointer-events: none;
+      animation: drift 24s ease-in-out infinite reverse;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0,0); }
+      50%      { transform: translate(-40px, 30px); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
       display: grid;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1.1fr 1fr;
       gap: 80px;
       align-items: center;
     }
@@ -194,500 +238,894 @@
     .hero-eyebrow {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 22px;
+      gap: 14px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 0.1s forwards;
     }
 
+    .hero-eyebrow img { height: 48px; width: auto; }
+
     .hero-eyebrow-line {
-      width: 32px;
-      height: 2px;
-      background: var(--teal);
+      width: 36px;
+      height: 1.5px;
+      background: var(--emerald);
     }
 
     .hero-eyebrow-text {
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--emerald);
     }
 
     .hero-title {
       font-family: var(--serif);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 600;
-      line-height: 1.22;
+      font-size: clamp(2.4rem, 4.2vw, 4rem);
+      font-weight: 500;
+      line-height: 1.08;
       color: var(--navy);
-      letter-spacing: -0.01em;
-      margin-bottom: 20px;
+      letter-spacing: -0.015em;
+      margin-bottom: 28px;
+      font-variation-settings: "opsz" 144;
+    }
+
+    .hero-title .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: wordReveal 0.8s var(--ease) forwards;
     }
 
     .hero-title em {
       font-style: italic;
-      color: var(--teal);
+      color: var(--emerald);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title em::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 4%;
+      height: 8px;
+      background: rgba(14,79,58,0.12);
+      z-index: -1;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: scaleIn 0.8s var(--ease) 1.2s forwards;
+    }
+
+    @keyframes wordReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      to { transform: scaleX(1); }
     }
 
     .hero-desc {
-      font-size: 1.05rem;
-      color: var(--text-mid);
+      font-size: 1.08rem;
+      color: var(--ink-mid);
       line-height: 1.8;
-      max-width: 560px;
-      margin-bottom: 36px;
+      max-width: 540px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 0.9s forwards;
     }
 
     .hero-actions {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 1.1s forwards;
     }
 
-    .btn-navy {
-      padding: 12px 26px;
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
       background: var(--navy);
-      border-radius: 4px;
-      font-size: 13.5px;
+      border-radius: 3px;
+      font-size: 14px;
       font-weight: 500;
-      color: #fff;
+      color: var(--ivory);
       text-decoration: none;
       letter-spacing: 0.02em;
-      transition: background 0.2s;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease);
     }
 
-    .btn-navy:hover { background: var(--navy-mid); }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--emerald);
+      transform: translateX(-101%);
+      transition: transform 0.45s var(--ease);
+    }
+
+    .btn-primary span,
+    .btn-primary svg {
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s var(--ease);
+    }
+
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary:hover svg { transform: translateX(4px); }
+
+    .btn-primary svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .btn-outline {
-      padding: 12px 26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
       background: transparent;
       border: 1.5px solid var(--navy);
-      border-radius: 4px;
-      font-size: 13.5px;
+      border-radius: 3px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--navy);
       text-decoration: none;
       letter-spacing: 0.02em;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.3s var(--ease), color 0.3s var(--ease);
     }
 
-    .btn-outline:hover { background: var(--navy); color: #fff; }
+    .btn-outline:hover { background: var(--navy); color: var(--ivory); }
 
-    /* Hero card panel */
-    .hero-panel {
-      background: #fff;
-      border: 1px solid var(--rule);
-      border-radius: 6px;
+    /* ───── Hero visual: Pakistan map ───── */
+    .hero-visual {
+      position: relative;
+      opacity: 0;
+      animation: fadeIn 1.4s var(--ease) 0.5s forwards;
+    }
+
+    .map-frame {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(165deg, var(--paper) 0%, var(--ivory-warm) 100%);
+      border: 1px solid var(--rule-soft);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: 0 8px 40px -12px rgba(10,30,63,0.12), 0 2px 8px -2px rgba(10,30,63,0.05);
+    }
+
+    .map-label-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+
+    .map-label-top-left {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    .map-label-top-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--emerald);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--emerald);
+      position: relative;
+    }
+
+    .live-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: var(--emerald);
+      opacity: 0.35;
+      animation: pulse 2s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0%   { transform: scale(0.8); opacity: 0.5; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    .map-svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .map-svg .province {
+      fill: var(--ivory-warm);
+      stroke: var(--rule);
+      stroke-width: 0.5;
+      transition: fill 0.4s var(--ease);
+    }
+
+    .map-svg .province-kpk {
+      fill: rgba(14,79,58,0.12);
+      stroke: var(--emerald);
+      stroke-width: 0.8;
+    }
+
+    .map-svg .province-fata {
+      fill: rgba(14,79,58,0.18);
+      stroke: var(--emerald);
+      stroke-width: 0.8;
+    }
+
+    .district-dot {
+      fill: var(--emerald);
+      cursor: pointer;
+    }
+
+    .district-ring {
+      fill: none;
+      stroke: var(--emerald);
+      stroke-width: 0.8;
+      opacity: 0;
+      transform-origin: center;
+      animation: ring 2.4s ease-out infinite;
+    }
+
+    @keyframes ring {
+      0%   { opacity: 0.8; r: 2; }
+      100% { opacity: 0; r: 10; }
+    }
+
+    .map-bottom-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule-soft);
+    }
+
+    .map-stat {
+      text-align: center;
+      padding: 0 8px;
+      border-right: 1px solid var(--rule-soft);
+    }
+    .map-stat:last-child { border-right: none; }
+
+    .map-stat-num {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .map-stat-label {
+      font-size: 10.5px;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    /* ═════════════════════════════════════════════════════════
+       STATS
+    ═════════════════════════════════════════════════════════ */
+    #stats {
+      background: var(--navy);
+      padding: 72px 7%;
+      position: relative;
       overflow: hidden;
     }
 
-    .hero-panel-header {
-      background: var(--navy);
-      padding: 18px 24px;
+    #stats::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 30%, rgba(14,79,58,0.25), transparent 40%),
+        radial-gradient(circle at 85% 70%, rgba(14,79,58,0.15), transparent 40%);
+      pointer-events: none;
     }
 
-    .hero-panel-header-title {
+    .stats-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stat-col {
+      padding: 0 32px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .stat-col:last-child { border-right: none; }
+
+    .stat-num {
       font-family: var(--serif);
-      font-size: 14px;
-      color: rgba(255,255,255,0.9);
+      font-size: 3.6rem;
       font-weight: 500;
+      color: var(--ivory);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-variation-settings: "opsz" 144;
     }
 
-    .hero-panel-body {
-      padding: 0;
+    .stat-num .plus {
+      color: rgba(233, 223, 196, 0.6);
+      font-size: 0.65em;
+      margin-left: 2px;
     }
 
-    .hero-panel-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--bg-rule);
-      transition: background 0.15s;
+    .stat-label {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 14px;
+      line-height: 1.5;
     }
 
-    .hero-panel-row:last-child { border-bottom: none; }
-    .hero-panel-row:hover { background: var(--bg-warm); }
-
-    .panel-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 16px;
-    }
-
-    .panel-row-text strong {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 2px;
-    }
-
-    .panel-row-text span {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    /* ═══════════════════════════════════════
+    /* ═════════════════════════════════════════════════════════
        SECTION COMMONS
-    ═══════════════════════════════════════ */
+    ═════════════════════════════════════════════════════════ */
     .section-wrap {
-      padding: 80px 7%;
+      padding: 120px 7%;
     }
 
     .section-wrap-alt {
-      padding: 80px 7%;
-      background: var(--bg-warm);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
+      padding: 120px 7%;
+      background: var(--ivory-warm);
+      border-top: 1px solid var(--rule-soft);
+      border-bottom: 1px solid var(--rule-soft);
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 72px;
     }
 
     .section-label {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .section-label-line {
-      width: 24px;
-      height: 2px;
-      background: var(--teal);
+      width: 28px;
+      height: 1.5px;
+      background: var(--emerald);
     }
 
     .section-label-text {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--emerald);
     }
 
     .section-title {
       font-family: var(--serif);
-      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-      font-weight: 600;
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+      font-weight: 500;
       color: var(--navy);
-      line-height: 1.25;
-      letter-spacing: -0.01em;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      font-variation-settings: "opsz" 144;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--emerald);
     }
 
     .section-desc {
-      margin-top: 12px;
-      font-size: 1rem;
-      color: var(--text-mid);
+      margin-top: 20px;
+      font-size: 1.05rem;
+      color: var(--ink-mid);
       line-height: 1.8;
-      max-width: 600px;
+      max-width: 620px;
     }
 
-    /* ═══════════════════════════════════════
-       STATS BAND
-    ═══════════════════════════════════════ */
-    #stats {
-      background: var(--navy);
-      padding: 48px 7%;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background-image: linear-gradient(var(--navy-mid), var(--navy-mid));
+    /* Reveal-on-scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
     }
 
-    .stat-block {
-      background: var(--navy);
-      padding: 28px 32px;
-      text-align: center;
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .stat-block-num {
-      font-family: var(--serif);
-      font-size: 2.4rem;
-      font-weight: 600;
-      color: #fff;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .stat-block-num span {
-      color: #a8d5cc;
-    }
-
-    .stat-block-label {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      line-height: 1.4;
-    }
-
-    /* ═══════════════════════════════════════
-       ABOUT / MISSION
-    ═══════════════════════════════════════ */
+    /* ═════════════════════════════════════════════════════════
+       ABOUT
+    ═════════════════════════════════════════════════════════ */
     #about .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 72px;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 96px;
       align-items: start;
-      margin-top: 48px;
     }
 
-    .about-body p {
-      font-size: 1rem;
-      color: var(--text-mid);
+    .about-body > p {
+      font-size: 1.08rem;
+      color: var(--ink-mid);
       line-height: 1.85;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
-    .about-body p:last-child { margin-bottom: 0; }
+    .about-body p:first-of-type::first-letter {
+      font-family: var(--serif);
+      font-size: 3.6rem;
+      font-weight: 500;
+      float: left;
+      line-height: 0.85;
+      padding: 8px 12px 0 0;
+      color: var(--navy);
+    }
+
+    .about-body .highlight {
+      color: var(--emerald);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(14,79,58,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .about-body .highlight:hover { border-bottom-color: var(--emerald); }
 
     .about-quote {
-      border-left: 3px solid var(--teal);
-      padding: 18px 24px;
-      background: var(--teal-lt);
-      border-radius: 0 4px 4px 0;
-      margin-top: 28px;
+      position: relative;
+      margin-top: 40px;
+      padding: 28px 32px 28px 44px;
+      background: var(--paper);
+      border: 1px solid var(--rule-soft);
+      border-left: 3px solid var(--emerald);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .about-quote::before {
+      content: '\201C';
+      position: absolute;
+      top: 12px; left: 16px;
+      font-family: var(--serif);
+      font-size: 3rem;
+      color: var(--emerald);
+      line-height: 1;
+      font-style: italic;
     }
 
     .about-quote p {
       font-family: var(--serif);
-      font-size: 1.05rem;
       font-style: italic;
+      font-size: 1.15rem;
       color: var(--navy);
-      line-height: 1.7;
+      line-height: 1.65;
       margin: 0;
     }
 
-    /* About sidebar */
-    .about-sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    /* About sidebar cards */
+    .about-sidebar { display: flex; flex-direction: column; gap: 18px; }
 
-    .about-sidebar-card {
-      background: #fff;
-      border: 1px solid var(--rule);
+    .ab-card {
+      background: var(--paper);
+      border: 1px solid var(--rule-soft);
       border-radius: 6px;
-      padding: 24px;
+      padding: 28px;
+      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
     }
 
-    .about-sidebar-card-label {
-      font-size: 11px;
+    .ab-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px -12px rgba(10,30,63,0.1);
+    }
+
+    .ab-card-label {
+      font-size: 10.5px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--emerald);
       margin-bottom: 12px;
     }
 
-    .about-sidebar-card h4 {
+    .ab-card h4 {
       font-family: var(--serif);
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 8px;
-    }
-
-    .about-sidebar-card p {
-      font-size: 13px;
-      color: var(--text-mid);
-      line-height: 1.7;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .tag {
-      padding: 4px 12px;
-      border-radius: 3px;
-      font-size: 11.5px;
-      font-weight: 500;
-      background: var(--bg-rule);
-      color: var(--text-mid);
-      border: 1px solid var(--rule);
-    }
-
-    /* ═══════════════════════════════════════
-       RESEARCH AREAS
-    ═══════════════════════════════════════ */
-    #research .research-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-top: 48px;
-    }
-
-    .r-card {
-      background: #fff;
-      padding: 32px 28px;
-      transition: background 0.2s;
-    }
-
-    .r-card:hover { background: var(--bg-warm); }
-
-    .r-card-num {
-      font-family: var(--serif);
-      font-size: 2rem;
-      color: var(--rule);
-      font-weight: 600;
-      margin-bottom: 12px;
-      line-height: 1;
-    }
-
-    .r-card h3 {
-      font-family: var(--serif);
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 600;
       color: var(--navy);
       margin-bottom: 10px;
       line-height: 1.3;
     }
 
-    .r-card p {
+    .ab-card p {
+      font-size: 13.5px;
+      color: var(--ink-mid);
+      line-height: 1.7;
+    }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+
+    .tag {
+      padding: 4px 11px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--ivory-warm);
+      color: var(--ink-mid);
+      border: 1px solid var(--rule-soft);
+    }
+
+    /* ═════════════════════════════════════════════════════════
+       RESEARCH AREAS
+    ═════════════════════════════════════════════════════════ */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .r-card {
+      position: relative;
+      background: var(--paper);
+      border: 1px solid var(--rule-soft);
+      border-radius: 8px;
+      padding: 36px 32px;
+      overflow: hidden;
+      transition: border-color 0.35s var(--ease), transform 0.35s var(--ease);
+      cursor: default;
+    }
+
+    .r-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(165deg, rgba(14,79,58,0.04) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease);
+      pointer-events: none;
+    }
+
+    .r-card:hover {
+      border-color: var(--emerald);
+      transform: translateY(-4px);
+    }
+    .r-card:hover::before { opacity: 1; }
+
+    .r-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .r-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--emerald-soft);
+      color: var(--emerald);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s var(--ease), transform 0.4s var(--ease);
+    }
+
+    .r-card:hover .r-icon {
+      background: var(--emerald);
+      color: var(--ivory);
+      transform: rotate(-6deg) scale(1.05);
+    }
+
+    .r-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .r-num {
+      font-family: var(--serif);
       font-size: 13px;
-      color: var(--text-mid);
+      font-weight: 500;
+      color: var(--ink-soft);
+      letter-spacing: 0.1em;
+    }
+
+    .r-card h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .r-card p {
+      font-size: 13.5px;
+      color: var(--ink-mid);
       line-height: 1.75;
     }
 
     .r-card-footer {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid var(--bg-rule);
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule-soft);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       font-size: 12px;
       font-weight: 500;
-      color: var(--teal);
-      cursor: default;
+      color: var(--emerald);
+      letter-spacing: 0.02em;
     }
 
     .r-card-footer svg {
-      width: 14px;
-      height: 14px;
+      width: 14px; height: 14px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
+      transition: transform 0.3s var(--ease);
     }
 
-    /* ═══════════════════════════════════════
-       METHODOLOGY
-    ═══════════════════════════════════════ */
-    #approach .approach-grid {
+    .r-card:hover .r-card-footer svg { transform: translateX(4px); }
+
+    /* ═════════════════════════════════════════════════════════
+       FEATURED SPOTLIGHT
+    ═════════════════════════════════════════════════════════ */
+    #featured {
+      padding: 120px 7%;
+      background: var(--navy);
+      color: var(--ivory);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #featured::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(14,79,58,0.3), transparent 65%);
+      pointer-events: none;
+    }
+
+    .featured-inner {
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 80px;
-      align-items: start;
-      margin-top: 48px;
+      align-items: center;
     }
 
-    .approach-intro {
-      position: sticky;
-      top: 88px;
+    .featured-left .section-label-text { color: #8fc9b8; }
+    .featured-left .section-label-line { background: #8fc9b8; }
+
+    .featured-left h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+      font-weight: 500;
+      color: var(--ivory);
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      margin-bottom: 24px;
     }
 
-    .approach-intro p {
-      font-size: 1rem;
-      color: var(--text-mid);
+    .featured-left h2 em { font-style: italic; color: #8fc9b8; }
+
+    .featured-left p {
+      font-size: 1.05rem;
+      color: rgba(250,246,238,0.7);
       line-height: 1.85;
-      margin-top: 16px;
+      max-width: 540px;
+      margin-bottom: 28px;
+    }
+
+    .featured-meta {
+      display: flex;
+      gap: 40px;
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .featured-meta-item-label {
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+
+    .featured-meta-item-value {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--ivory);
+      font-weight: 500;
+    }
+
+    .featured-visual {
+      position: relative;
+      aspect-ratio: 4 / 3.6;
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-mid) 100%);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .featured-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(0,0,0,0.15), transparent 40%);
+      pointer-events: none;
+    }
+
+    .featured-quote {
+      position: relative;
+      z-index: 1;
+    }
+
+    .featured-quote-mark {
+      font-family: var(--serif);
+      font-size: 4rem;
+      color: rgba(255,255,255,0.3);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .featured-quote p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--ivory);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .featured-attr {
+      position: relative;
+      z-index: 1;
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.05em;
+      margin-top: 24px;
+    }
+
+    .featured-attr strong { color: var(--ivory); font-weight: 600; display: block; font-size: 13px; margin-bottom: 2px; }
+
+    /* ═════════════════════════════════════════════════════════
+       METHODOLOGY
+    ═════════════════════════════════════════════════════════ */
+    .approach-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 96px;
+      align-items: start;
+    }
+
+    .approach-intro-text p {
+      font-size: 1.02rem;
+      color: var(--ink-mid);
+      line-height: 1.85;
+      margin-bottom: 16px;
     }
 
     .approach-sdgs {
-      margin-top: 28px;
-      padding: 20px;
-      background: var(--gold-lt);
-      border: 1px solid #e8d8b8;
-      border-radius: 4px;
+      margin-top: 32px;
+      padding: 24px;
+      background: var(--paper);
+      border: 1px solid var(--rule-soft);
+      border-radius: 6px;
     }
 
     .approach-sdgs-label {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 10px;
+      color: var(--terracotta);
+      margin-bottom: 14px;
     }
 
     .sdg-pill {
       display: inline-block;
-      padding: 3px 10px;
-      border-radius: 3px;
+      padding: 4px 11px;
+      border-radius: 100px;
       font-size: 11px;
       font-weight: 500;
-      background: rgba(181,137,58,0.1);
-      color: #8a6020;
-      border: 1px solid rgba(181,137,58,0.25);
+      background: rgba(181,74,58,0.08);
+      color: var(--terracotta);
+      border: 1px solid rgba(181,74,58,0.2);
       margin: 3px 3px 3px 0;
     }
 
-    .steps { display: flex; flex-direction: column; }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      counter-reset: step;
+    }
 
     .step {
-      display: flex;
+      position: relative;
+      display: grid;
+      grid-template-columns: 72px 1fr;
       gap: 24px;
-      padding: 28px 0;
-      border-bottom: 1px solid var(--rule);
+      padding: 32px 0;
+      border-bottom: 1px solid var(--rule-soft);
+      transition: padding 0.35s var(--ease);
     }
 
     .step:last-child { border-bottom: none; }
+    .step:hover { padding-left: 8px; }
 
     .step-num {
       font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--rule);
-      width: 32px;
-      flex-shrink: 0;
-      padding-top: 2px;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--emerald);
+      line-height: 1;
+      font-style: italic;
+      opacity: 0.35;
+      transition: opacity 0.3s var(--ease);
     }
+
+    .step:hover .step-num { opacity: 1; }
 
     .step h4 {
       font-family: var(--serif);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 600;
       color: var(--navy);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .step p {
-      font-size: 13.5px;
-      color: var(--text-mid);
+      font-size: 14px;
+      color: var(--ink-mid);
       line-height: 1.75;
     }
 
-    /* ═══════════════════════════════════════
+    /* ═════════════════════════════════════════════════════════
        PARTNERS
-    ═══════════════════════════════════════ */
+    ═════════════════════════════════════════════════════════ */
     #partners {
-      padding: 64px 7%;
-      background: var(--bg-warm);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .partners-header {
+      padding: 80px 7%;
+      background: var(--ivory);
+      border-top: 1px solid var(--rule-soft);
+      border-bottom: 1px solid var(--rule-soft);
       text-align: center;
-      margin-bottom: 40px;
     }
 
-    .partners-header-label {
-      font-size: 12px;
+    .partners-label {
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--text-soft);
-      margin-bottom: 8px;
+      color: var(--ink-soft);
+      margin-bottom: 36px;
     }
 
     .partners-row {
@@ -695,262 +1133,311 @@
       align-items: stretch;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 14px;
     }
 
     .partner-card {
-      background: #fff;
-      border: 1px solid var(--rule);
+      background: var(--paper);
+      border: 1px solid var(--rule-soft);
       border-radius: 5px;
-      padding: 14px 28px;
+      padding: 18px 28px;
       text-align: center;
       text-decoration: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      min-width: 180px;
+      transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
     }
 
     .partner-card:hover {
-      border-color: var(--teal);
-      box-shadow: 0 2px 12px rgba(26,107,92,0.08);
+      transform: translateY(-3px);
+      border-color: var(--emerald);
+      box-shadow: 0 10px 30px -12px rgba(14,79,58,0.2);
     }
 
     .partner-card-name {
-      font-size: 13px;
+      font-family: var(--serif);
+      font-size: 15px;
       font-weight: 600;
       color: var(--navy);
     }
 
     .partner-card-desc {
       font-size: 11px;
-      color: var(--text-soft);
-      margin-top: 3px;
+      color: var(--ink-soft);
+      margin-top: 4px;
+      letter-spacing: 0.02em;
     }
 
-    /* ═══════════════════════════════════════
+    /* ═════════════════════════════════════════════════════════
        CONTACT
-    ═══════════════════════════════════════ */
-    #contact {
-      padding: 80px 7%;
-    }
+    ═════════════════════════════════════════════════════════ */
+    #contact { padding: 120px 7%; }
 
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      gap: 96px;
       align-items: start;
-      margin-top: 48px;
     }
 
     .contact-body p {
-      font-size: 1rem;
-      color: var(--text-mid);
+      font-size: 1.05rem;
+      color: var(--ink-mid);
       line-height: 1.85;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .contact-details {
-      margin-top: 28px;
+      margin-top: 36px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 22px;
     }
 
     .contact-row {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
+      gap: 18px;
     }
 
     .contact-row-icon {
-      width: 20px;
-      margin-top: 1px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--emerald-soft);
+      color: var(--emerald);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
-      color: var(--teal);
     }
+
+    .contact-row-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
 
     .contact-row-label {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-soft);
-      margin-bottom: 2px;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
     }
 
     .contact-row-value {
-      font-size: 14px;
-      color: var(--text);
+      font-size: 14.5px;
+      color: var(--ink);
+      font-weight: 500;
     }
 
-    .contact-row-value a {
-      color: var(--teal);
-      text-decoration: none;
+    .contact-row-value a { color: var(--emerald); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .contact-row-value a:hover { border-bottom-color: currentColor; }
+
+    .contact-card {
+      background: var(--paper);
+      border: 1px solid var(--rule-soft);
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 4px 24px -8px rgba(10,30,63,0.06);
     }
 
-    .contact-row-value a:hover { text-decoration: underline; }
-
-    .contact-form-card {
-      background: var(--bg-warm);
-      border: 1px solid var(--rule);
-      border-radius: 6px;
-      padding: 36px;
-    }
-
-    .contact-form-card h3 {
+    .contact-card h3 {
       font-family: var(--serif);
-      font-size: 1.2rem;
+      font-size: 1.35rem;
       font-weight: 600;
       color: var(--navy);
       margin-bottom: 6px;
     }
 
-    .contact-form-card p {
-      font-size: 13px;
-      color: var(--text-soft);
-      margin-bottom: 24px;
-      line-height: 1.6;
+    .contact-card > p {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+      line-height: 1.65;
     }
 
-    .form-field {
-      margin-bottom: 16px;
-    }
+    .form-field { margin-bottom: 18px; }
 
     .form-field label {
       display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-mid);
-      letter-spacing: 0.03em;
-      margin-bottom: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink-mid);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
     .form-field input,
     .form-field textarea,
     .form-field select {
       width: 100%;
-      padding: 10px 14px;
+      padding: 12px 14px;
       border: 1px solid var(--rule);
       border-radius: 4px;
       font-family: var(--sans);
-      font-size: 13.5px;
-      color: var(--text);
-      background: #fff;
-      transition: border-color 0.2s;
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--ivory);
+      transition: border-color 0.25s, background 0.25s;
       outline: none;
     }
 
     .form-field input:focus,
     .form-field textarea:focus,
     .form-field select:focus {
-      border-color: var(--teal);
+      border-color: var(--emerald);
+      background: var(--paper);
     }
 
-    .form-field textarea { resize: vertical; min-height: 100px; }
+    .form-field textarea { resize: vertical; min-height: 110px; }
 
     .form-submit {
+      position: relative;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background: var(--navy);
       border: none;
       border-radius: 4px;
       font-family: var(--sans);
       font-size: 14px;
       font-weight: 500;
-      color: #fff;
+      color: var(--ivory);
       cursor: pointer;
-      letter-spacing: 0.02em;
-      transition: background 0.2s;
-      margin-top: 4px;
+      letter-spacing: 0.04em;
+      overflow: hidden;
+      transition: transform 0.2s var(--ease);
+      margin-top: 8px;
     }
 
-    .form-submit:hover { background: var(--navy-mid); }
+    .form-submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--emerald);
+      transform: translateY(100%);
+      transition: transform 0.4s var(--ease);
+    }
 
-    /* ═══════════════════════════════════════
+    .form-submit span { position: relative; z-index: 1; }
+    .form-submit:hover::before { transform: translateY(0); }
+
+    /* ═════════════════════════════════════════════════════════
        FOOTER
-    ═══════════════════════════════════════ */
+    ═════════════════════════════════════════════════════════ */
     footer {
-      background: var(--navy);
-      padding: 48px 7% 32px;
+      background: var(--navy-deep);
+      color: rgba(255,255,255,0.6);
+      padding: 64px 7% 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -300px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(14,79,58,0.15), transparent 70%);
+      pointer-events: none;
     }
 
     .footer-top {
+      position: relative;
       display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      gap: 48px;
-      padding-bottom: 36px;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 56px;
+      padding-bottom: 44px;
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
-    .footer-brand-name {
-      font-family: var(--serif);
-      font-size: 17px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 10px;
+    .footer-brand img {
+      height: 56px;
+      width: auto;
+      margin-bottom: 18px;
+      opacity: 0.95;
     }
 
     .footer-brand-desc {
-      font-size: 13px;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.7;
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+      max-width: 340px;
     }
 
     .footer-col-title {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 18px;
     }
 
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
 
     .footer-col ul a {
-      font-size: 13px;
+      font-size: 13.5px;
       color: rgba(255,255,255,0.6);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.2s, padding-left 0.25s var(--ease);
     }
 
-    .footer-col ul a:hover { color: #fff; }
+    .footer-col ul a:hover { color: var(--ivory); padding-left: 4px; }
 
     .footer-bottom {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 14px;
     }
 
     .footer-bottom p {
       font-size: 12px;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.35);
     }
 
-    .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .footer-bottom a { color: rgba(255,255,255,0.55); text-decoration: none; }
     .footer-bottom a:hover { color: #fff; }
 
-    /* ═══════════════════════════════════════
+    /* ═════════════════════════════════════════════════════════
+       ANIMATIONS
+    ═════════════════════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ═════════════════════════════════════════════════════════
        RESPONSIVE
-    ═══════════════════════════════════════ */
-    @media (max-width: 1024px) {
-      #hero { grid-template-columns: 1fr; }
-      .hero-panel { display: none; }
-      #about .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      #research .research-grid { grid-template-columns: repeat(2, 1fr); }
-      #approach .approach-grid { grid-template-columns: 1fr; }
-      .approach-intro { position: static; }
-      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    ═════════════════════════════════════════════════════════ */
+    @media (max-width: 1100px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 56px; }
+      .map-frame { max-width: 500px; margin: 0 auto; }
+      #about .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .research-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-inner { grid-template-columns: 1fr; gap: 48px; }
+      .approach-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
 
-    @media (max-width: 700px) {
-      #stats { grid-template-columns: repeat(2, 1fr); }
-      #research .research-grid { grid-template-columns: 1fr; }
+    @media (max-width: 720px) {
       .nav-links { display: none; }
       .top-bar-right { display: none; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 32px 0; }
+      .stat-col { padding: 20px 16px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .research-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
+      .section-wrap, .section-wrap-alt, #contact, #featured { padding: 80px 7%; }
+      #hero { padding: 64px 7% 80px; }
+      .featured-meta { flex-direction: column; gap: 20px; }
     }
   </style>
 </head>
@@ -959,12 +1446,11 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-left">
-      A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a>
-      &nbsp;·&nbsp; Serving KPK &amp; FATA, Pakistan since 2007
+      A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a> &nbsp;·&nbsp; Serving KPK &amp; FATA, Pakistan since 2007
     </div>
     <div class="top-bar-right">
-      <a href="https://cerp.org.pk" target="_blank" rel="noopener">CERP Pakistan</a>
-      <a href="https://cdpr.org.pk" target="_blank" rel="noopener">CDPR Pakistan</a>
+      <a href="https://cerp.org.pk" target="_blank" rel="noopener">CERP Pakistan ↗</a>
+      <a href="https://cdpr.org.pk" target="_blank" rel="noopener">CDPR Pakistan ↗</a>
       <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid ↗</a>
     </div>
   </div>
@@ -972,78 +1458,141 @@
   <!-- Navigation -->
   <nav>
     <a href="/" class="nav-brand">
-      <img src="pics/logo.png" alt="DFCA Research Logo" style="height:42px;width:auto;" />
+      <img src="pics/logo.png" alt="DFCA Research" />
     </a>
-    <div class="nav-divider"></div>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#research">Research</a></li>
+      <li><a href="#featured">Featured</a></li>
       <li><a href="#approach">Methodology</a></li>
       <li><a href="#partners">Partners</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#contact" class="nav-contact-btn">Collaborate</a>
+    <a href="#contact" class="nav-cta"><span>Collaborate →</span></a>
   </nav>
 
   <!-- Hero -->
   <section id="hero">
-    <div class="hero-text">
-      <div class="hero-eyebrow">
-        <img src="pics/DFCA-RESEARCH-BADGE.png" alt="DFCA Research Badge" style="height:48px;width:auto;" />
-        <div class="hero-eyebrow-line" style="margin-left:4px;"></div>
-        <span class="hero-eyebrow-text">Est. 2007 · KPK &amp; FATA, Pakistan</span>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <img src="pics/DFCA-RESEARCH-BADGE.png" alt="DFCA Research Badge" />
+          <div class="hero-eyebrow-line"></div>
+          <span class="hero-eyebrow-text">Est. 2007 · Peshawar, Pakistan</span>
+        </div>
+        <h1 class="hero-title" id="animTitle">
+          <span class="word" style="animation-delay:0.2s">Evidence</span>
+          <span class="word" style="animation-delay:0.3s">that</span>
+          <span class="word" style="animation-delay:0.4s">reaches</span><br/>
+          <span class="word" style="animation-delay:0.5s">the</span>
+          <span class="word" style="animation-delay:0.6s"><em>last</em></span>
+          <span class="word" style="animation-delay:0.7s"><em>mile</em></span>
+          <span class="word" style="animation-delay:0.8s">—</span><br/>
+          <span class="word" style="animation-delay:0.9s">and</span>
+          <span class="word" style="animation-delay:1.0s">the</span>
+          <span class="word" style="animation-delay:1.1s">policy</span>
+          <span class="word" style="animation-delay:1.2s">desk.</span>
+        </h1>
+        <p class="hero-desc">
+          DFCA Research is the independent evidence and evaluation arm of Direct Focus Community Aid. We produce rigorous, policy-relevant research on health, governance, education, and resilience across Pakistan's KPK and FATA regions — regions systematically under-studied despite acute need.
+        </p>
+        <div class="hero-actions">
+          <a href="#research" class="btn-primary">
+            <span>Explore our research</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn-outline">Partner with us</a>
+        </div>
       </div>
-      <h1 class="hero-title">
-        Generating evidence<br />
-        that <em>changes</em> what<br />
-        happens on the ground.
-      </h1>
-      <p class="hero-desc">
-        DFCA Research is the independent evidence and evaluation arm of Direct Focus Community Aid. We produce rigorous, policy-relevant research on health, governance, education, and resilience across Pakistan's KPK and FATA regions.
-      </p>
-      <div class="hero-actions">
-        <a href="#research" class="btn-navy">Explore Our Research</a>
-        <a href="#contact" class="btn-outline">Partner with Us</a>
-      </div>
-    </div>
-    <div class="hero-panel">
-      <div class="hero-panel-header">
-        <div class="hero-panel-header-title">Active Research Streams</div>
-      </div>
-      <div class="hero-panel-body">
-        <div class="hero-panel-row">
-          <div class="panel-icon" style="background:#e8f4f1;">🏥</div>
-          <div class="panel-row-text">
-            <strong>Health &amp; Nutrition</strong>
-            <span>Maternal health · Child outcomes · CHW programmes</span>
+
+      <!-- Pakistan map visual -->
+      <div class="hero-visual">
+        <div class="map-frame">
+          <div class="map-label-top">
+            <span class="map-label-top-left">Field Presence · Pakistan</span>
+            <span class="map-label-top-right">
+              <span class="live-dot"></span>
+              <span>23 districts active</span>
+            </span>
           </div>
-        </div>
-        <div class="hero-panel-row">
-          <div class="panel-icon" style="background:#eef2ff;">🏛️</div>
-          <div class="panel-row-text">
-            <strong>Governance</strong>
-            <span>Post-merger reforms · Accountability · Service delivery</span>
-          </div>
-        </div>
-        <div class="hero-panel-row">
-          <div class="panel-icon" style="background:#fdf6e8;">📚</div>
-          <div class="panel-row-text">
-            <strong>Education</strong>
-            <span>Girls' enrolment · Learning outcomes · Conflict settings</span>
-          </div>
-        </div>
-        <div class="hero-panel-row">
-          <div class="panel-icon" style="background:#f0fdf4;">🌾</div>
-          <div class="panel-row-text">
-            <strong>Livelihoods &amp; Food Security</strong>
-            <span>Cash transfers · Agricultural support · Poverty</span>
-          </div>
-        </div>
-        <div class="hero-panel-row">
-          <div class="panel-icon" style="background:#fff7ed;">🛡️</div>
-          <div class="panel-row-text">
-            <strong>Resilience &amp; Displacement</strong>
-            <span>IDP recovery · Conflict · Disaster response</span>
+
+          <svg class="map-svg" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg" aria-label="Map of Pakistan highlighting KPK and FATA research regions">
+            <!-- Pakistan outline (simplified) -->
+            <path class="province" d="M 105,40 L 150,30 L 200,50 L 230,40 L 265,60 L 270,100 L 290,130 L 310,160 L 330,200 L 340,240 L 320,270 L 290,290 L 260,310 L 220,330 L 180,340 L 150,325 L 130,310 L 110,285 L 95,250 L 85,210 L 75,175 L 70,140 L 75,105 L 90,70 Z"/>
+            <!-- Sindh -->
+            <path class="province" d="M 180,340 L 150,325 L 135,300 L 145,270 L 170,260 L 195,275 L 210,305 L 200,335 Z" opacity="0.5"/>
+            <!-- Punjab -->
+            <path class="province" d="M 195,275 L 170,260 L 160,230 L 180,200 L 220,195 L 245,215 L 250,245 L 230,270 Z" opacity="0.5"/>
+            <!-- Balochistan (big area west) -->
+            <path class="province" d="M 145,270 L 135,300 L 110,285 L 95,250 L 85,210 L 110,205 L 140,220 L 155,245 Z" opacity="0.45"/>
+
+            <!-- KPK - highlighted -->
+            <path class="province-kpk" d="M 150,30 L 200,50 L 215,85 L 210,115 L 195,140 L 180,160 L 160,165 L 140,155 L 125,135 L 115,110 L 110,80 L 120,55 Z"/>
+
+            <!-- FATA corridor (west of KPK) - highlighted -->
+            <path class="province-fata" d="M 115,110 L 100,120 L 85,140 L 80,175 L 95,195 L 115,180 L 125,155 L 130,130 Z"/>
+
+            <!-- District dots (approximate positions for key districts in KPK/FATA) -->
+            <!-- Peshawar -->
+            <circle class="district-ring" cx="155" cy="105" r="2"/>
+            <circle class="district-dot" cx="155" cy="105" r="3.2"/>
+            <!-- Swat -->
+            <circle class="district-dot" cx="165" cy="70" r="2.5"/>
+            <!-- Mardan -->
+            <circle class="district-dot" cx="175" cy="95" r="2.5"/>
+            <!-- Buner -->
+            <circle class="district-dot" cx="180" cy="80" r="2.5"/>
+            <!-- Kohat -->
+            <circle class="district-dot" cx="150" cy="130" r="2.5"/>
+            <!-- Bannu -->
+            <circle class="district-dot" cx="140" cy="155" r="2.5"/>
+            <!-- DI Khan -->
+            <circle class="district-dot" cx="155" cy="175" r="2.5"/>
+            <!-- Chitral -->
+            <circle class="district-dot" cx="140" cy="42" r="2.5"/>
+            <!-- Dir -->
+            <circle class="district-dot" cx="150" cy="60" r="2.5"/>
+            <!-- Malakand -->
+            <circle class="district-dot" cx="160" cy="85" r="2.5"/>
+            <!-- Shangla -->
+            <circle class="district-dot" cx="175" cy="72" r="2.5"/>
+            <!-- FATA dots -->
+            <circle class="district-ring" cx="110" cy="145" r="2"/>
+            <circle class="district-dot" cx="110" cy="145" r="3.2"/>
+            <circle class="district-dot" cx="100" cy="125" r="2.5"/>
+            <circle class="district-dot" cx="95" cy="170" r="2.5"/>
+            <circle class="district-dot" cx="115" cy="180" r="2.5"/>
+            <circle class="district-dot" cx="105" cy="160" r="2.5"/>
+            <circle class="district-dot" cx="125" cy="145" r="2.5"/>
+            <!-- Additional -->
+            <circle class="district-dot" cx="190" cy="120" r="2.5"/>
+            <circle class="district-dot" cx="170" cy="140" r="2.5"/>
+            <circle class="district-dot" cx="135" cy="90" r="2.5"/>
+            <circle class="district-dot" cx="185" cy="150" r="2.5"/>
+            <circle class="district-dot" cx="165" cy="115" r="2.5"/>
+            <circle class="district-dot" cx="145" cy="115" r="2.5"/>
+
+            <!-- Label markers -->
+            <text x="240" y="80" font-family="Fraunces" font-size="11" fill="#0E4F3A" font-style="italic" font-weight="500">KPK</text>
+            <text x="60" y="160" font-family="Fraunces" font-size="10" fill="#0E4F3A" font-style="italic" font-weight="500">FATA</text>
+            <text x="200" y="260" font-family="Inter" font-size="8" fill="#9e9478" letter-spacing="0.5">PUNJAB</text>
+            <text x="150" y="320" font-family="Inter" font-size="8" fill="#9e9478" letter-spacing="0.5">SINDH</text>
+            <text x="100" y="235" font-family="Inter" font-size="8" fill="#9e9478" letter-spacing="0.5">BALOCHISTAN</text>
+          </svg>
+
+          <div class="map-bottom-strip">
+            <div class="map-stat">
+              <div class="map-stat-num">23</div>
+              <div class="map-stat-label">Districts</div>
+            </div>
+            <div class="map-stat">
+              <div class="map-stat-num">2K+</div>
+              <div class="map-stat-label">Practitioners</div>
+            </div>
+            <div class="map-stat">
+              <div class="map-stat-num">17yr</div>
+              <div class="map-stat-label">On the ground</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1051,69 +1600,74 @@
   </section>
 
   <!-- Stats Band -->
-  <div id="stats">
-    <div class="stat-block">
-      <div class="stat-block-num">23<span>+</span></div>
-      <div class="stat-block-label">Districts<br/>Covered</div>
+  <section id="stats">
+    <div class="stats-inner">
+      <div class="stat-col">
+        <div class="stat-num"><span class="counter" data-target="23">0</span><span class="plus">+</span></div>
+        <div class="stat-label">Districts of<br/>Field Engagement</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-num"><span class="counter" data-target="17">0</span><span class="plus">+</span></div>
+        <div class="stat-label">Years of<br/>Field Presence</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-num"><span class="counter" data-target="11">0</span></div>
+        <div class="stat-label">UN SDGs<br/>Addressed</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-num"><span class="counter" data-target="2381">0</span><span class="plus">+</span></div>
+        <div class="stat-label">Field<br/>Practitioners</div>
+      </div>
     </div>
-    <div class="stat-block">
-      <div class="stat-block-num">17<span>+</span></div>
-      <div class="stat-block-label">Years of Field<br/>Presence</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-block-num">11</div>
-      <div class="stat-block-label">UN SDGs<br/>Addressed</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-block-num">2<span>K+</span></div>
-      <div class="stat-block-label">Field<br/>Practitioners</div>
-    </div>
-  </div>
+  </section>
 
   <!-- About -->
   <section id="about" class="section-wrap">
-    <div class="section-label">
-      <div class="section-label-line"></div>
-      <span class="section-label-text">About</span>
+    <div class="section-head reveal">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">About</span>
+      </div>
+      <h2 class="section-title">Rooted in context.<br/>Held to <em>global</em> standards.</h2>
     </div>
-    <h2 class="section-title">Rooted in context.<br/>Held to global standards.</h2>
+
     <div class="about-grid">
-      <div class="about-body">
+      <div class="about-body reveal">
         <p>
-          DFCA Research is the evidence and evaluation arm of <a href="https://dfcaid.org" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;font-weight:500;">Direct Focus Community Aid (DFCA)</a>, one of Pakistan's largest community-based development organisations, operating across 23 districts in KPK and FATA since 2007.
+          DFCA Research is the evidence and evaluation arm of <a href="https://dfcaid.org" target="_blank" rel="noopener" class="highlight">Direct Focus Community Aid</a>, one of Pakistan's largest community-based development organisations — operating across 23 districts in KPK and FATA since 2007, with a network of over 2,000 field practitioners.
         </p>
         <p>
-          Our work draws on DFCA's unmatched field presence and the trust it has built with communities over two decades — translating that access into independent, scientifically credible research that informs programmes and policies at the provincial, national, and international level.
+          Our work translates two decades of deep community access into independent, scientifically credible research that informs programmes and policies at the provincial, national, and international level. We collaborate with Pakistan's leading research institutions — including <a href="https://cerp.org.pk" target="_blank" rel="noopener" class="highlight">CERP</a> and <a href="https://cdpr.org.pk" target="_blank" rel="noopener" class="highlight">CDPR</a> — and align our methods with international evaluation standards.
         </p>
         <p>
-          We collaborate closely with Pakistan's leading research institutions — including CERP and CDPR — and align our work with international evaluation standards to ensure our findings are both rigorously produced and practically actionable.
+          We work where the evidence is thinnest, and the need is greatest.
         </p>
         <div class="about-quote">
-          <p>"Research that doesn't reach a policymaker's desk, a donor's strategy, or a programme manager's design is research that hasn't finished its job."</p>
+          <p>Research that doesn't reach a policymaker's desk, a donor's strategy, or a programme manager's design is research that hasn't finished its job.</p>
         </div>
       </div>
+
       <div class="about-sidebar">
-        <div class="about-sidebar-card">
-          <div class="about-sidebar-card-label">Organisational Structure</div>
+        <div class="ab-card reveal">
+          <div class="ab-card-label">Organisational Structure</div>
           <h4>A subsidiary of DFCA Aid</h4>
-          <p>DFCA Research operates with editorial independence under the DFCA Aid umbrella, ensuring scientific integrity while maintaining proximity to programme realities.</p>
+          <p>DFCA Research operates with editorial and scientific independence under the DFCA Aid umbrella, ensuring rigour while maintaining proximity to programme realities.</p>
         </div>
-        <div class="about-sidebar-card">
-          <div class="about-sidebar-card-label">Geographic Focus</div>
-          <h4>KPK &amp; FATA, Pakistan</h4>
-          <p>We specialise in conflict-affected, post-merger, and disaster-prone contexts — areas that remain systematically under-researched despite acute development needs.</p>
+        <div class="ab-card reveal">
+          <div class="ab-card-label">Geographic Focus</div>
+          <h4>KPK &amp; Merged Districts</h4>
+          <p>Specialising in conflict-affected, post-merger, and disaster-prone contexts — regions that remain systematically under-researched despite acute development need.</p>
           <div class="tag-list">
             <span class="tag">Peshawar</span>
-            <span class="tag">Merged Districts</span>
-            <span class="tag">South Waziristan</span>
             <span class="tag">Swat</span>
+            <span class="tag">South Waziristan</span>
             <span class="tag">Bajaur</span>
-            <span class="tag">+18 more</span>
+            <span class="tag">+19 more</span>
           </div>
         </div>
-        <div class="about-sidebar-card">
-          <div class="about-sidebar-card-label">Registration</div>
-          <p style="font-size:13px;color:var(--text-mid);line-height:1.7;">Registered under the Voluntary Social Welfare Agencies Ordinance (1961) and the Societies Act (1860), Government of Pakistan.</p>
+        <div class="ab-card reveal">
+          <div class="ab-card-label">Legal Status</div>
+          <p>Registered under the Voluntary Social Welfare Agencies Ordinance (1961) and the Societies Act (1860), Government of Pakistan.</p>
         </div>
       </div>
     </div>
@@ -1121,66 +1675,147 @@
 
   <!-- Research Areas -->
   <section id="research" class="section-wrap-alt">
-    <div class="section-label">
-      <div class="section-label-line"></div>
-      <span class="section-label-text">Research Areas</span>
+    <div class="section-head reveal">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">Research Areas</span>
+      </div>
+      <h2 class="section-title">Six interconnected domains.<br/>One unwavering standard of <em>rigour</em>.</h2>
+      <p class="section-desc">Each research stream addresses a critical evidence gap in Pakistan's most underserved regions — designed for policy relevance, grounded in field reality.</p>
     </div>
-    <h2 class="section-title">What we study</h2>
-    <p class="section-desc">Six interconnected domains — each chosen to fill a critical evidence gap in Pakistan's most underserved regions.</p>
 
     <div class="research-grid">
-      <div class="r-card">
-        <div class="r-card-num">01</div>
+      <div class="r-card reveal">
+        <div class="r-card-head">
+          <div class="r-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="5"/></svg>
+          </div>
+          <div class="r-num">01 / 06</div>
+        </div>
         <h3>Health Systems &amp; Nutrition</h3>
         <p>Evaluating maternal and child health interventions, community health worker programmes, and healthcare facility performance across KPK districts.</p>
         <div class="r-card-footer">
+          <span>View projects</span>
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          View Projects
         </div>
       </div>
-      <div class="r-card">
-        <div class="r-card-num">02</div>
+
+      <div class="r-card reveal">
+        <div class="r-card-head">
+          <div class="r-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 21h18M6 21V9l6-4 6 4v12M10 21v-6h4v6"/></svg>
+          </div>
+          <div class="r-num">02 / 06</div>
+        </div>
         <h3>Governance &amp; Accountability</h3>
         <p>Studying local government effectiveness, service-delivery accountability, and citizen engagement in post-FATA-merger administrative reforms.</p>
         <div class="r-card-footer">
+          <span>View projects</span>
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          View Projects
         </div>
       </div>
-      <div class="r-card">
-        <div class="r-card-num">03</div>
+
+      <div class="r-card reveal">
+        <div class="r-card-head">
+          <div class="r-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><path d="M2 4l2 2 2-2M2 10l2 2 2-2M2 16l2 2 2-2"/></svg>
+          </div>
+          <div class="r-num">03 / 06</div>
+        </div>
         <h3>Education &amp; Human Capital</h3>
         <p>Assessing learning outcomes, girls' enrolment barriers, and community-based education models in conflict-affected settings.</p>
         <div class="r-card-footer">
+          <span>View projects</span>
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          View Projects
         </div>
       </div>
-      <div class="r-card">
-        <div class="r-card-num">04</div>
+
+      <div class="r-card reveal">
+        <div class="r-card-head">
+          <div class="r-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v8M8 6l4-4 4 4M4 22l2-10h12l2 10M8 16h8"/></svg>
+          </div>
+          <div class="r-num">04 / 06</div>
+        </div>
         <h3>Food Security &amp; Livelihoods</h3>
-        <p>Measuring the impact of agricultural support, cash transfers, and livelihood programmes on household poverty and resilience.</p>
+        <p>Measuring the impact of agricultural support, cash transfers, and livelihood programmes on household poverty and economic resilience.</p>
         <div class="r-card-footer">
+          <span>View projects</span>
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          View Projects
         </div>
       </div>
-      <div class="r-card">
-        <div class="r-card-num">05</div>
+
+      <div class="r-card reveal">
+        <div class="r-card-head">
+          <div class="r-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </div>
+          <div class="r-num">05 / 06</div>
+        </div>
         <h3>WASH &amp; Environmental Health</h3>
         <p>Generating evidence on water access, sanitation behaviour change, and the links between hygiene practices and child health outcomes.</p>
         <div class="r-card-footer">
+          <span>View projects</span>
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          View Projects
         </div>
       </div>
-      <div class="r-card">
-        <div class="r-card-num">06</div>
+
+      <div class="r-card reveal">
+        <div class="r-card-head">
+          <div class="r-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+          </div>
+          <div class="r-num">06 / 06</div>
+        </div>
         <h3>Resilience &amp; Displacement</h3>
         <p>Documenting displacement patterns, post-conflict recovery trajectories, and programme effectiveness for internally displaced populations.</p>
         <div class="r-card-footer">
+          <span>View projects</span>
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          View Projects
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Spotlight -->
+  <section id="featured">
+    <div class="featured-inner">
+      <div class="featured-left reveal">
+        <div class="section-label">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">Current Spotlight</span>
+        </div>
+        <h2>Rebuilding health systems<br/>after the <em>merger</em>.</h2>
+        <p>
+          Our flagship multi-year study follows the integration of formerly tribal areas into mainstream KPK administration, measuring how changes in governance translate into health, education, and service-delivery outcomes for communities emerging from two decades of conflict.
+        </p>
+        <p>
+          Working with CERP, CDPR, and international academic partners, we produce quarterly policy briefs designed to inform KP Government reforms in real time.
+        </p>
+        <div class="featured-meta">
+          <div>
+            <div class="featured-meta-item-label">Status</div>
+            <div class="featured-meta-item-value">Active · Year 3 of 5</div>
+          </div>
+          <div>
+            <div class="featured-meta-item-label">Methods</div>
+            <div class="featured-meta-item-value">Panel survey · Admin data · Qualitative</div>
+          </div>
+          <div>
+            <div class="featured-meta-item-label">Scale</div>
+            <div class="featured-meta-item-value">7 merged districts</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="featured-visual reveal">
+        <div class="featured-quote">
+          <div class="featured-quote-mark">"</div>
+          <p>The communities we serve have been promised transformation for generations. Our role is to measure, honestly, what is actually changing — and what isn't.</p>
+        </div>
+        <div class="featured-attr">
+          <strong>DFCA Research Team</strong>
+          Merged Districts Longitudinal Study · 2023–2028
         </div>
       </div>
     </div>
@@ -1188,66 +1823,70 @@
 
   <!-- Methodology -->
   <section id="approach" class="section-wrap">
-    <div class="section-label">
-      <div class="section-label-line"></div>
-      <span class="section-label-text">Methodology</span>
+    <div class="section-head reveal">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">Methodology</span>
+      </div>
+      <h2 class="section-title">How we <em>work</em>.</h2>
     </div>
-    <h2 class="section-title">How we work</h2>
+
     <div class="approach-grid">
-      <div class="approach-intro">
+      <div class="approach-intro-text reveal">
         <p>
-          Our methodology combines international standards of scientific rigour with a deep, contextually informed understanding of the communities we study. Every project is designed to produce both credible evidence and actionable recommendations.
+          Our methodology combines international standards of scientific rigour with contextually informed understanding of the communities we study. Every project is designed to produce both credible evidence and actionable recommendations.
         </p>
-        <p style="margin-top:14px;">
-          We work in partnership with CERP and CDPR — Pakistan's foremost research organisations — and draw on DFCA's network of over 2,000 field practitioners to enable research that is operationally grounded.
+        <p>
+          We work in partnership with CERP and CDPR — Pakistan's foremost research organisations — and draw on DFCA's network of 2,000+ field practitioners to enable research that is operationally grounded.
         </p>
         <div class="approach-sdgs">
-          <div class="approach-sdgs-label">Contributing to</div>
+          <div class="approach-sdgs-label">Aligned with UN SDGs</div>
           <div>
-            <span class="sdg-pill">SDG 1 — No Poverty</span>
-            <span class="sdg-pill">SDG 2 — Zero Hunger</span>
-            <span class="sdg-pill">SDG 3 — Good Health</span>
-            <span class="sdg-pill">SDG 4 — Education</span>
-            <span class="sdg-pill">SDG 5 — Gender Equality</span>
-            <span class="sdg-pill">SDG 6 — Clean Water</span>
-            <span class="sdg-pill">SDG 10 — Reduced Inequalities</span>
-            <span class="sdg-pill">SDG 16 — Peace &amp; Justice</span>
+            <span class="sdg-pill">1 · No Poverty</span>
+            <span class="sdg-pill">2 · Zero Hunger</span>
+            <span class="sdg-pill">3 · Health</span>
+            <span class="sdg-pill">4 · Education</span>
+            <span class="sdg-pill">5 · Gender Equality</span>
+            <span class="sdg-pill">6 · Clean Water</span>
+            <span class="sdg-pill">10 · Inequality</span>
+            <span class="sdg-pill">16 · Peace &amp; Justice</span>
           </div>
         </div>
       </div>
+
       <div class="steps">
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">01</div>
           <div>
-            <h4>Co-design with Communities</h4>
+            <h4>Co-design with communities</h4>
             <p>Research questions are shaped alongside the communities and practitioners we serve, ensuring relevance and ownership from the outset.</p>
           </div>
         </div>
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">02</div>
           <div>
-            <h4>Rigorous Mixed Methods</h4>
+            <h4>Rigorous mixed methods</h4>
             <p>We combine randomised controlled trials, quasi-experimental designs, and in-depth qualitative work to build multi-dimensional evidence.</p>
           </div>
         </div>
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">03</div>
           <div>
-            <h4>Independent Analysis</h4>
+            <h4>Independent analysis</h4>
             <p>Findings are analysed and reported independently of DFCA's programme operations, safeguarding scientific integrity and credibility.</p>
           </div>
         </div>
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">04</div>
           <div>
-            <h4>Policy Translation</h4>
+            <h4>Policy translation</h4>
             <p>Every study produces a policy brief and stakeholder briefing designed for government counterparts, international donors, and practitioner audiences.</p>
           </div>
         </div>
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num">05</div>
           <div>
-            <h4>Open Knowledge</h4>
+            <h4>Open knowledge</h4>
             <p>We publish datasets, methodological tools, and findings openly so the broader research and practitioner community can build on our work.</p>
           </div>
         </div>
@@ -1257,13 +1896,11 @@
 
   <!-- Partners -->
   <section id="partners">
-    <div class="partners-header">
-      <div class="partners-header-label">Affiliated with &amp; partnered by</div>
-    </div>
+    <div class="partners-label">Affiliated with &amp; partnered by</div>
     <div class="partners-row">
       <a href="https://dfcaid.org" target="_blank" rel="noopener" class="partner-card">
         <div class="partner-card-name">DFCA Aid</div>
-        <div class="partner-card-desc">Parent Organisation · Pakistan</div>
+        <div class="partner-card-desc">Parent Organisation</div>
       </a>
       <a href="https://cerp.org.pk" target="_blank" rel="noopener" class="partner-card">
         <div class="partner-card-name">CERP</div>
@@ -1271,7 +1908,7 @@
       </a>
       <a href="https://cdpr.org.pk" target="_blank" rel="noopener" class="partner-card">
         <div class="partner-card-name">CDPR</div>
-        <div class="partner-card-desc">Centre for Development Policy Research · Pakistan</div>
+        <div class="partner-card-desc">Centre for Development Policy Research</div>
       </a>
       <span class="partner-card">
         <div class="partner-card-name">UN Women</div>
@@ -1293,16 +1930,19 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="section-wrap" style="border-top: 1px solid var(--rule);">
-    <div class="section-label">
-      <div class="section-label-line"></div>
-      <span class="section-label-text">Contact</span>
+  <section id="contact">
+    <div class="section-head reveal">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">Contact</span>
+      </div>
+      <h2 class="section-title">Let's <em>work</em> together.</h2>
     </div>
-    <h2 class="section-title">Work with us</h2>
+
     <div class="contact-grid">
-      <div class="contact-body">
+      <div class="contact-body reveal">
         <p>
-          We welcome collaborations with academic institutions, government agencies, international NGOs, and philanthropic foundations. Whether you are interested in joint research, evaluation partnerships, or data access, we would be glad to hear from you.
+          We welcome collaborations with academic institutions, government agencies, international NGOs, and philanthropic foundations. Whether you are interested in joint research, evaluation partnerships, or data access — we would be glad to hear from you.
         </p>
         <p>
           For general inquiries, please reach us through DFCA Aid's Peshawar headquarters.
@@ -1310,7 +1950,7 @@
         <div class="contact-details">
           <div class="contact-row">
             <div class="contact-row-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
             <div>
               <div class="contact-row-label">Email</div>
@@ -1319,7 +1959,7 @@
           </div>
           <div class="contact-row">
             <div class="contact-row-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.94 6.94l1.51-1.51a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.94 6.94l1.51-1.51a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             </div>
             <div>
               <div class="contact-row-label">Phone</div>
@@ -1328,7 +1968,7 @@
           </div>
           <div class="contact-row">
             <div class="contact-row-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div>
               <div class="contact-row-label">Location</div>
@@ -1337,7 +1977,7 @@
           </div>
           <div class="contact-row">
             <div class="contact-row-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
             </div>
             <div>
               <div class="contact-row-label">Parent Organisation</div>
@@ -1346,9 +1986,10 @@
           </div>
         </div>
       </div>
-      <div class="contact-form-card">
-        <h3>Send us a message</h3>
-        <p>We respond to all inquiries within 3 business days.</p>
+
+      <div class="contact-card reveal">
+        <h3>Begin a conversation</h3>
+        <p>We respond to all inquiries within three business days.</p>
         <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
           <div class="form-field">
             <label>Full Name</label>
@@ -1378,7 +2019,7 @@
             <label>Message</label>
             <textarea name="message" placeholder="Briefly describe your interest…" required></textarea>
           </div>
-          <button type="submit" class="form-submit">Send Message</button>
+          <button type="submit" class="form-submit"><span>Send Message</span></button>
         </form>
       </div>
     </div>
@@ -1387,8 +2028,8 @@
   <!-- Footer -->
   <footer>
     <div class="footer-top">
-      <div>
-        <img src="pics/DFCA-RESEARCH-BADGE.png" alt="DFCA Research" style="height:52px;width:auto;margin-bottom:14px;opacity:0.9;" />
+      <div class="footer-brand">
+        <img src="pics/DFCA-RESEARCH-BADGE.png" alt="DFCA Research" />
         <p class="footer-brand-desc">The independent evidence and evaluation arm of Direct Focus Community Aid. Generating policy-relevant research across KPK and FATA, Pakistan.</p>
       </div>
       <div class="footer-col">
@@ -1396,25 +2037,98 @@
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#research">Research Areas</a></li>
+          <li><a href="#featured">Featured Study</a></li>
           <li><a href="#approach">Methodology</a></li>
-          <li><a href="#partners">Partners</a></li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">External Links</div>
+        <div class="footer-col-title">Partners</div>
         <ul>
-          <li><a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a></li>
-          <li><a href="https://cerp.org.pk" target="_blank" rel="noopener">CERP Pakistan</a></li>
-          <li><a href="https://cdpr.org.pk" target="_blank" rel="noopener">CDPR Pakistan</a></li>
+          <li><a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid ↗</a></li>
+          <li><a href="https://cerp.org.pk" target="_blank" rel="noopener">CERP Pakistan ↗</a></li>
+          <li><a href="https://cdpr.org.pk" target="_blank" rel="noopener">CDPR Pakistan ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="mailto:dfca.dfa@gmail.com">dfca.dfa@gmail.com</a></li>
+          <li><a href="#contact">+92 300 5899623</a></li>
+          <li><span style="color:rgba(255,255,255,0.5);font-size:13.5px;">Peshawar, Pakistan</span></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 DFCA Research · A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a> · Peshawar, Pakistan</p>
+      <p>&copy; 2025 DFCA Research · A subsidiary of <a href="https://dfcaid.org" target="_blank" rel="noopener">DFCA Aid</a></p>
       <p>Registered under VSW Agencies Ordinance (1961) &amp; Societies Act (1860)</p>
     </div>
   </footer>
+
+  <script>
+    /* ═════════════════════════════════════════════════════════
+       Scroll-triggered reveal
+    ═════════════════════════════════════════════════════════ */
+    (function () {
+      const els = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('in'), i * 80);
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+      els.forEach(el => obs.observe(el));
+    })();
+
+    /* ═════════════════════════════════════════════════════════
+       Animated counters
+    ═════════════════════════════════════════════════════════ */
+    (function () {
+      const counters = document.querySelectorAll('.counter');
+      const animateCount = (el) => {
+        const target = +el.dataset.target;
+        const duration = 1800;
+        const start = performance.now();
+        const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+        const tick = (now) => {
+          const p = Math.min((now - start) / duration, 1);
+          const val = Math.round(easeOutCubic(p) * target);
+          // Format with comma if over 1000
+          el.textContent = val > 999 ? val.toLocaleString() : val;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateCount(e.target);
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(el => obs.observe(el));
+    })();
+
+    /* ═════════════════════════════════════════════════════════
+       Nav shadow on scroll
+    ═════════════════════════════════════════════════════════ */
+    (function () {
+      const nav = document.querySelector('nav');
+      const onScroll = () => {
+        if (window.scrollY > 20) {
+          nav.style.boxShadow = '0 2px 18px -8px rgba(10,30,63,0.15)';
+        } else {
+          nav.style.boxShadow = 'none';
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
 
 </body>
 </html>
