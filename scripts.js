@@ -251,39 +251,79 @@ function initD3Map() {
 /* ── D3 Markers ─────────────────────────────────────────── */
 function renderD3Markers(svg, projection) {
   const sites = [
-    { name: 'Peshawar HQ',              coords: [71.5249, 34.0151], type: 'KPK'    },
-    { name: 'Swat Field Office',        coords: [72.3600, 34.7700], type: 'KPK'    },
-    { name: 'Lahore Hub',               coords: [74.3587, 31.5204], type: 'Punjab' },
-    { name: 'Multan Office',            coords: [71.4589, 30.1575], type: 'Punjab' },
-    { name: 'Waziristan Station',       coords: [70.1000, 32.3000], type: 'KPK'    },
-    { name: 'Bahawalpur Site',          coords: [71.6833, 29.3956], type: 'Punjab' },
-    { name: 'Gujranwala Field Office',  coords: [74.1944, 32.1877], type: 'Punjab' }
+    // KPK Districts (23)
+    { name: 'Peshawar',     coords: [71.5249, 34.0151], type: 'KPK' },
+    { name: 'Swat',         coords: [72.3600, 34.7700], type: 'KPK' },
+    { name: 'Mardan',       coords: [72.0231, 34.1989], type: 'KPK' },
+    { name: 'Charsadda',    coords: [71.7342, 34.1458], type: 'KPK' },
+    { name: 'Nowshera',     coords: [71.9715, 34.0105], type: 'KPK' },
+    { name: 'Abbottabad',   coords: [73.2215, 34.1688], type: 'KPK' },
+    { name: 'Mansehra',     coords: [73.2042, 34.3308], type: 'KPK' },
+    { name: 'Haripur',      coords: [72.9361, 33.9946], type: 'KPK' },
+    { name: 'Kohat',        coords: [71.4414, 33.5869], type: 'KPK' },
+    { name: 'Bannu',        coords: [70.6010, 32.9854], type: 'KPK' },
+    { name: 'D.I. Khan',    coords: [70.9019, 31.8315], type: 'KPK' },
+    { name: 'Tank',         coords: [70.3833, 32.2167], type: 'KPK' },
+    { name: 'Lakki Marwat', coords: [70.9114, 32.6079], type: 'KPK' },
+    { name: 'Karak',        coords: [71.0914, 33.1107], type: 'KPK' },
+    { name: 'Hangu',        coords: [71.0572, 33.5351], type: 'KPK' },
+    { name: 'Buner',        coords: [72.4800, 34.4300], type: 'KPK' },
+    { name: 'Shangla',      coords: [72.7500, 34.8800], type: 'KPK' },
+    { name: 'Upper Dir',    coords: [71.8500, 35.2000], type: 'KPK' },
+    { name: 'Lower Dir',    coords: [71.8400, 34.8400], type: 'KPK' },
+    { name: 'Chitral',      coords: [71.7800, 35.8500], type: 'KPK' },
+    { name: 'Bajaur',       coords: [71.5000, 34.8000], type: 'KPK' },
+    { name: 'Khyber',       coords: [71.1000, 33.9000], type: 'KPK' },
+    { name: 'Mohmand',      coords: [71.3000, 34.3000], type: 'KPK' },
+
+    // Punjab Districts (11)
+    { name: 'Lahore',       coords: [74.3587, 31.5204], type: 'Punjab' },
+    { name: 'Multan',       coords: [71.4589, 30.1575], type: 'Punjab' },
+    { name: 'Bahawalpur',   coords: [71.6833, 29.3956], type: 'Punjab' },
+    { name: 'Gujranwala',   coords: [74.1944, 32.1877], type: 'Punjab' },
+    { name: 'Faisalabad',   coords: [73.0833, 31.4504], type: 'Punjab' },
+    { name: 'Rawalpindi',   coords: [73.0479, 33.5984], type: 'Punjab' },
+    { name: 'Sargodha',     coords: [72.6711, 32.0836], type: 'Punjab' },
+    { name: 'Sialkot',      coords: [74.5229, 32.4945], type: 'Punjab' },
+    { name: 'Sheikhupura',  coords: [73.9783, 31.7130], type: 'Punjab' },
+    { name: 'Jhang',        coords: [72.3289, 31.2781], type: 'Punjab' },
+    { name: 'D.G. Khan',    coords: [70.6355, 30.0489], type: 'Punjab' }
   ];
 
   const g = svg.append("g").attr("class", "markers");
 
-  const circles = g.selectAll("circle")
+  // Material Design Pin Path
+  const pinPath = "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z";
+
+  const markers = g.selectAll(".pin")
     .data(sites)
     .enter()
-    .append("circle")
-    .attr("cx",           d => projection(d.coords)[0])
-    .attr("cy",           d => projection(d.coords)[1])
-    .attr("r",            0)
-    .attr("fill",         d => d.type === 'KPK' ? '#10B981' : '#3B82F6')
-    .attr("stroke",       "#fff")
-    .attr("stroke-width", 1.5)
-    .style("cursor",      "pointer");
+    .append("path")
+    .attr("class", "pin")
+    .attr("d", pinPath)
+    .attr("fill", d => d.type === 'KPK' ? '#C9A84C' : '#3B82F6')
+    .attr("stroke", "#fff")
+    .attr("stroke-width", 0.5)
+    .style("cursor", "pointer")
+    .style("opacity", 0)
+    .attr("transform", d => {
+      const p = projection(d.coords);
+      return `translate(${p[0] - 6}, ${p[1] - 11}) scale(0.5)`;
+    });
 
-  circles.append("title").text(d => `${d.name} (Active Site)`);
+  markers.append("title").text(d => `${d.name} District (Active Site)`);
 
-  // Staggered bounce-in after provinces finish drawing
-  circles.each(function(d, i) {
-    d3.select(this)
-      .transition()
-      .delay(1050 + i * 110)
-      .duration(450)
-      .ease(d3.easeBackOut.overshoot(1.8))
-      .attr("r", 5);
+  // Staggered fade-in and drop-down animation
+  markers.each(function(d, i) {
+    const sel = d3.select(this);
+    const p = projection(d.coords);
+    
+    sel.transition()
+      .delay(1200 + i * 40)
+      .duration(600)
+      .ease(d3.easeBackOut.overshoot(1.5))
+      .style("opacity", 1)
+      .attr("transform", `translate(${p[0] - 6}, ${p[1] - 11}) scale(0.5)`);
   });
 }
 
