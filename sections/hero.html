@@ -61,17 +61,33 @@
              xmlns="http://www.w3.org/2000/svg"
              aria-label="Pakistan field operations map — KPK and Punjab provinces">
 
+          <defs>
+            <!-- Realistic Terrain Pattern -->
+            <pattern id="terrain-bg" patternUnits="userSpaceOnUse" width="420" height="575" x="-20" y="10">
+              <image href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Pakistan_topographic_map-blank.svg/1024px-Pakistan_topographic_map-blank.svg.png"
+                     width="460" height="600" x="-10" y="-10"
+                     preserveAspectRatio="xMidYMid slice"
+                     style="filter: saturate(0.4) brightness(1.1) contrast(0.9) opacity(0.85);" />
+            </pattern>
+
+            <!-- Subtle 3D Drop Shadow -->
+            <filter id="map-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur" />
+              <feOffset in="blur" dx="0" dy="4" result="offsetBlur" />
+              <feFlood flood-color="rgba(10,146,114,0.2)" result="color" />
+              <feComposite in="color" in2="offsetBlur" operator="in" result="shadow" />
+              <feMerge>
+                <feMergeNode in="shadow" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
           <!-- Background (all other areas) -->
-          <rect x="-20" y="10" width="420" height="575" fill="#DDE6EF" rx="4"/>
+          <rect x="-20" y="10" width="420" height="575" fill="#EEF2F6" rx="4"/>
 
           <!--
             ── PUNJAB province ─────────────────────────────────────────
-            Boundary starts at the KPK–Punjab junction (Attock / Islamabad
-            corridor, ~73.4°E 34.2°N = SVG 294,198) and follows the KPK
-            southern border west to Mianwali (~69.9°E 31.8°N = SVG 84,342),
-            then extends south through DG Khan, Bahawalpur, Rahim Yar Khan,
-            swings east along the Sindh border, north along the India border
-            (Sialkot, Lahore), and returns west to close near Islamabad.
           -->
           <path class="province-punjab" d="
             M 294,198
@@ -82,14 +98,10 @@
             L 270,534 L 300,510 L 324,468
             L 348,408 L 360,354 L 372,306
             L 378,258 L 330,204
-            Z"/>
+            Z" fill="url(#terrain-bg)"/>
 
           <!--
             ── KPK + Merged Districts ──────────────────────────────────
-            Boundary derived from real geographic coordinates.
-            Eastern side (KPK–Punjab shared border): points 1–9.
-            Southern border: points 9–17.
-            Western (Afghanistan) border: points 17–27 back to start.
           -->
           <path class="province-kpk" d="
             M 198,42
@@ -101,7 +113,7 @@
             L 66,270 L 90,234 L 114,216 L 138,198
             L 150,174 L 168,150 L 180,120
             L 162,96 L 168,72
-            Z"/>
+            Z" fill="url(#terrain-bg)"/>
 
           <!-- Afghanistan border — dashed line along KPK western edge -->
           <path fill="none" stroke="rgba(100,116,139,0.55)" stroke-width="1.3"
