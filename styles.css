@@ -489,22 +489,30 @@ nav#main-nav.scrolled { box-shadow: 0 2px 20px -8px rgba(12,26,46,0.14); }
   transform-origin: center;
 }
 
+.map-svg .province-group {
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+}
+
+.map-svg .province-group:hover {
+  transform: scale(1.02) translateY(-4px);
+  filter: url(#vector-lift);
+}
+
+.map-svg .province-group:hover .province-kpk,
+.map-svg .province-group:hover .province-punjab {
+  stroke-width: 2;
+  filter: brightness(1.1);
+}
+
 .map-svg .province-kpk {
-  stroke: var(--green);
-  stroke-width: 1.5;
+  stroke: rgba(255,255,255,0.4);
+  stroke-width: 1.2;
 }
 
 .map-svg .province-punjab {
-  stroke: #3B82F6;
-  stroke-width: 1.5;
-}
-
-.map-svg .province-kpk:hover,
-.map-svg .province-punjab:hover {
-  filter: brightness(1.1) saturate(1.2) url(#map-glow);
-  transform: scale(1.015) translateY(-2px);
-  stroke-width: 2;
-  z-index: 10;
+  stroke: rgba(255,255,255,0.4);
+  stroke-width: 1.2;
 }
 
 .district-dot {

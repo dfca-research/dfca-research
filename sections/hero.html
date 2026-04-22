@@ -62,19 +62,40 @@
              aria-label="Pakistan field operations map — KPK and Punjab provinces">
 
           <defs>
-            <!-- Realistic Terrain Pattern -->
-            <pattern id="terrain-bg" patternUnits="userSpaceOnUse" width="420" height="575" x="-20" y="10">
-              <image href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Pakistan_topographic_map-blank.svg/1024px-Pakistan_topographic_map-blank.svg.png"
-                     width="460" height="600" x="-10" y="-10"
-                     preserveAspectRatio="xMidYMid slice"
-                     style="filter: saturate(0.4) brightness(1.1) contrast(0.9) opacity(0.85);" />
+            <!-- Topographic Grid Pattern -->
+            <pattern id="mesh-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+              <circle cx="0" cy="0" r="0.5" fill="rgba(255,255,255,0.15)"/>
             </pattern>
 
-            <!-- Subtle 3D Drop Shadow -->
-            <filter id="map-glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur" />
-              <feOffset in="blur" dx="0" dy="4" result="offsetBlur" />
-              <feFlood flood-color="rgba(10,146,114,0.2)" result="color" />
+            <!-- KPK Gradient (Teal/Emerald) -->
+            <linearGradient id="grad-kpk" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#0EAD88" />
+              <stop offset="100%" stop-color="#07735A" />
+            </linearGradient>
+
+            <!-- Punjab Gradient (Blue/Indigo) -->
+            <linearGradient id="grad-punjab" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#4F8FFF" />
+              <stop offset="100%" stop-color="#2D66D1" />
+            </linearGradient>
+
+            <!-- Inner Glow Filter -->
+            <filter id="inner-glow">
+              <feFlood flood-color="white" flood-opacity="0.15" result="white-flood" />
+              <feComposite in="white-flood" in2="SourceGraphic" operator="in" result="glow" />
+              <feGaussianBlur in="glow" stdDeviation="3" result="blurred-glow" />
+              <feMerge>
+                <feMergeNode in="SourceGraphic" />
+                <feMergeNode in="blurred-glow" />
+              </feMerge>
+            </filter>
+
+            <!-- 3D Shadow for Hover -->
+            <filter id="vector-lift" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur" />
+              <feOffset in="blur" dx="0" dy="8" result="offsetBlur" />
+              <feFlood flood-color="rgba(12,26,46,0.25)" result="color" />
               <feComposite in="color" in2="offsetBlur" operator="in" result="shadow" />
               <feMerge>
                 <feMergeNode in="shadow" />
@@ -83,37 +104,58 @@
             </filter>
           </defs>
 
-          <!-- Background (all other areas) -->
-          <rect x="-20" y="10" width="420" height="575" fill="#EEF2F6" rx="4"/>
+          <!-- Background -->
+          <rect x="-20" y="10" width="420" height="575" fill="#F4F7FA" rx="4"/>
 
-          <!--
-            ── PUNJAB province ─────────────────────────────────────────
-          -->
-          <path class="province-punjab" d="
-            M 294,198
-            L 270,216 L 240,234 L 198,258 L 174,282
-            L 162,306 L 144,330 L 120,342 L 84,342
-            L 108,390 L 108,444 L 96,492
-            L 102,546 L 168,558 L 222,552
-            L 270,534 L 300,510 L 324,468
-            L 348,408 L 360,354 L 372,306
-            L 378,258 L 330,204
-            Z" fill="url(#terrain-bg)"/>
+          <!-- ── PUNJAB province ───────────────────────────────────────── -->
+          <g class="province-group">
+            <path class="province-punjab" d="
+              M 294,198
+              L 270,216 L 240,234 L 198,258 L 174,282
+              L 162,306 L 144,330 L 120,342 L 84,342
+              L 108,390 L 108,444 L 96,492
+              L 102,546 L 168,558 L 222,552
+              L 270,534 L 300,510 L 324,468
+              L 348,408 L 360,354 L 372,306
+              L 378,258 L 330,204
+              Z" fill="url(#grad-punjab)" filter="url(#inner-glow)"/>
+            <path class="province-overlay" d="
+              M 294,198
+              L 270,216 L 240,234 L 198,258 L 174,282
+              L 162,306 L 144,330 L 120,342 L 84,342
+              L 108,390 L 108,444 L 96,492
+              L 102,546 L 168,558 L 222,552
+              L 270,534 L 300,510 L 324,468
+              L 348,408 L 360,354 L 372,306
+              L 378,258 L 330,204
+              Z" fill="url(#mesh-pattern)" style="pointer-events:none; opacity:0.4;"/>
+          </g>
 
-          <!--
-            ── KPK + Merged Districts ──────────────────────────────────
-          -->
-          <path class="province-kpk" d="
-            M 198,42
-            L 270,36 L 306,42 L 336,72 L 330,96 L 324,120
-            L 306,144 L 300,174 L 294,198
-            L 270,216 L 240,234 L 198,258 L 174,282
-            L 162,306 L 144,330 L 120,342 L 84,342
-            L 54,318
-            L 66,270 L 90,234 L 114,216 L 138,198
-            L 150,174 L 168,150 L 180,120
-            L 162,96 L 168,72
-            Z" fill="url(#terrain-bg)"/>
+          <!-- ── KPK + Merged Districts ────────────────────────────────── -->
+          <g class="province-group">
+            <path class="province-kpk" d="
+              M 198,42
+              L 270,36 L 306,42 L 336,72 L 330,96 L 324,120
+              L 306,144 L 300,174 L 294,198
+              L 270,216 L 240,234 L 198,258 L 174,282
+              L 162,306 L 144,330 L 120,342 L 84,342
+              L 54,318
+              L 66,270 L 90,234 L 114,216 L 138,198
+              L 150,174 L 168,150 L 180,120
+              L 162,96 L 168,72
+              Z" fill="url(#grad-kpk)" filter="url(#inner-glow)"/>
+            <path class="province-overlay" d="
+              M 198,42
+              L 270,36 L 306,42 L 336,72 L 330,96 L 324,120
+              L 306,144 L 300,174 L 294,198
+              L 270,216 L 240,234 L 198,258 L 174,282
+              L 162,306 L 144,330 L 120,342 L 84,342
+              L 54,318
+              L 66,270 L 90,234 L 114,216 L 138,198
+              L 150,174 L 168,150 L 180,120
+              L 162,96 L 168,72
+              Z" fill="url(#mesh-pattern)" style="pointer-events:none; opacity:0.4;"/>
+          </g>
 
           <!-- Afghanistan border — dashed line along KPK western edge -->
           <path fill="none" stroke="rgba(100,116,139,0.55)" stroke-width="1.3"
