@@ -122,78 +122,81 @@ function initDotNav() {
   });
 }
 
-/* ── Leaflet Implementation ──────────────────────────────── */
-function initLeaflet() {
-  const mapContainer = document.getElementById('map');
-  if (!mapContainer) return;
+/* ── D3.js Map Implementation ───────────────────────────── */
+function initD3Map() {
+  const svg = d3.select("#d3-map");
+  if (svg.empty()) return;
 
-  const map = L.map('map').setView([32.5, 72.5], 6);
+  const width  = 400;
+  const height = 500;
 
-  // Esri World Imagery Tile Server
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-  }).addTo(map);
+  // 1. Define Projection (Centered on KPK/Punjab area)
+  const projection = d3.geoMercator()
+    .center([72.5, 32.5])
+    .scale(2200)
+    .translate([width / 2, height / 2]);
 
-  fetchBoundaries(map);
-  plotSites(map);
-}
+  const path = d3.geoPath().projection(projection);
 
-/**
- * Fetch and render GeoJSON administrative boundaries
- */
-async function fetchBoundaries(map) {
+  // 2. Load and Render GeoJSON
   const geojsonUrl = 'https://raw.githubusercontent.com/mamoorkhan/pakistan-geojson/main/kpk-punjab.json';
-  
-  try {
-    const response = await fetch(geojsonUrl);
-    const data = await response.json();
 
-    L.geoJSON(data, {
-      style: function(feature) {
-        const name = feature.properties.name;
-        return {
-          fillColor: name === 'Punjab' ? '#3B82F6' : '#10B981',
-          weight: 2,
-          opacity: 1,
-          color: 'white',
-          dashArray: '3',
-          fillOpacity: 0.15
-        };
-      }
-    }).addTo(map);
-  } catch (err) {
-    console.error('[DFCA] Error loading GeoJSON boundaries:', err);
-  }
+  d3.json(geojsonUrl).then(data => {
+    // Render Provinces
+    svg.append("g")
+      .selectAll("path")
+      .data(data.features)
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .attr("class", d => d.properties.name === 'Punjab' ? 'province-punjab' : 'province-kpk')
+      .attr("fill", d => d.properties.name === 'Punjab' ? 'rgba(59, 130, 246, 0.12)' : 'rgba(16, 185, 129, 0.14)')
+      .attr("stroke", d => d.properties.name === 'Punjab' ? '#3B82F6' : '#10B981')
+      .attr("stroke-width", 1.5)
+      .style("transition", "all 0.3s ease")
+      .on("mouseover", function() {
+        d3.select(this).style("fill-opacity", 0.3).attr("stroke-width", 2.5);
+      })
+      .on("mouseout", function() {
+        d3.select(this).style("fill-opacity", 1).attr("stroke-width", 1.5);
+      });
+
+    // 3. Plot Field Operation Sites
+    renderD3Markers(svg, projection);
+  }).catch(err => {
+    console.error("[DFCA] D3 GeoJSON Error:", err);
+  });
 }
 
 /**
- * Plot point markers for field operation sites
+ * Plot point markers using D3
  */
-function plotSites(map) {
+function renderD3Markers(svg, projection) {
   const sites = [
-    { name: 'Peshawar HQ', coords: [34.0151, 71.5249], type: 'KPK' },
-    { name: 'Swat Field Office', coords: [34.7700, 72.3600], type: 'KPK' },
-    { name: 'Lahore Hub', coords: [31.5204, 74.3587], type: 'Punjab' },
-    { name: 'Multan Office', coords: [30.1575, 71.4589], type: 'Punjab' },
-    { name: 'Waziristan Station', coords: [32.3000, 70.1000], type: 'KPK' },
-    { name: 'Bahawalpur Site', coords: [29.3956, 71.6833], type: 'Punjab' },
-    { name: 'Gujranwala Field Office', coords: [32.1877, 74.1944], type: 'Punjab' }
+    { name: 'Peshawar HQ', coords: [71.5249, 34.0151], type: 'KPK' },
+    { name: 'Swat Field Office', coords: [72.3600, 34.7700], type: 'KPK' },
+    { name: 'Lahore Hub', coords: [74.3587, 31.5204], type: 'Punjab' },
+    { name: 'Multan Office', coords: [71.4589, 30.1575], type: 'Punjab' },
+    { name: 'Waziristan Station', coords: [70.1000, 32.3000], type: 'KPK' },
+    { name: 'Bahawalpur Site', coords: [71.6833, 29.3956], type: 'Punjab' },
+    { name: 'Gujranwala Field Office', coords: [74.1944, 32.1877], type: 'Punjab' }
   ];
 
-  sites.forEach(site => {
-    const markerColor = site.type === 'KPK' ? '#10B981' : '#3B82F6';
-    
-    // Create a custom circle marker
-    L.circleMarker(site.coords, {
-      radius: 6,
-      fillColor: markerColor,
-      color: '#fff',
-      weight: 2,
-      opacity: 1,
-      fillOpacity: 0.8
-    }).addTo(map)
-      .bindPopup(`<strong>${site.name}</strong><br>Active Field Operations`);
-  });
+  const markers = svg.append("g").attr("class", "markers");
+
+  markers.selectAll("circle")
+    .data(sites)
+    .enter()
+    .append("circle")
+    .attr("cx", d => projection(d.coords)[0])
+    .attr("cy", d => projection(d.coords)[1])
+    .attr("r", 5)
+    .attr("fill", d => d.type === 'KPK' ? '#10B981' : '#3B82F6')
+    .attr("stroke", "#fff")
+    .attr("stroke-width", 1.5)
+    .style("cursor", "pointer")
+    .append("title")
+    .text(d => `${d.name} (Active Site)`);
 }
 
 /* ── Bootstrap ──────────────────────────────────────────── */
@@ -204,6 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounters();
     initNavScroll();
     initDotNav();
-    initLeaflet(); // Initialise Leaflet after sections are loaded
+    initD3Map(); // Initialise D3 map after sections are loaded
   });
 });

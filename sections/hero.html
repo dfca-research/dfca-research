@@ -34,21 +34,20 @@
       </div>
     </div>
 
-    <!-- Pakistan Field Operations Map (Mapbox Implementation) -->
+    <!-- Pakistan Field Operations Map (D3.js Implementation) -->
     <div class="hero-visual">
-      <div class="map-frame" style="height: 500px; padding: 0; overflow: hidden; position: relative;">
-        <div id="map" style="width: 100%; height: 100%;"></div>
-        
-        <!-- Legend Overlay (Now absolutely positioned over the Mapbox canvas) -->
-        <div class="map-label-top" style="position: absolute; top: 15px; left: 15px; right: 15px; z-index: 10; background: rgba(255,255,255,0.9); padding: 10px; border-radius: 6px; border: 1px solid var(--rule-soft); pointer-events: none;">
-          <span class="map-label-top-left">Satellite Intelligence Field Operations</span>
+      <div class="map-frame" style="position: relative;">
+        <div class="map-label-top">
+          <span class="map-label-top-left">Geospatial Field Operations</span>
           <span class="map-label-top-right">
             <span class="live-dot"></span>
-            <span>Live Data Feed</span>
+            <span>34 Districts Active</span>
           </span>
         </div>
 
-        <div class="map-legend" style="position: absolute; bottom: 15px; left: 15px; z-index: 10; background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--rule-soft); pointer-events: none;">
+        <svg id="d3-map" width="400" height="500" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: auto;"></svg>
+
+        <div class="map-legend">
           <div class="map-legend-item">
             <span class="map-legend-swatch kpk"></span>KPK Coverage
           </div>
