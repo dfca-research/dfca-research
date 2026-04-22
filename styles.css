@@ -1096,7 +1096,52 @@ nav#main-nav.scrolled {
   transition: transform 0.3s var(--ease);
 }
 
-.r-card:hover .r-card-footer svg { transform: translateX(4px); }
+.r-card-footer.active svg { transform: rotate(90deg); }
+
+.r-card-footer:hover .r-card-footer svg { transform: translateX(4px); }
+
+/* Project List inside Card */
+.r-projects-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease), margin-top 0.5s var(--ease);
+  margin-top: 0;
+}
+
+.r-projects-list.active {
+  max-height: 300px;
+  margin-top: 20px;
+}
+
+.r-projects-list ul {
+  list-style: none;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 4px;
+  border: 1px solid var(--slate-200);
+}
+
+.r-projects-list li {
+  margin-bottom: 12px;
+}
+
+.r-projects-list li:last-child {
+  margin-bottom: 0;
+}
+
+.r-projects-list a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+  display: block;
+  line-height: 1.5;
+  transition: color 0.2s;
+}
+
+.r-projects-list a:hover {
+  color: var(--gold);
+}
 
 /* ─────────────────────────────────────────────────────────
    FEATURED SPOTLIGHT

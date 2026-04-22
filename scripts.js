@@ -381,6 +381,20 @@ function initDisclaimer() {
   });
 }
 
+/* ── Project List Toggles ───────────────────────────── */
+function initProjectToggles() {
+  document.querySelectorAll('.r-card-footer').forEach(footer => {
+    footer.addEventListener('click', (e) => {
+      const card = footer.closest('.r-card');
+      const list = card.querySelector('.r-projects-list');
+      if (list) {
+        list.classList.toggle('active');
+        footer.classList.toggle('active');
+      }
+    });
+  });
+}
+
 /* ── Bootstrap ──────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   loadSections().then(() => {
@@ -395,5 +409,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initD3Map();
     initRCTSlideshow();
     initDisclaimer();
+    initProjectToggles();
   });
 });
