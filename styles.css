@@ -373,7 +373,6 @@ nav#main-nav.scrolled {
   background: var(--gold);
   border-color: var(--gold);
   color: var(--navy);
-  transform: translateY(-2px);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -425,6 +424,7 @@ nav#main-nav.scrolled {
   display: inline-block;
   opacity: 0;
   transform: translateY(16px);
+  font-variation-settings: 'wght' 400;
   animation: wordReveal 0.7s var(--ease) forwards;
 }
 
@@ -482,7 +482,6 @@ nav#main-nav.scrolled {
   background: var(--gold);
   color: var(--navy);
   box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35);
-  transform: translateY(-3px);
 }
 
 .btn-outline {
@@ -799,6 +798,16 @@ nav#main-nav.scrolled {
 
 .reveal.in { opacity: 1; transform: translateY(0); }
 
+/* Horizontal wipe variant — for featured quote block */
+.reveal.reveal-wipe {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.1s var(--ease);
+}
+
+.reveal.reveal-wipe.in { clip-path: inset(0 0% 0 0); }
+
 /* ─────────────────────────────────────────────────────────
    ABOUT
 ───────────────────────────────────────────────────────── */
@@ -942,13 +951,17 @@ nav#main-nav.scrolled {
 }
 
 .r-card {
-  background: var(--cream);
+  background-color: var(--cream);
+  background-image: linear-gradient(105deg, rgba(201,168,76,0.13) 0%, rgba(201,168,76,0.05) 45%, transparent 60%);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left center;
   border: 1px solid var(--slate-200);
   border-radius: 4px;
   padding: 32px 28px;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.3s, transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  transition: border-color 0.3s, transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background-size 0.55s var(--ease);
 }
 
 .r-card::after {
@@ -964,6 +977,7 @@ nav#main-nav.scrolled {
   border-color: rgba(201,168,76,0.4);
   transform: translateY(-4px);
   box-shadow: 0 12px 32px -12px rgba(13,27,42,0.12);
+  background-size: 120% 100%;
 }
 
 .r-card:hover::after { width: 100%; }
@@ -1523,7 +1537,7 @@ footer {
 }
 
 @keyframes wordReveal {
-  to { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); font-variation-settings: 'wght' 700; }
 }
 
 @keyframes scaleIn { to { transform: scaleX(1); } }
