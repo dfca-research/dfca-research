@@ -191,25 +191,27 @@ function initD3Map() {
   const width  = 400;
   const height = 500;
 
+  // Projection centred on the combined KPK + Punjab extent
   const projection = d3.geoMercator()
-    .center([72.5, 32.5])
-    .scale(2200)
+    .center([72.3, 32.3])
+    .scale(2300)
     .translate([width / 2, height / 2]);
 
   const path = d3.geoPath().projection(projection);
 
-  const geojsonUrl = 'https://raw.githubusercontent.com/mamoorkhan/pakistan-geojson/main/kpk-punjab.json';
+  // Local GeoJSON — filtered to KPK (N.W.F.P.) + Punjab, no external dependency
+  d3.json('data/pakistan-kpk-punjab.geojson').then(data => {
+    const isPunjab = d => d.properties.NAME_1 === 'Punjab';
 
-  d3.json(geojsonUrl).then(data => {
     const paths = svg.append("g")
       .selectAll("path")
       .data(data.features)
       .enter()
       .append("path")
       .attr("d", path)
-      .attr("class", d => d.properties.name === 'Punjab' ? 'province-punjab' : 'province-kpk')
+      .attr("class", d => isPunjab(d) ? 'province-punjab' : 'province-kpk')
       .attr("fill", "transparent")
-      .attr("stroke", d => d.properties.name === 'Punjab' ? '#3B82F6' : '#10B981')
+      .attr("stroke", d => isPunjab(d) ? '#3B82F6' : '#10B981')
       .attr("stroke-width", 1.5)
       .on("mouseover", function() {
         d3.select(this).style("fill-opacity", 0.3).attr("stroke-width", 2.5);
@@ -232,7 +234,7 @@ function initD3Map() {
         .ease(d3.easeCubicOut)
         .attr("stroke-dashoffset", 0)
         .on("end", () => {
-          const fill = d.properties.name === 'Punjab'
+          const fill = isPunjab(d)
             ? 'rgba(59, 130, 246, 0.12)'
             : 'rgba(16, 185, 129, 0.14)';
           sel.transition().duration(500).style("fill", fill)
