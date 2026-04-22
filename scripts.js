@@ -11,7 +11,8 @@ const SECTIONS = [
   { mount: 'mount-stats',    src: 'sections/stats.html' },
   { mount: 'mount-about',    src: 'sections/about.html' },
   { mount: 'mount-research', src: 'sections/research.html' },
-  { mount: 'mount-featured', src: 'sections/featured.html' },
+  { mount: 'mount-featured',  src: 'sections/featured.html' },
+  { mount: 'mount-rct',      src: 'sections/rct-slideshow.html' },
   { mount: 'mount-approach', src: 'sections/approach.html' },
   { mount: 'mount-footer',   src: 'sections/footer.html' }
 ];
@@ -97,7 +98,7 @@ function initNavScroll() {
 
 /* ── Scroll dot nav + active nav links ─────────────────── */
 function initDotNav() {
-  const sectionIds = ['hero','about','research','featured','approach'];
+  const sectionIds = ['hero','about','research','featured','rct','approach'];
   const dots       = document.querySelectorAll('.dot-nav a');
   const navLinks   = document.querySelectorAll('.nav-links a');
 
@@ -198,6 +199,33 @@ function renderD3Markers(svg, projection) {
     .text(d => `${d.name} (Active Site)`);
 }
 
+/* ── RCT Slideshow ──────────────────────────────────── */
+function initRCTSlideshow() {
+  const slides = document.querySelectorAll('.rct-slide');
+  const dots   = document.querySelectorAll('.rct-dot');
+  if (!slides.length) return;
+
+  let current = 0;
+  let timer;
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function startAuto() { timer = setInterval(() => goTo(current + 1), 6000); }
+  function resetAuto()  { clearInterval(timer); startAuto(); }
+
+  document.querySelector('.rct-next')?.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+  document.querySelector('.rct-prev')?.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  dots.forEach(dot => dot.addEventListener('click', () => { goTo(+dot.dataset.index); resetAuto(); }));
+
+  startAuto();
+}
+
 /* ── Development Disclaimer ───────────────────────────── */
 function initDisclaimer() {
   const modal = document.getElementById('dev-disclaimer');
@@ -226,6 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavScroll();
     initDotNav();
     initD3Map();
+    initRCTSlideshow();
     initDisclaimer();
   });
 });
