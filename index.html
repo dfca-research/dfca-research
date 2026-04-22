@@ -30,7 +30,6 @@
     <a href="#research" class="dot" data-label="Research"></a>
     <a href="#featured" class="dot" data-label="Featured"></a>
     <a href="#approach" class="dot" data-label="Methodology"></a>
-    <a href="#contact"  class="dot" data-label="Contact"></a>
   </nav>
 
   <!--
@@ -48,7 +47,6 @@
     sections/research.html  — six research domains
     sections/featured.html  — featured spotlight study
     sections/approach.html  — methodology & SDG alignment
-    sections/contact.html   — contact details & enquiry form
     sections/footer.html    — footer
     ─────────────────────────────────────────────────────────────────
   -->
@@ -60,8 +58,27 @@
   <div id="mount-research"></div>
   <div id="mount-featured"></div>
   <div id="mount-approach"></div>
-  <div id="mount-contact"></div>
   <div id="mount-footer"></div>
+
+  <!-- ─────────────────────────────────────────────────────────
+    DEVELOPMENT DISCLAIMER POPUP
+  ───────────────────────────────────────────────────────── -->
+  <div id="dev-disclaimer" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-badge">System Update</div>
+        <h2>Under Development</h2>
+      </div>
+      <div class="modal-body">
+        <p>Welcome to <strong>DFCA Research</strong>. We are currently enhancing our digital presence to better communicate our work and impact.</p>
+        <p>While we work on these visual and experience improvements, please note that <strong>all organizational information and research data currently presented is accurate and official.</strong></p>
+        <p>You are welcome to explore the site and scroll through our research domains.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="close-disclaimer" class="btn-modal">Continue to Site</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts (loads sections, then initialises all interactions) -->
   <script src="scripts.js"></script>

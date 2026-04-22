@@ -13,7 +13,6 @@ const SECTIONS = [
   { mount: 'mount-research', src: 'sections/research.html' },
   { mount: 'mount-featured', src: 'sections/featured.html' },
   { mount: 'mount-approach', src: 'sections/approach.html' },
-  { mount: 'mount-contact',  src: 'sections/contact.html' },
   { mount: 'mount-footer',   src: 'sections/footer.html' }
 ];
 
@@ -98,7 +97,7 @@ function initNavScroll() {
 
 /* ── Scroll dot nav + active nav links ─────────────────── */
 function initDotNav() {
-  const sectionIds = ['hero','about','research','featured','approach','contact'];
+  const sectionIds = ['hero','about','research','featured','approach'];
   const dots       = document.querySelectorAll('.dot-nav a');
   const navLinks   = document.querySelectorAll('.nav-links a');
 
@@ -199,6 +198,25 @@ function renderD3Markers(svg, projection) {
     .text(d => `${d.name} (Active Site)`);
 }
 
+/* ── Development Disclaimer ───────────────────────────── */
+function initDisclaimer() {
+  const modal = document.getElementById('dev-disclaimer');
+  const closeBtn = document.getElementById('close-disclaimer');
+  
+  if (!modal || !closeBtn) return;
+
+  // Show with a slight delay
+  setTimeout(() => {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scroll while disclaimer is up
+  }, 1000);
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Re-enable scroll
+  });
+}
+
 /* ── Bootstrap ──────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   loadSections().then(() => {
@@ -207,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounters();
     initNavScroll();
     initDotNav();
-    initD3Map(); // Initialise D3 map after sections are loaded
+    initD3Map();
+    initDisclaimer();
   });
 });
