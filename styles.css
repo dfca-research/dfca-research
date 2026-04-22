@@ -169,7 +169,7 @@ nav#main-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 76px;
+  height: 90px;
   transition: box-shadow 0.3s;
 }
 
@@ -182,7 +182,7 @@ nav#main-nav.scrolled { box-shadow: 0 2px 20px -8px rgba(12,26,46,0.14); }
 }
 
 .nav-brand img {
-  height: 58px;
+  height: 76px;
   width: auto;
   mix-blend-mode: multiply;
   transition: opacity 0.2s;
@@ -288,7 +288,7 @@ nav#main-nav.scrolled { box-shadow: 0 2px 20px -8px rgba(12,26,46,0.14); }
 }
 
 .hero-eyebrow img {
-  height: 72px;
+  height: 110px;
   width: auto;
   mix-blend-mode: multiply;
 }
@@ -497,6 +497,50 @@ nav#main-nav.scrolled { box-shadow: 0 2px 20px -8px rgba(12,26,46,0.14); }
   0%   { opacity: 0.7; r: 2; }
   100% { opacity: 0;   r: 10; }
 }
+
+/* Punjab province overlay */
+.map-svg .province-punjab {
+  fill: rgba(59,130,246,0.12);
+  stroke: #3B82F6;
+  stroke-width: 1.1;
+  filter: drop-shadow(0 2px 6px rgba(59,130,246,0.1));
+}
+
+.district-dot-punjab { fill: #3B82F6; }
+
+.district-ring-punjab {
+  fill: none;
+  stroke: #3B82F6;
+  stroke-width: 0.8;
+  opacity: 0;
+  animation: ring 2.4s ease-out infinite;
+}
+
+/* Map legend */
+.map-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+}
+
+.map-legend-swatch {
+  width: 12px; height: 12px;
+  border-radius: 3px;
+}
+
+.map-legend-swatch.kpk  { background: rgba(10,146,114,0.35);  border: 1.5px solid var(--green); }
+.map-legend-swatch.punj { background: rgba(59,130,246,0.25);  border: 1.5px solid #3B82F6; }
 
 .map-bottom-strip {
   display: grid;

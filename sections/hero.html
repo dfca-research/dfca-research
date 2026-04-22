@@ -34,84 +34,208 @@
       </div>
     </div>
 
-    <!-- KPK Field Map -->
+    <!-- Pakistan Field Operations Map  -->
     <div class="hero-visual">
       <div class="map-frame">
         <div class="map-label-top">
-          <span class="map-label-top-left">KPK Field Presence · Pakistan</span>
+          <span class="map-label-top-left">Pakistan Field Operations</span>
           <span class="map-label-top-right">
             <span class="live-dot"></span>
-            <span>23 districts active</span>
+            <span>34 districts active</span>
           </span>
         </div>
 
-        <svg class="map-svg" viewBox="-30 -20 430 430" xmlns="http://www.w3.org/2000/svg"
-             aria-label="KPK and Merged Districts, Pakistan">
-          <rect x="-30" y="-20" width="430" height="430" fill="#DDE6EF" rx="4"/>
-          <!-- Neighbours -->
-          <path class="neighbour" d="M 202,14 L 288,7 L 331,14 L 367,50 L 400,30 L 400,-20 L 180,-20 Z"/>
-          <path class="neighbour" d="M 317,202 L 288,223 L 252,245 L 202,273 L 173,302 L 158,331 L 137,360 L 108,374 L 65,374 L 65,410 L 400,410 L 400,202 Z"/>
-          <!-- KPK boundary -->
-          <path class="province-kpk" d="M 202,14 L 288,7 L 331,14 L 367,50 L 360,79
-            L 353,108 L 331,136 L 324,173 L 317,202 L 288,223 L 252,245
-            L 202,273 L 173,302 L 158,331 L 137,360 L 108,374 L 65,374
-            L 29,346 L 43,288 L 72,245 L 101,223 L 130,202 L 144,173
-            L 166,144 L 180,108 L 158,79 L 166,50 Z"/>
-          <!-- Afghanistan border (dashed) -->
-          <path fill="none" stroke="rgba(100,116,139,0.5)" stroke-width="1.2"
+        <!--
+          Projection: x = (lon − 68.5) × 60 · y = (37.5 − lat) × 60
+          ViewBox: −20 10 420 575  (x: −20→400, y: 10→585)
+
+          Key reference points verified:
+            Peshawar   71.5°E 34.0°N → (180, 210)
+            Islamabad  73.1°E 33.7°N → (276, 228)
+            Lahore     74.3°E 31.6°N → (348, 354)
+            Multan     71.5°E 30.2°N → (180, 438)
+            Faisalabad 73.1°E 31.4°N → (276, 372)
+            Rahim Yar  70.3°E 28.4°N → (108, 546)
+        -->
+        <svg class="map-svg" viewBox="-20 10 420 575"
+             xmlns="http://www.w3.org/2000/svg"
+             aria-label="Pakistan field operations map — KPK and Punjab provinces">
+
+          <!-- Background (all other areas) -->
+          <rect x="-20" y="10" width="420" height="575" fill="#DDE6EF" rx="4"/>
+
+          <!--
+            ── PUNJAB province ─────────────────────────────────────────
+            Boundary starts at the KPK–Punjab junction (Attock / Islamabad
+            corridor, ~73.4°E 34.2°N = SVG 294,198) and follows the KPK
+            southern border west to Mianwali (~69.9°E 31.8°N = SVG 84,342),
+            then extends south through DG Khan, Bahawalpur, Rahim Yar Khan,
+            swings east along the Sindh border, north along the India border
+            (Sialkot, Lahore), and returns west to close near Islamabad.
+          -->
+          <path class="province-punjab" d="
+            M 294,198
+            L 270,216 L 240,234 L 198,258 L 174,282
+            L 162,306 L 144,330 L 120,342 L 84,342
+            L 108,390 L 108,444 L 96,492
+            L 102,546 L 168,558 L 222,552
+            L 270,534 L 300,510 L 324,468
+            L 348,408 L 360,354 L 372,306
+            L 378,258 L 330,204
+            Z"/>
+
+          <!--
+            ── KPK + Merged Districts ──────────────────────────────────
+            Boundary derived from real geographic coordinates.
+            Eastern side (KPK–Punjab shared border): points 1–9.
+            Southern border: points 9–17.
+            Western (Afghanistan) border: points 17–27 back to start.
+          -->
+          <path class="province-kpk" d="
+            M 198,42
+            L 270,36 L 306,42 L 336,72 L 330,96 L 324,120
+            L 306,144 L 300,174 L 294,198
+            L 270,216 L 240,234 L 198,258 L 174,282
+            L 162,306 L 144,330 L 120,342 L 84,342
+            L 54,318
+            L 66,270 L 90,234 L 114,216 L 138,198
+            L 150,174 L 168,150 L 180,120
+            L 162,96 L 168,72
+            Z"/>
+
+          <!-- Afghanistan border — dashed line along KPK western edge -->
+          <path fill="none" stroke="rgba(100,116,139,0.55)" stroke-width="1.3"
                 stroke-dasharray="5,3"
-                d="M 202,14 L 166,50 L 158,79 L 180,108 L 166,144 L 144,173
-                   L 130,202 L 101,223 L 72,245 L 43,288 L 29,346 L 65,374"/>
-          <!-- District dots -->
-          <circle class="district-ring" cx="180" cy="216" r="3"/>
-          <circle class="district-dot" cx="180" cy="216" r="4.5"/>
-          <circle class="district-dot" cx="216" cy="202" r="2.8"/>
-          <circle class="district-dot" cx="245" cy="209" r="2.5"/>
-          <circle class="district-dot" cx="238" cy="166" r="2.8"/>
-          <circle class="district-dot" cx="202" cy="130" r="2.5"/>
-          <circle class="district-dot" cx="200" cy="82"  r="2.5"/>
-          <circle class="district-dot" cx="302" cy="194" r="2.5"/>
-          <circle class="district-dot" cx="295" cy="209" r="2.5"/>
-          <circle class="district-dot" cx="275" cy="223" r="2.5"/>
-          <circle class="district-dot" cx="173" cy="245" r="2.5"/>
-          <circle class="district-dot" cx="151" cy="280" r="2.5"/>
-          <circle class="district-dot" cx="115" cy="288" r="2.5"/>
-          <circle class="district-dot" cx="137" cy="317" r="2.5"/>
-          <circle class="district-ring" cx="137" cy="358" r="2.5" style="animation-delay:0.6s"/>
-          <circle class="district-dot" cx="137" cy="358" r="3.5"/>
-          <circle class="district-dot" cx="101" cy="345" r="2.5"/>
-          <circle class="district-dot" cx="162" cy="166" r="2.5"/>
-          <circle class="district-dot" cx="148" cy="209" r="2.5"/>
-          <circle class="district-ring" cx="72"  cy="260" r="2"   style="animation-delay:1.1s"/>
-          <circle class="district-dot" cx="72"  cy="260" r="3"/>
-          <circle class="district-dot" cx="68"  cy="302" r="2.5"/>
-          <circle class="district-dot" cx="60"  cy="345" r="2.5"/>
-          <!-- Labels -->
-          <text x="186" y="233" font-family="Plus Jakarta Sans" font-size="8.5" font-weight="700"
-                fill="#0A9272" letter-spacing="0.4">Peshawar</text>
-          <text x="220" y="148" font-family="Fraunces" font-size="15" font-weight="500"
-                font-style="italic" fill="rgba(10,146,114,0.32)">KPK</text>
-          <text x="50" y="420" font-family="Plus Jakarta Sans" font-size="7.5"
-                fill="rgba(71,85,105,0.65)" letter-spacing="0.6"
-                transform="rotate(-90,50,420)">Afghanistan</text>
-          <text x="335" y="320" font-family="Plus Jakarta Sans" font-size="8"
-                fill="rgba(71,85,105,0.6)" letter-spacing="0.5">Punjab</text>
-          <text x="330" y="20"  font-family="Plus Jakarta Sans" font-size="8"
-                fill="rgba(71,85,105,0.6)" letter-spacing="0.4">G-B</text>
+                d="M 84,342 L 54,318 L 66,270 L 90,234 L 114,216
+                   L 138,198 L 150,174 L 168,150 L 180,120 L 162,96
+                   L 168,72 L 198,42"/>
+
+          <!-- ── KPK district dots (23 districts) ───────────────────── -->
+          <!-- Peshawar — capital, pulsing ring -->
+          <circle class="district-ring"    cx="180" cy="210" r="3"/>
+          <circle class="district-dot"     cx="180" cy="210" r="4.5"/>
+          <!-- Mardan area -->
+          <circle class="district-dot"     cx="210" cy="198" r="2.8"/>
+          <!-- Nowshera -->
+          <circle class="district-dot"     cx="234" cy="204" r="2.5"/>
+          <!-- Mansehra / Hazara -->
+          <circle class="district-dot"     cx="228" cy="168" r="2.8"/>
+          <!-- Abbottabad -->
+          <circle class="district-dot"     cx="198" cy="138" r="2.5"/>
+          <!-- Swat -->
+          <circle class="district-dot"     cx="198" cy="96"  r="2.5"/>
+          <!-- Charsadda -->
+          <circle class="district-dot"     cx="162" cy="210" r="2.5"/>
+          <!-- Kohat -->
+          <circle class="district-dot"     cx="156" cy="204" r="2.5"/>
+          <!-- Haripur -->
+          <circle class="district-dot"     cx="216" cy="156" r="2.5"/>
+          <!-- Buner -->
+          <circle class="district-dot"     cx="174" cy="252" r="2.5"/>
+          <!-- Hangu -->
+          <circle class="district-dot"     cx="156" cy="264" r="2.5"/>
+          <!-- Karak -->
+          <circle class="district-dot"     cx="138" cy="282" r="2.5"/>
+          <!-- Lakki Marwat — pulsing ring -->
+          <circle class="district-ring"    cx="138" cy="318" r="2.5" style="animation-delay:0.6s"/>
+          <circle class="district-dot"     cx="138" cy="318" r="3.5"/>
+          <!-- D.I. Khan -->
+          <circle class="district-dot"     cx="114" cy="318" r="2.5"/>
+          <!-- Tank -->
+          <circle class="district-dot"     cx="108" cy="342" r="2.5"/>
+          <!-- N. Waziristan -->
+          <circle class="district-dot"     cx="126" cy="270" r="2.5"/>
+          <!-- S. Waziristan — pulsing ring -->
+          <circle class="district-ring"    cx="90"  cy="282" r="2.2" style="animation-delay:1.1s"/>
+          <circle class="district-dot"     cx="90"  cy="282" r="3"/>
+          <!-- Bajaur -->
+          <circle class="district-dot"     cx="84"  cy="204" r="2.5"/>
+          <!-- Mohmand -->
+          <circle class="district-dot"     cx="138" cy="228" r="2.5"/>
+          <!-- Khyber -->
+          <circle class="district-dot"     cx="150" cy="222" r="2.5"/>
+          <!-- Kurram -->
+          <circle class="district-dot"     cx="120" cy="246" r="2.5"/>
+          <!-- Dir Upper -->
+          <circle class="district-dot"     cx="156" cy="132" r="2.5"/>
+          <!-- Chitral -->
+          <circle class="district-dot"     cx="162" cy="78"  r="2.5"/>
+
+          <!-- ── Punjab district dots (11 districts) ────────────────── -->
+          <!-- Gujranwala    74.2°E 32.2°N → 342,318 -->
+          <circle class="district-ring-punjab" cx="342" cy="318" r="3" style="animation-delay:0.4s"/>
+          <circle class="district-dot-punjab"  cx="342" cy="318" r="3.5"/>
+          <!-- Sheikhupura   73.9°E 31.7°N → 324,348 -->
+          <circle class="district-dot-punjab"  cx="324" cy="348" r="2.8"/>
+          <!-- Faisalabad    73.1°E 31.4°N → 276,372 -->
+          <circle class="district-ring-punjab" cx="276" cy="372" r="3" style="animation-delay:1.0s"/>
+          <circle class="district-dot-punjab"  cx="276" cy="372" r="3.5"/>
+          <!-- Jhang         72.3°E 31.3°N → 228,372 -->
+          <circle class="district-dot-punjab"  cx="228" cy="372" r="2.8"/>
+          <!-- Layyah        70.9°E 31.0°N → 144,390 -->
+          <circle class="district-dot-punjab"  cx="144" cy="390" r="2.5"/>
+          <!-- Khanewal      72.0°E 30.3°N → 210,432 -->
+          <circle class="district-dot-punjab"  cx="210" cy="432" r="2.5"/>
+          <!-- Vehari        72.0°E 30.1°N → 210,444 -->
+          <circle class="district-dot-punjab"  cx="210" cy="444" r="2.5"/>
+          <!-- Multan        71.5°E 30.2°N → 180,438 -->
+          <circle class="district-ring-punjab" cx="180" cy="438" r="3" style="animation-delay:1.6s"/>
+          <circle class="district-dot-punjab"  cx="180" cy="438" r="3.5"/>
+          <!-- Bahawalnagar  73.3°E 29.9°N → 288,456 -->
+          <circle class="district-dot-punjab"  cx="288" cy="456" r="2.5"/>
+          <!-- Bahawalpur    71.7°E 29.4°N → 192,486 -->
+          <circle class="district-dot-punjab"  cx="192" cy="486" r="2.8"/>
+          <!-- Rahim Yar Khan 70.3°E 28.4°N → 108,546 -->
+          <circle class="district-ring-punjab" cx="108" cy="546" r="2.5" style="animation-delay:2.0s"/>
+          <circle class="district-dot-punjab"  cx="108" cy="546" r="3.5"/>
+
+          <!-- ── Province & geographic labels ──────────────────────── -->
+          <!-- Peshawar label -->
+          <text x="188" y="226" font-family="Plus Jakarta Sans" font-size="8"
+                font-weight="700" fill="#0A9272" letter-spacing="0.3">Peshawar</text>
+          <!-- KPK province label -->
+          <text x="176" y="162" font-family="Fraunces" font-size="14" font-weight="500"
+                font-style="italic" fill="rgba(10,146,114,0.30)">KPK</text>
+          <!-- Punjab province label -->
+          <text x="222" y="408" font-family="Fraunces" font-size="13" font-weight="500"
+                font-style="italic" fill="rgba(59,130,246,0.35)">Punjab</text>
+          <!-- Afghanistan label (rotated along western border) -->
+          <text x="18" y="310" font-family="Plus Jakarta Sans" font-size="7"
+                fill="rgba(71,85,105,0.60)" letter-spacing="0.5"
+                transform="rotate(-72, 18, 310)">Afghanistan</text>
+          <!-- India label -->
+          <text x="368" y="348" font-family="Plus Jakarta Sans" font-size="7.5"
+                fill="rgba(71,85,105,0.55)" letter-spacing="0.4">India →</text>
+          <!-- G-B label -->
+          <text x="300" y="30" font-family="Plus Jakarta Sans" font-size="7.5"
+                fill="rgba(71,85,105,0.55)" letter-spacing="0.4">G-B</text>
+          <!-- Sindh label -->
+          <text x="186" y="572" font-family="Plus Jakarta Sans" font-size="7.5"
+                fill="rgba(71,85,105,0.55)" letter-spacing="0.4">Sindh →</text>
         </svg>
+
+        <!-- Province legend -->
+        <div class="map-legend">
+          <div class="map-legend-item">
+            <span class="map-legend-swatch kpk"></span>KPK · 23 Districts
+          </div>
+          <div class="map-legend-item">
+            <span class="map-legend-swatch punj"></span>Punjab · 11 Districts
+          </div>
+        </div>
 
         <div class="map-bottom-strip">
           <div class="map-stat">
-            <div class="map-stat-num">34</div>
-            <div class="map-stat-label">Districts</div>
+            <div class="map-stat-num">23</div>
+            <div class="map-stat-label">KPK Districts</div>
+          </div>
+          <div class="map-stat">
+            <div class="map-stat-num">11</div>
+            <div class="map-stat-label">Punjab Districts</div>
           </div>
           <div class="map-stat">
             <div class="map-stat-num">2K+</div>
             <div class="map-stat-label">Practitioners</div>
-          </div>
-          <div class="map-stat">
-            <div class="map-stat-num">Est. 2018</div>
-            <div class="map-stat-label">Research Wing</div>
           </div>
         </div>
       </div>
