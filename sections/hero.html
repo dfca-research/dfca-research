@@ -59,103 +59,75 @@
         -->
         <svg class="map-svg" viewBox="-20 10 420 575"
              xmlns="http://www.w3.org/2000/svg"
-             aria-label="Pakistan field operations map — KPK and Punjab provinces">
+             aria-label="DFCA Research Operations Map — Advanced 3D Visualization">
 
           <defs>
-            <!-- Topographic Grid Pattern -->
-            <pattern id="mesh-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
-              <circle cx="0" cy="0" r="0.5" fill="rgba(255,255,255,0.15)"/>
+            <!-- 1. Topographic Contour Pattern -->
+            <pattern id="contour-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M0 10 Q 25 5, 50 10 T 100 10 M0 30 Q 25 25, 50 30 T 100 30 M0 50 Q 25 45, 50 50 T 100 50 M0 70 Q 25 65, 50 70 T 100 70 M0 90 Q 25 85, 50 90 T 100 90" 
+                    fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.3"/>
             </pattern>
 
-            <!-- KPK Gradient (Teal/Emerald) -->
-            <linearGradient id="grad-kpk" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#0EAD88" />
-              <stop offset="100%" stop-color="#07735A" />
+            <!-- 2. Glass Face Gradients -->
+            <linearGradient id="glass-kpk" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="rgba(16, 185, 129, 0.4)" />
+              <stop offset="100%" stop-color="rgba(5, 150, 105, 0.1)" />
+            </linearGradient>
+            
+            <linearGradient id="glass-punjab" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="rgba(59, 130, 246, 0.4)" />
+              <stop offset="100%" stop-color="rgba(29, 78, 216, 0.1)" />
             </linearGradient>
 
-            <!-- Punjab Gradient (Blue/Indigo) -->
-            <linearGradient id="grad-punjab" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#4F8FFF" />
-              <stop offset="100%" stop-color="#2D66D1" />
-            </linearGradient>
-
-            <!-- Inner Glow Filter -->
-            <filter id="inner-glow">
-              <feFlood flood-color="white" flood-opacity="0.15" result="white-flood" />
-              <feComposite in="white-flood" in2="SourceGraphic" operator="in" result="glow" />
-              <feGaussianBlur in="glow" stdDeviation="3" result="blurred-glow" />
-              <feMerge>
-                <feMergeNode in="SourceGraphic" />
-                <feMergeNode in="blurred-glow" />
-              </feMerge>
+            <!-- 3. Specular Lighting (The "Shimmer") -->
+            <filter id="glass-light" x="-20%" y="-20%" width="140%" height="140%">
+              <feSpecularLighting surfaceScale="5" specularConstant="1" specularExponent="40" lighting-color="#fff">
+                <fePointLight x="200" y="100" z="300" />
+              </feSpecularLighting>
+              <feComposite in2="SourceGraphic" operator="in" />
+              <feComposite in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
             </filter>
 
-            <!-- 3D Shadow for Hover -->
-            <filter id="vector-lift" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur" />
-              <feOffset in="blur" dx="0" dy="8" result="offsetBlur" />
-              <feFlood flood-color="rgba(12,26,46,0.25)" result="color" />
-              <feComposite in="color" in2="offsetBlur" operator="in" result="shadow" />
-              <feMerge>
-                <feMergeNode in="shadow" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
+            <!-- 4. Deep Shadow for 3D Depth -->
+            <filter id="deep-depth" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="15" stdDeviation="20" flood-opacity="0.25"/>
             </filter>
+
+            <!-- Path definitions for re-use -->
+            <path id="path-punjab" d="M 294,198 L 270,216 L 240,234 L 198,258 L 174,282 L 162,306 L 144,330 L 120,342 L 84,342 L 108,390 L 108,444 L 96,492 L 102,546 L 168,558 L 222,552 L 270,534 L 300,510 L 324,468 L 348,408 L 360,354 L 372,306 L 378,258 L 330,204 Z"/>
+            <path id="path-kpk" d="M 198,42 L 270,36 L 306,42 L 336,72 L 330,96 L 324,120 L 306,144 L 300,174 L 294,198 L 270,216 L 240,234 L 198,258 L 174,282 L 162,306 L 144,330 L 120,342 L 84,342 L 54,318 L 66,270 L 90,234 L 114,216 L 138,198 L 150,174 L 168,150 L 180,120 L 162,96 L 168,72 Z"/>
           </defs>
 
-          <!-- Background -->
-          <rect x="-20" y="10" width="420" height="575" fill="#F4F7FA" rx="4"/>
+          <!-- Background Canvas -->
+          <rect x="-20" y="10" width="420" height="575" fill="#0F172A" rx="12"/>
 
-          <!-- ── PUNJAB province ───────────────────────────────────────── -->
-          <g class="province-group">
-            <path class="province-punjab" d="
-              M 294,198
-              L 270,216 L 240,234 L 198,258 L 174,282
-              L 162,306 L 144,330 L 120,342 L 84,342
-              L 108,390 L 108,444 L 96,492
-              L 102,546 L 168,558 L 222,552
-              L 270,534 L 300,510 L 324,468
-              L 348,408 L 360,354 L 372,306
-              L 378,258 L 330,204
-              Z" fill="url(#grad-punjab)" filter="url(#inner-glow)"/>
-            <path class="province-overlay" d="
-              M 294,198
-              L 270,216 L 240,234 L 198,258 L 174,282
-              L 162,306 L 144,330 L 120,342 L 84,342
-              L 108,390 L 108,444 L 96,492
-              L 102,546 L 168,558 L 222,552
-              L 270,534 L 300,510 L 324,468
-              L 348,408 L 360,354 L 372,306
-              L 378,258 L 330,204
-              Z" fill="url(#mesh-pattern)" style="pointer-events:none; opacity:0.4;"/>
+          <!-- ── PUNJAB 3D ASSEMBLY ────────────────────────────────── -->
+          <g class="province-3d" id="punjab-3d">
+            <!-- Shadow Layer -->
+            <use href="#path-punjab" fill="#000" opacity="0.3" transform="translate(0, 12)"/>
+            <!-- Extrusion / Side Wall -->
+            <use href="#path-punjab" fill="#1E40AF" transform="translate(0, 4)"/>
+            <!-- Glass Face -->
+            <use href="#path-punjab" fill="url(#glass-punjab)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8" filter="url(#glass-light)"/>
+            <!-- Contour Overlay -->
+            <use href="#path-punjab" fill="url(#contour-pattern)" style="pointer-events:none;"/>
           </g>
 
-          <!-- ── KPK + Merged Districts ────────────────────────────────── -->
-          <g class="province-group">
-            <path class="province-kpk" d="
-              M 198,42
-              L 270,36 L 306,42 L 336,72 L 330,96 L 324,120
-              L 306,144 L 300,174 L 294,198
-              L 270,216 L 240,234 L 198,258 L 174,282
-              L 162,306 L 144,330 L 120,342 L 84,342
-              L 54,318
-              L 66,270 L 90,234 L 114,216 L 138,198
-              L 150,174 L 168,150 L 180,120
-              L 162,96 L 168,72
-              Z" fill="url(#grad-kpk)" filter="url(#inner-glow)"/>
-            <path class="province-overlay" d="
-              M 198,42
-              L 270,36 L 306,42 L 336,72 L 330,96 L 324,120
-              L 306,144 L 300,174 L 294,198
-              L 270,216 L 240,234 L 198,258 L 174,282
-              L 162,306 L 144,330 L 120,342 L 84,342
-              L 54,318
-              L 66,270 L 90,234 L 114,216 L 138,198
-              L 150,174 L 168,150 L 180,120
-              L 162,96 L 168,72
-              Z" fill="url(#mesh-pattern)" style="pointer-events:none; opacity:0.4;"/>
+          <!-- ── KPK 3D ASSEMBLY ───────────────────────────────────── -->
+          <g class="province-3d" id="kpk-3d">
+            <!-- Shadow Layer -->
+            <use href="#path-kpk" fill="#000" opacity="0.3" transform="translate(0, 12)"/>
+            <!-- Extrusion / Side Wall -->
+            <use href="#path-kpk" fill="#065F46" transform="translate(0, 4)"/>
+            <!-- Glass Face -->
+            <use href="#path-kpk" fill="url(#glass-kpk)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8" filter="url(#glass-light)"/>
+            <!-- Contour Overlay -->
+            <use href="#path-kpk" fill="url(#contour-pattern)" style="pointer-events:none;"/>
           </g>
+
+          <!-- Neighbourhood Borders (Subtle) -->
+          <path d="M 84,342 L 54,318 L 66,270 L 90,234 L 114,216 L 138,198 L 150,174 L 168,150 L 180,120 L 162,96 L 168,72 L 198,42" 
+                fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="4,4"/>
 
           <!-- Afghanistan border — dashed line along KPK western edge -->
           <path fill="none" stroke="rgba(100,116,139,0.55)" stroke-width="1.3"
