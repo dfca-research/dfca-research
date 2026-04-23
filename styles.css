@@ -199,21 +199,21 @@ a { color: inherit; }
 ───────────────────────────────────────────────────────── */
 /* Robust Scroll Position Dot Nav */
 nav.dot-nav {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  display: flex;
+  visibility: visible;
+  opacity: 1;
   position: fixed;
   right: 30px;
   top: 50%;
   transform: translateY(-50%);
   flex-direction: column;
   gap: 15px;
-  z-index: 99999 !important;
+  z-index: 99999;
   padding: 22px 14px;
-  background: #0d1b2a !important; 
+  background: #0d1b2a; 
   border-radius: 40px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  border: 2px solid #c9a84c !important;
+  border: 2px solid #c9a84c;
   min-width: 40px;
   align-items: center;
 }
@@ -1834,8 +1834,8 @@ footer {
   .approach-grid       { grid-template-columns: 1fr; gap: 48px; }
   .footer-top          { grid-template-columns: 1fr 1fr; }
   /* Keep enhanced dot-nav visible on tablets */
-  .dot-nav             { display: flex !important; right: 15px; padding: 15px 8px; gap: 12px; background: #0d1b2a !important; border: 1px solid #c9a84c !important; }
-  .dot-nav a::after    { display: none !important; }
+  .dot-nav             { display: flex; right: 15px; padding: 15px 8px; gap: 12px; background: #0d1b2a; border: 1px solid #c9a84c; }
+  .dot-nav a::after    { display: none; }
 }
 
 @media (max-width: 900px) {
