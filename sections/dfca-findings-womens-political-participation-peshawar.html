@@ -529,7 +529,7 @@ footer {
 <section class="viz-suite">
   <div class="viz-suite-inner">
     <p class="section-label fade-up">Evidence from the Field</p>
-    <h2 class="section-title fade-up">Four views of the evidence.</h2>
+    <h2 class="section-title fade-up">Five views of the evidence.</h2>
 
     <!-- SUB-SECTION 1: Belief Trajectory -->
     <div class="viz-subsection fade-up">
@@ -553,7 +553,19 @@ footer {
       </p>
     </div>
 
-    <!-- SUB-SECTION 3: Operational Timeline -->
+    <!-- SUB-SECTION 3: Pessimism Wedge -->
+    <div class="viz-subsection fade-up">
+      <p class="viz-sub-label">Pessimism wedge distributions by vantage point</p>
+      <div class="chart-wrap" style="height:340px;">
+        <canvas id="chart4"></canvas>
+      </div>
+      <p class="chart-caption">
+        Each bar shows the average pessimism wedge — the gap between what a respondent predicts others believe and what others actually believe about women's right to vote (on a 0–10 scale). All four wedges are negative, meaning respondents consistently underestimate actual community support. The magnitude increases sharply when estimating across gender lines: women's estimates of men (C) and men's estimates of other men (D) carry the largest biases. Panel D is the most striking — men dramatically underestimate the degree to which other men support women's right to vote, a textbook case of pluralistic ignorance.
+      </p>
+      <p class="chart-note">Wedge = predicted support − actual support (0–10 scale). Bars show estimated panel means derived from field histogram data, District Peshawar, 2019.</p>
+    </div>
+
+    <!-- SUB-SECTION 4: Operational Timeline -->
     <div class="viz-subsection fade-up">
       <p class="viz-sub-label">Field deployment and data collection</p>
       <div class="chart-wrap" style="height:360px;">
@@ -634,6 +646,12 @@ footer {
         <p class="finding-body">Women's second-order beliefs about community norms showed near-zero correlation with the personal beliefs of men in their own household (r = -0.02). In contrast, the beliefs held by women in a woman's own social network showed a positive correlation with her community expectations (r = 0.22), and women with higher network centrality formed more accurate beliefs about actual community support levels.</p>
         <span class="finding-source">Source: Network analysis, Figure 3 and Appendix D. District Peshawar, 2019.</span>
       </div>
+
+      <div class="finding-card fade-up">
+        <h3 class="finding-headline">All four belief wedges were negative — and men's pessimism about other men was the largest of all.</h3>
+        <p class="finding-body">Across all four vantage points, respondents predicted lower support than actually existed — a consistent pessimism wedge. Women's estimates of other women were the closest to reality (mean wedge ≈ −1.5 on a 0–10 scale). Men's estimates of other men were the most distorted (mean wedge ≈ −4.0), meaning men believe their personal support for women's political rights is unusual when in fact it is widely shared. This pattern is consistent with pluralistic ignorance driven by the near-complete segregation of male and female social networks in the study area.</p>
+        <span class="finding-source">Source: Wedge analysis, field histogram data. District Peshawar, 2019.</span>
+      </div>
     </div>
   </div>
 </section>
@@ -660,7 +678,11 @@ footer {
       DFCA Research served as Implementing Partner on this study. Research design and causal analysis by the study's academic team.
     </div>
     <div class="footer-right">
-      &copy; 2025 DFCA Research
+      &copy; 2025 DFCA Research. All rights reserved.<br>
+      <span style="font-size:10px; color:rgba(247,243,236,0.35);">
+        Data and findings may not be reproduced without written permission.<br>
+        Implementing Partner Report &nbsp;·&nbsp; District Peshawar, KP, Pakistan
+      </span>
     </div>
   </div>
 </footer>
@@ -763,7 +785,7 @@ Chart.register(verticalLinePlugin);
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Personal beliefs', "Women's community\nestimate", "Men's community\nestimate"],
+      labels: ['Personal beliefs', ["Women's community", 'estimate'], ["Men's community", 'estimate']],
       datasets: [
         {
           label: 'Women respondents (right to vote)',
@@ -795,13 +817,14 @@ Chart.register(verticalLinePlugin);
     },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 28, right: 16, bottom: 8, left: 8 } },
       interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: {
           position: 'top',
           align: 'start',
-          labels: { font: { family: "'Inter', sans-serif", size: 12 } }
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
         },
         tooltip: {
           callbacks: {
@@ -816,7 +839,7 @@ Chart.register(verticalLinePlugin);
       scales: {
         x: {
           grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
-          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 }, maxRotation: 0 },
           border: { display: false }
         },
         y: {
@@ -849,41 +872,42 @@ Chart.register(verticalLinePlugin);
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Discuss politics\npublicly', 'Right to vote', 'Run for\noffice'],
+      labels: [['Discuss politics', 'publicly'], 'Right to vote', ['Run for', 'office']],
       datasets: [
         {
           label: 'Personal beliefs (first-order)',
           data: [82.4, 84.5, 83.2],
           backgroundColor: '#C9A84C',
           borderRadius: 2,
-          barThickness: 22
+          barThickness: 20
         },
         {
           label: "Women's community estimate",
           data: [63.9, 69.0, 64.9],
           backgroundColor: '#0D1B2A',
           borderRadius: 2,
-          barThickness: 22
+          barThickness: 20
         },
         {
           label: "Men's community estimate",
           data: [49.6, 62.6, 54.4],
           backgroundColor: 'rgba(122,107,85,0.65)',
           borderRadius: 2,
-          barThickness: 22
+          barThickness: 20
         }
       ]
     },
     options: {
       indexAxis: 'y',
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 8, right: 52, bottom: 8, left: 8 } },
       interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: {
           position: 'top',
           align: 'start',
-          labels: { font: { family: "'Inter', sans-serif", size: 12 } }
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
         },
         tooltip: {
           callbacks: {
@@ -919,13 +943,110 @@ Chart.register(verticalLinePlugin);
           const meta = chart.getDatasetMeta(i);
           meta.data.forEach((bar, j) => {
             const value = dataset.data[j];
+            const label = value + '%';
             ctx.save();
             ctx.fillStyle = '#5A4E3C';
             ctx.font = "11px 'DM Mono', monospace";
             ctx.textAlign = 'left';
-            ctx.fillText(value + '%', bar.x + 6, bar.y + 4);
+            const xPos = Math.min(bar.x + 5, chart.chartArea.right - ctx.measureText(label).width - 2);
+            ctx.fillText(label, xPos, bar.y + 4);
             ctx.restore();
           });
+        });
+      }
+    }]
+  });
+})();
+
+/* ── CHART 4: PESSIMISM WEDGE ── */
+(function() {
+  const ctx = document.getElementById('chart4').getContext('2d');
+
+  // Average wedge (predicted − actual, 0–10 scale) estimated from field histogram panels
+  const wedgeLabels = [
+    ['(A) Women on', 'other women'],
+    ['(B) Men on', 'women'],
+    ['(C) Women on', 'men'],
+    ['(D) Men on', 'other men']
+  ];
+  const wedgeMeans = [-1.5, -2.0, -3.3, -4.0];
+  const barColors = [
+    'rgba(201,168,76,0.80)',
+    'rgba(13,27,42,0.75)',
+    'rgba(201,168,76,0.55)',
+    'rgba(13,27,42,0.55)'
+  ];
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: wedgeLabels,
+      datasets: [{
+        label: 'Mean pessimism wedge (0–10 scale)',
+        data: wedgeMeans,
+        backgroundColor: barColors,
+        borderColor: barColors.map(c => c.replace(/[\d.]+\)$/, '1)')),
+        borderWidth: 1,
+        borderRadius: 2,
+        barThickness: 44
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 20, right: 60, bottom: 8, left: 8 } },
+      indexAxis: 'y',
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `Mean wedge: ${ctx.parsed.x.toFixed(1)} (on 0–10 scale)`
+          }
+        },
+        verticalLine: { x: 0, label: 'No bias' }
+      },
+      scales: {
+        x: {
+          min: -5,
+          max: 0.5,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            font: { family: "'DM Mono', monospace", size: 11 },
+            callback: v => v === 0 ? '0 (actual)' : v.toFixed(0)
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Wedge: predicted − actual support (0–10 scale)',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { top: 8 }
+          }
+        },
+        y: {
+          grid: { display: false, drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [{
+      id: 'wedgeValueLabels',
+      afterDatasetsDraw(chart) {
+        const c = chart.ctx;
+        const meta = chart.getDatasetMeta(0);
+        meta.data.forEach((bar, i) => {
+          const val = wedgeMeans[i].toFixed(1);
+          const label = val;
+          c.save();
+          c.fillStyle = '#5A4E3C';
+          c.font = "bold 11px 'DM Mono', monospace";
+          c.textAlign = 'right';
+          const xPos = Math.max(bar.x - 6, chart.chartArea.left + 4);
+          c.fillText(label, xPos, bar.y + 4);
+          c.restore();
         });
       }
     }]
@@ -989,20 +1110,21 @@ Chart.register(verticalLinePlugin);
     },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 12, right: 16, bottom: 8, left: 8 } },
       interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: {
           position: 'top',
           align: 'start',
-          labels: { font: { family: "'Inter', sans-serif", size: 12 } }
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
         },
         verticalLine: {}
       },
       scales: {
         x: {
           grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
-          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 11 }, maxRotation: 0 },
           border: { display: false }
         },
         y: {
@@ -1022,7 +1144,8 @@ Chart.register(verticalLinePlugin);
             display: true,
             text: 'Households surveyed',
             color: '#C9A84C',
-            font: { family: "'Inter', sans-serif", size: 11 }
+            font: { family: "'Inter', sans-serif", size: 10 },
+            padding: { bottom: 4 }
           }
         },
         y1: {
@@ -1039,9 +1162,10 @@ Chart.register(verticalLinePlugin);
           border: { display: false },
           title: {
             display: true,
-            text: 'Settlements',
+            text: 'Settlements activated',
             color: '#0D1B2A',
-            font: { family: "'Inter', sans-serif", size: 11 }
+            font: { family: "'Inter', sans-serif", size: 10 },
+            padding: { bottom: 4 }
           }
         },
         y2: {
