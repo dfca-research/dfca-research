@@ -197,84 +197,89 @@ a { color: inherit; }
 /* ─────────────────────────────────────────────────────────
    SCROLL POSITION DOTS
 ───────────────────────────────────────────────────────── */
-.dot-nav {
+/* Robust Scroll Position Dot Nav */
+nav.dot-nav {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
   position: fixed;
   right: 30px;
   top: 50%;
   transform: translateY(-50%);
-  display: flex;
   flex-direction: column;
   gap: 15px;
-  z-index: 9999;
-  padding: 20px 12px;
-  background: #0d1b2a !important; /* Force solid navy */
-  border-radius: 30px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-  border: 2px solid #c9a84c !important; /* Force gold border */
+  z-index: 99999 !important;
+  padding: 22px 14px;
+  background: #0d1b2a !important; 
+  border-radius: 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  border: 2px solid #c9a84c !important;
+  min-width: 40px;
+  align-items: center;
 }
 
-.dot-nav a {
+nav.dot-nav a.dot {
   position: relative;
   display: block;
-  width: 12px; height: 12px;
+  width: 10px; 
+  height: 10px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.4);
-  transition: all 0.3s ease;
+  background: rgba(255,255,255,0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Persistent ripple animation to draw the eye */
-.dot-nav a::before {
+/* Active Ripple Animation */
+nav.dot-nav a.dot::before {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: -6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(201, 168, 76, 0.4);
   transform: scale(1);
-  animation: dot-ripple 3s infinite;
+  animation: dot-ripple 2s infinite;
   pointer-events: none;
 }
 
-.dot-nav a.active::before {
-  background: rgba(201, 168, 76, 0.5);
-  animation: dot-ripple 1.5s infinite;
-}
-
 @keyframes dot-ripple {
-  0%   { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(3); opacity: 0; }
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(3.5); opacity: 0; }
 }
 
-.dot-nav a::after {
+nav.dot-nav a.dot::after {
   content: attr(data-label);
   position: absolute;
-  right: 40px; top: 50%;
-  transform: translateY(-50%);
+  right: 45px; top: 50%;
+  transform: translateY(-50%) translateX(10px);
   background: #c9a84c;
   color: #0d1b2a;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   padding: 6px 14px;
   border-radius: 4px;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  font-family: var(--sans);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.dot-nav a:hover::after { 
+nav.dot-nav a.dot:hover::after { 
   opacity: 1; 
+  transform: translateY(-50%) translateX(0);
 }
 
-.dot-nav a.active {
-  background: var(--gold) !important;
-  transform: scale(1.4);
-  box-shadow: 0 0 20px rgba(201, 168, 76, 0.5);
+nav.dot-nav a.dot.active {
+  background: #c9a84c !important;
+  transform: scale(1.6);
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.6);
 }
 
-.dot-nav a:hover:not(.active) {
-  background: #fff;
-  transform: scale(1.2);
+nav.dot-nav a.dot:hover:not(.active) {
+  background: #ffffff;
+  transform: scale(1.3);
 }
 
 /* ─────────────────────────────────────────────────────────
