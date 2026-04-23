@@ -293,8 +293,8 @@ body {
 }
 .network-badge {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  top: 12px;
+  right: 12px;
   background: var(--navy);
   color: var(--gold);
   font-family: var(--mono);
@@ -590,22 +590,21 @@ footer {
       <div class="network-gallery">
         <div class="network-img-wrap">
           <img src="all_networks1.png" alt="Female and male-nominated social networks for 18 smaller settlements in District Peshawar">
-          <div class="network-badge">18 settlements &nbsp;·&nbsp; Indegree scale 0-30</div>
-          <div class="network-img-label">Female (left) and male-nominated (right) networks for smaller settlements in District Peshawar, mapped pre-analysis. Node size proportional to indegree centrality.</div>
+          <div class="network-img-label"><strong>18 settlements &nbsp;·&nbsp; Indegree scale 0-30</strong><br>Female (left) and male-nominated (right) networks for smaller settlements in District Peshawar, mapped pre-analysis. Node size proportional to indegree centrality.</div>
         </div>
         <div class="network-img-wrap">
           <img src="all_networks2.png" alt="Female and male-nominated social networks for 19 larger settlements in District Peshawar">
-          <div class="network-badge">19 settlements &nbsp;·&nbsp; Indegree scale 0-300</div>
-          <div class="network-img-label">Female (left) and male-nominated (right) networks for larger, denser settlements. Variation in network density across communities is visible throughout.</div>
+          <div class="network-img-label"><strong>19 settlements &nbsp;·&nbsp; Indegree scale 0-300</strong><br>Female (left) and male-nominated (right) networks for larger, denser settlements. Variation in network density across communities is visible throughout.</div>
         </div>
       </div>
 
       <div class="viz-subsection" style="margin-bottom:0; padding-top: 36px;">
         <p class="viz-sub-label">Network connectivity and observed voting behavior</p>
-        <div class="network-img-wrap" style="max-width:640px; margin: 0 auto 20px;">
-          <img src="voted24_female_connected.png" alt="Proportion of women who voted vs female network connectivity bins">
-          <div class="network-badge">5 connectivity bins &nbsp;·&nbsp; Female networks</div>
-          <div class="network-img-label">Proportion of women who voted, by the share of connected female households where women voted. Data show a strong monotonic relationship between a woman's embeddedness in active female networks and her own observed voting behavior.</div>
+        <div class="network-img-wrap" style="max-width:400px; margin: 0 auto 20px;">
+          <div style="aspect-ratio: 1 / 1; background: white; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <img src="voted24_female_connected.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Proportion of women who voted vs female network connectivity bins">
+          </div>
+          <div class="network-img-label"><strong>5 connectivity bins &nbsp;·&nbsp; Female networks</strong><br>Proportion of women who voted, by the share of connected female households where women voted. Data show a strong monotonic relationship between a woman's embeddedness in active female networks and her own observed voting behavior.</div>
         </div>
         <p class="chart-caption">
           The scatter shows that women embedded in female social networks where voting is common were substantially more likely to vote themselves. Women in the lowest connectivity bin showed near-zero turnout; women in the highest connectivity bin showed approximately 93% turnout.
