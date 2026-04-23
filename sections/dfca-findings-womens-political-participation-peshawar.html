@@ -769,6 +769,14 @@ const verticalLinePlugin = {
 
 Chart.register(verticalLinePlugin);
 
+/* ── CUSTOM TOOLTIP POSITIONER (FOLLOW MOUSE) ── */
+Chart.Tooltip.positioners.followMouse = function(items, eventPosition) {
+  return {
+    x: eventPosition.x,
+    y: eventPosition.y
+  };
+};
+
 /* ── CHART 1: BELIEF TRAJECTORY ── */
 (function() {
   const ctx = document.getElementById('chart1').getContext('2d');
@@ -826,6 +834,7 @@ Chart.register(verticalLinePlugin);
           labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
         },
         tooltip: {
+          position: 'followMouse',
           callbacks: {
             label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%`
           }
@@ -901,7 +910,7 @@ Chart.register(verticalLinePlugin);
       responsive: true,
       maintainAspectRatio: false,
       layout: { padding: { top: 8, right: 52, bottom: 8, left: 8 } },
-      interaction: { mode: 'index', intersect: false },
+      interaction: { mode: 'nearest', intersect: true },
       plugins: {
         legend: {
           position: 'top',
@@ -909,6 +918,7 @@ Chart.register(verticalLinePlugin);
           labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
         },
         tooltip: {
+          position: 'followMouse',
           callbacks: {
             label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x}%`
           }
@@ -995,10 +1005,11 @@ Chart.register(verticalLinePlugin);
       maintainAspectRatio: false,
       layout: { padding: { top: 20, right: 60, bottom: 8, left: 8 } },
       indexAxis: 'y',
-      interaction: { mode: 'index', intersect: false },
+      interaction: { mode: 'nearest', intersect: true },
       plugins: {
         legend: { display: false },
         tooltip: {
+          position: 'followMouse',
           callbacks: {
             label: ctx => `Mean wedge: ${ctx.parsed.x.toFixed(1)} (on 0–10 scale)`
           }
@@ -1176,6 +1187,11 @@ Chart.register(verticalLinePlugin);
     }
   });
 })();
+</script>
+
+</body>
+</html>
+
 </script>
 
 </body>
