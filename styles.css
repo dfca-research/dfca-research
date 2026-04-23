@@ -1833,9 +1833,8 @@ footer {
   .featured-inner      { grid-template-columns: 1fr; gap: 48px; }
   .approach-grid       { grid-template-columns: 1fr; gap: 48px; }
   .footer-top          { grid-template-columns: 1fr 1fr; }
-  /* Keep enhanced dot-nav visible on tablets */
-  .dot-nav             { display: flex; right: 15px; padding: 15px 8px; gap: 12px; background: #0d1b2a; border: 1px solid #c9a84c; }
-  .dot-nav a::after    { display: none; }
+  /* Hide dot-nav on tablets and mobile */
+  nav.dot-nav          { display: none !important; }
 }
 
 @media (max-width: 900px) {
@@ -1941,7 +1940,4 @@ footer {
   .featured-meta                { flex-direction: column; gap: 18px; }
   .rct-header                   { margin-bottom: 48px; }
   .footer-bottom                { flex-direction: column; gap: 8px; }
-  
-  /* Hide dot-nav on very small screens to avoid clutter, using hamburger instead */
-  .dot-nav                      { display: none; }
 }
