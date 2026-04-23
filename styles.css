@@ -228,8 +228,8 @@ nav.dot-nav a.dot {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Active Ripple Animation */
-nav.dot-nav a.dot::before {
+/* Active Ripple Animation - Only for the lit dot */
+nav.dot-nav a.dot.active::before {
   content: '';
   position: absolute;
   inset: -6px;
