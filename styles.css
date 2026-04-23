@@ -893,6 +893,27 @@ nav#main-nav.scrolled {
   box-shadow: 0 10px 28px -10px rgba(13,27,42,0.1);
 }
 
+.ab-card--featured {
+  border-color: rgba(168,133,58,0.38);
+  position: relative;
+  overflow: hidden;
+}
+.ab-card--featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-muted) 0%, rgba(201,168,76,0.3) 100%);
+}
+.ab-card--featured:hover {
+  border-color: rgba(168,133,58,0.6);
+  box-shadow: 0 12px 32px -10px rgba(13,27,42,0.14);
+}
+.ab-card--featured .ab-card-label {
+  color: var(--navy);
+  opacity: 0.7;
+}
+
 .ab-card-label {
   font-size: 10.5px;
   font-weight: 700;
@@ -937,6 +958,42 @@ nav#main-nav.scrolled {
   background: #EFF6FF;
   color: #1D4ED8;
   border-color: #BFDBFE;
+}
+
+.tag-institution {
+  background: var(--navy);
+  color: rgba(255,255,255,0.86);
+  border-color: var(--navy);
+  letter-spacing: 0.01em;
+  font-size: 11.5px;
+}
+
+.geo-stats {
+  display: flex;
+  gap: 24px;
+  margin: 18px 0 0;
+  padding: 16px 0 18px;
+  border-top: 1px solid var(--slate-200);
+  border-bottom: 1px solid var(--slate-200);
+}
+.geo-stat-num {
+  display: block;
+  font-size: 2.1rem;
+  font-weight: 700;
+  font-family: var(--sans);
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.geo-stat-label {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--gold-muted);
+  margin-top: 5px;
+  font-family: var(--sans);
 }
 
 /* ─────────────────────────────────────────────────────────
