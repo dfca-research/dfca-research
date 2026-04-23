@@ -435,6 +435,38 @@ function initProjectToggles() {
   });
 }
 
+/* ── Mobile Menu Toggle ─────────────────────────────────── */
+function initMobileMenu() {
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const nav    = document.querySelector('.nav-links');
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggle.classList.toggle('active');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+  });
+
+  // Close menu when clicking a link
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle.classList.remove('active');
+      nav.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+      toggle.classList.remove('active');
+      nav.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
 /* ── Bootstrap ──────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   loadSections().then(() => {
@@ -443,6 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounters();
     initNavScroll();
     initDotNav();
+    initMobileMenu();
     initParallax();
     initScrollColorTransition();
     initMagneticButtons();
