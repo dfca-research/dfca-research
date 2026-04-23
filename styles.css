@@ -199,55 +199,49 @@ a { color: inherit; }
 ───────────────────────────────────────────────────────── */
 .dot-nav {
   position: fixed;
-  right: 25px;
+  right: 30px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  z-index: 999; /* Higher z-index to stay on top */
-  padding: 20px 10px;
-  background: var(--navy); /* Solid background for max contrast */
+  gap: 15px;
+  z-index: 9999;
+  padding: 20px 12px;
+  background: #0d1b2a !important; /* Force solid navy */
   border-radius: 30px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  border: 2px solid #c9a84c !important; /* Force gold border */
 }
 
 .dot-nav a {
   position: relative;
   display: block;
-  width: 10px; height: 10px;
+  width: 12px; height: 12px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.2); /* Semi-transparent white dots */
-  transition: all 0.3s var(--ease);
-  text-decoration: none;
+  background: rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
 }
 
 .dot-nav a::after {
   content: attr(data-label);
   position: absolute;
-  right: 35px; top: 50%;
-  transform: translateY(-50%) translateX(10px);
-  background: var(--gold);
-  color: var(--navy);
-  font-size: 10px;
+  right: 40px; top: 50%;
+  transform: translateY(-50%);
+  background: #c9a84c;
+  color: #0d1b2a;
+  font-size: 11px;
   font-weight: 800;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 4px;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.3s var(--ease);
-  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
   text-transform: uppercase;
-  font-family: var(--sans);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .dot-nav a:hover::after { 
   opacity: 1; 
-  transform: translateY(-50%) translateX(0);
 }
 
 .dot-nav a.active {
@@ -1812,8 +1806,8 @@ footer {
   .approach-grid       { grid-template-columns: 1fr; gap: 48px; }
   .footer-top          { grid-template-columns: 1fr 1fr; }
   /* Keep enhanced dot-nav visible on tablets */
-  .dot-nav             { display: flex; right: 15px; padding: 15px 8px; gap: 12px; }
-  .dot-nav a::after    { display: none; } /* Still hide labels on smaller tablets to avoid overlap */
+  .dot-nav             { display: flex !important; right: 15px; padding: 15px 8px; gap: 12px; background: #0d1b2a !important; border: 1px solid #c9a84c !important; }
+  .dot-nav a::after    { display: none !important; }
 }
 
 @media (max-width: 900px) {
