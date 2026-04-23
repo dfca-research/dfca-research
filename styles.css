@@ -191,6 +191,9 @@ a { color: inherit; }
 
 .section-mark.line-in::before { width: 64px; }
 
+/* Mobile Quick Navigation Bar */
+.mobile-bottom-nav { display: none; }
+
 /* ─────────────────────────────────────────────────────────
    SCROLL POSITION DOTS
 ───────────────────────────────────────────────────────── */
@@ -1811,6 +1814,55 @@ footer {
 
 @media (max-width: 720px) {
   .menu-toggle { display: block; }
+  .hide-mobile { display: none !important; }
+
+  /* Mobile Bottom Nav Styles */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(247, 243, 236, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(0,0,0,0.08);
+    z-index: 900;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+  }
+
+  .m-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--slate-400);
+    gap: 4px;
+    flex: 1;
+  }
+
+  .m-nav-item.active {
+    color: var(--navy);
+  }
+
+  .m-nav-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .m-nav-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--sans);
+  }
+
+  /* Adjust footer padding to account for bottom nav */
+  footer {
+    padding-bottom: 80px;
+  }
   
   .nav-links {
     position: fixed;

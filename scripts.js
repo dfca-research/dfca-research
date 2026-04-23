@@ -101,6 +101,7 @@ function initDotNav() {
   const sectionIds = ['hero','about','research','featured','rct','approach'];
   const dots       = document.querySelectorAll('.dot-nav a');
   const navLinks   = document.querySelectorAll('.nav-links a');
+  const mNavItems  = document.querySelectorAll('.m-nav-item');
 
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -111,6 +112,9 @@ function initDotNav() {
         );
         navLinks.forEach(a =>
           a.classList.toggle('active', a.getAttribute('href') === '#' + id)
+        );
+        mNavItems.forEach(m =>
+          m.classList.toggle('active', m.getAttribute('href') === '#' + id)
         );
       }
     });
