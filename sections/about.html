@@ -55,56 +55,6 @@
       </div>
 
       <div class="ab-card reveal">
-        <div class="ab-card-label">Administered Geographic Scope</div>
-        <h4>Khyber Pakhtunkhwa, Merged Districts &amp; Punjab</h4>
-        <p>Field deployment across the settled and merged districts of Khyber Pakhtunkhwa and
-        across agricultural and peri-urban districts of Punjab. Coverage is documented by
-        district on the operational record.</p>
-        <div class="tag-list">
-          <span class="tag tag-green">KPK · 23 Districts</span>
-          <span class="tag tag-blue">Punjab · 11 Districts</span>
-        </div>
-        <div class="tag-list" style="margin-top:10px;">
-          <span class="tag">Peshawar</span>
-          <span class="tag">Swat</span>
-          <span class="tag">S. Waziristan</span>
-          <span class="tag">Bajaur</span>
-          <span class="tag">+19 further KPK</span>
-        </div>
-        <div class="tag-list" style="margin-top:6px;">
-          <span class="tag">Bahawalpur</span>
-          <span class="tag">Multan</span>
-          <span class="tag">Faisalabad</span>
-          <span class="tag">Jhang</span>
-          <span class="tag">Bahawalnagar</span>
-          <span class="tag">Khanewal</span>
-          <span class="tag">Layyah</span>
-          <span class="tag">Rahimyar Khan</span>
-          <span class="tag">Vehari</span>
-          <span class="tag">Sheikhupura</span>
-          <span class="tag">Gujranwala</span>
-        </div>
-      </div>
-
-      <div class="ab-card reveal">
-        <div class="ab-card-label">Principal Investigator Affiliations</div>
-        <h4>Institutions Serviced to Date</h4>
-        <p>Field operations have been administered for principal investigators affiliated with
-        the following universities and research centres. The establishment performs no
-        authorship function; attribution of findings remains with the commissioning investigator.</p>
-        <div class="tag-list">
-          <span class="tag">Stanford University</span>
-          <span class="tag">UCLA</span>
-          <span class="tag">European University Institute</span>
-          <span class="tag">Boston University</span>
-          <span class="tag">University of Pittsburgh</span>
-          <span class="tag">LUMS</span>
-          <span class="tag">Centre for Development &amp; Policy Research</span>
-          <span class="tag">Mahbub Ul Haq Research Centre</span>
-        </div>
-      </div>
-
-      <div class="ab-card reveal">
         <div class="ab-card-label">Registration</div>
         <p>Registered under the Voluntary Social Welfare Agencies Ordinance (1961) and the
         Societies Act (1860), Government of Pakistan. Registration documents are furnished to
@@ -112,5 +62,233 @@
       </div>
 
     </div>
+
+    <!-- Redesigned Geographic Coverage & Academic Partners Section -->
+    <div class="redesign-container reveal col-span-full mt-12 overflow-hidden rounded-xl bg-[#0d1b2a] p-8 text-slate-100 shadow-2xl md:p-12 border border-slate-800" style="grid-column: 1 / -1;">
+      <!-- Add Tailwind and GSAP via CDN if not present -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+      
+      <div class="grid gap-16 md:grid-cols-2">
+        <!-- Section 1: Geographic Coverage -->
+        <div id="geo-coverage-redesign" class="flex flex-col">
+          <div class="mb-8">
+            <span class="mb-2 block font-mono text-[10px] uppercase tracking-[0.3em] text-[#C9A84C] opacity-90">Operational Reach</span>
+            <h3 class="font-serif text-3xl font-medium text-white lg:text-4xl">KPK, Merged Districts &amp; Punjab</h3>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400 max-w-md">Field research and programme evaluation spanning conflict affected KPK districts, post merger tribal areas, and major agricultural and peri urban districts across Punjab.</p>
+          </div>
+          
+          <div id="geo-viz-container" class="relative mt-4 h-[350px] w-full rounded-lg bg-slate-900/50 border border-slate-800/50 overflow-hidden cursor-crosshair group">
+            <div id="geo-nodes" class="absolute inset-0"></div>
+            <!-- Tooltip -->
+            <div id="geo-tooltip" class="pointer-events-none absolute z-50 rounded bg-[#C9A84C] px-2 py-1 font-mono text-[10px] font-bold text-[#0d1b2a] opacity-0 transition-opacity duration-200"></div>
+            <!-- Legend Overlay -->
+            <div class="absolute bottom-4 left-4 flex gap-4 text-[10px] font-mono uppercase tracking-wider text-slate-500">
+              <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-teal-400"></span> KPK (23)</div>
+              <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-[#C9A84C]"></span> Punjab (11)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Academic Partners -->
+        <div id="academic-partners-redesign" class="flex flex-col border-slate-800 md:border-l md:pl-16">
+          <div class="mb-8">
+            <span class="mb-2 block font-mono text-[10px] uppercase tracking-[0.3em] text-[#C9A84C] opacity-90">Collaborative Network</span>
+            <h3 class="font-serif text-3xl font-medium text-white lg:text-4xl">Global Research Network</h3>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400 max-w-md">We collaborate with globally ranked universities and research centres to ensure our work meets international standards of scientific rigour and policy relevance.</p>
+          </div>
+
+          <div id="network-viz-container" class="relative mt-4 h-[350px] w-full rounded-lg bg-slate-900/50 border border-slate-800/50 overflow-hidden">
+            <svg id="network-svg" class="absolute inset-0 h-full w-full pointer-events-none"></svg>
+            <div id="network-nodes" class="absolute inset-0 h-full w-full"></div>
+            
+            <!-- Central Hub -->
+            <div id="hub-node" class="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#C9A84C] bg-[#0d1b2a] shadow-[0_0_20px_rgba(201,168,76,0.3)]">
+                <span class="font-serif text-[10px] font-bold text-[#C9A84C] text-center px-1">DFCA<br/>RESEARCH</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function() {
+          // Data
+          const kpkNames = ["Peshawar", "Swat", "S. Waziristan", "Bajaur", "Mardan", "Abbottabad", "Kohat", "Bannu", "D.I. Khan", "Charsadda", "Nowshera", "Mansehra", "Dir Lower", "Dir Upper", "Haripur", "Khyber", "Mohmand", "Kurram", "Orakzai", "North Waziristan", "Tank", "Lakki Marwat", "Malakand"];
+          const punjabNames = ["Bahawalpur", "Multan", "Faisalabad", "Jhang", "Bahawalnagar", "Khanewal", "Layyah", "Rahimyar Khan", "Vehari", "Sheikhupura", "Gujranwala"];
+          const partners = [
+            { name: "Stanford", x: -120, y: -80 },
+            { name: "UCLA", x: 120, y: -90 },
+            { name: "EUI", x: -140, y: 30 },
+            { name: "Boston University", x: 140, y: 40 },
+            { name: "U. Pittsburgh", x: -80, y: 110 },
+            { name: "LUMS", x: 80, y: 110 },
+            { name: "CDPR", x: 0, y: -130 },
+            { name: "MHU Research Centre", x: 0, y: 140 }
+          ];
+
+          const geoContainer = document.getElementById('geo-nodes');
+          const tooltip = document.getElementById('geo-tooltip');
+          const networkNodes = document.getElementById('network-nodes');
+          const networkSvg = document.getElementById('network-svg');
+          const hub = document.getElementById('hub-node');
+
+          let animated = false;
+
+          // Initialize Geo Nodes
+          function initGeo() {
+            const nodes = [];
+            const allDistricts = [
+              ...kpkNames.map(n => ({ name: n, type: 'kpk' })),
+              ...punjabNames.map(n => ({ name: n, type: 'punjab' }))
+            ];
+
+            allDistricts.forEach((d, i) => {
+              const node = document.createElement('div');
+              node.className = `absolute h-2 w-2 rounded-full cursor-pointer transition-transform duration-300 hover:scale-150 z-10 ${d.type === 'kpk' ? 'bg-teal-400' : 'bg-[#C9A84C]'}`;
+              node.style.left = '50%';
+              node.style.top = '50%';
+              node.style.opacity = '0';
+              
+              node.addEventListener('mouseenter', (e) => {
+                tooltip.textContent = d.name;
+                tooltip.style.opacity = '1';
+                updateTooltip(e);
+              });
+              
+              node.addEventListener('mousemove', updateTooltip);
+              node.addEventListener('mouseleave', () => tooltip.style.opacity = '0');
+              
+              geoContainer.appendChild(node);
+              nodes.push({ el: node, type: d.type });
+            });
+
+            return nodes;
+          }
+
+          function updateTooltip(e) {
+            const rect = geoContainer.getBoundingClientRect();
+            tooltip.style.left = (e.clientX - rect.left + 15) + 'px';
+            tooltip.style.top = (e.clientY - rect.top - 25) + 'px';
+          }
+
+          // Initialize Network Graph
+          function initNetwork() {
+            partners.forEach((p, i) => {
+              // Node
+              const node = document.createElement('div');
+              node.className = "partner-node absolute z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-[8px] font-bold text-slate-300 transition-all hover:border-[#C9A84C] hover:text-[#C9A84C] hover:shadow-[0_0_15px_rgba(201,168,76,0.2)]";
+              node.innerHTML = `<span class="text-center px-1">${p.name}</span>`;
+              node.style.left = '50%';
+              node.style.top = '50%';
+              node.style.transform = 'translate(-50%, -50%)';
+              networkNodes.appendChild(node);
+              p.el = node;
+
+              // Line
+              const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+              line.setAttribute("stroke", "rgba(201,168,76,0.1)");
+              line.setAttribute("stroke-width", "1");
+              networkSvg.appendChild(line);
+              p.line = line;
+
+              // Create the floating tween but don't start it until entry animation finishes
+              p.floatTween = gsap.to(p.el, {
+                x: `+=${Math.random() * 20 - 10}`,
+                y: `+=${Math.random() * 20 - 10}`,
+                duration: 2 + Math.random() * 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                paused: true,
+                onUpdate: updateLines
+              });
+
+              node.addEventListener('mouseenter', () => {
+                p.floatTween.pause();
+                gsap.to(node, { scale: 1.2, duration: 0.3 });
+                gsap.to(line, { stroke: "rgba(201,168,76,0.4)", strokeWidth: 2, duration: 0.3 });
+              });
+              node.addEventListener('mouseleave', () => {
+                p.floatTween.play();
+                gsap.to(node, { scale: 1, duration: 0.3 });
+                gsap.to(line, { stroke: "rgba(201,168,76,0.1)", strokeWidth: 1, duration: 0.3 });
+              });
+            });
+          }
+
+          function updateLines() {
+            const rect = networkSvg.getBoundingClientRect();
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+
+            partners.forEach(p => {
+              const nx = (parseFloat(p.el.style.left) / 100) * rect.width + (gsap.getProperty(p.el, "x") || 0);
+              const ny = (parseFloat(p.el.style.top) / 100) * rect.height + (gsap.getProperty(p.el, "y") || 0);
+              p.line.setAttribute("x1", cx);
+              p.line.setAttribute("y1", cy);
+              p.line.setAttribute("x2", nx);
+              p.line.setAttribute("y2", ny);
+            });
+          }
+
+          function animate() {
+            if (animated) return;
+            animated = true;
+
+            const geoNodes = initGeo();
+            initNetwork();
+
+            // Geo Animation: Expand from center
+            geoNodes.forEach((n, i) => {
+              const angle = Math.random() * Math.PI * 2;
+              const dist = 60 + Math.random() * 80;
+              const offsetX = n.type === 'kpk' ? -80 : 80;
+              const tx = offsetX + Math.cos(angle) * dist;
+              const ty = Math.sin(angle) * dist;
+
+              gsap.to(n.el, {
+                x: tx,
+                y: ty,
+                opacity: 0.8,
+                duration: 1.5,
+                delay: i * 0.02,
+                ease: "power4.out"
+              });
+            });
+
+            // Network Animation: Float and Orbit
+            partners.forEach((p, i) => {
+              gsap.set(p.el, { x: 0, y: 0, opacity: 0 });
+              gsap.to(p.el, {
+                x: p.x,
+                y: p.y,
+                opacity: 1,
+                duration: 1.5,
+                delay: 0.5 + i * 0.1,
+                ease: "back.out(1.7)",
+                onUpdate: updateLines,
+                onComplete: () => {
+                  // Start floating after reaching position
+                  p.floatTween.play();
+                }
+              });
+            });
+          }
+
+          // Intersection Observer to trigger animation
+          const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              animate();
+              observer.disconnect();
+            }
+          }, { threshold: 0.3 });
+
+          observer.observe(document.getElementById('geo-coverage-redesign'));
+        })();
+      </script>
+    </div>
+
   </div>
 </section>
