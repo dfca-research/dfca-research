@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3/dist/chartjs-plugin-annotation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 
 <style>
 :root {
@@ -480,6 +481,9 @@ footer {
     height: 320px !important;
     flex: none;
   }
+  #chart4 {
+    height: 500px !important;
+  }
   .scrolly-steps {
     padding: 2rem 0;
   }
@@ -728,12 +732,15 @@ img, canvas { max-width: 100%; }
       <p class="chart-note">Density approximated from 18 histogram bins (bin width PKR 2,500, range PKR 0 to 45,000), smoothed using line tension 0.4. Control endline omitted for clarity. n: control baseline 313, treated baseline 1,252, treated endline 1,144.</p>
     </div>
 
-    <!-- ── SCROLLY 4: Theft Rate by Arm ── -->
+    <!-- ── SCROLLY 4: Heat Cells Grid (Theft) ── -->
     <div class="scrolly-section" data-chart-id="chart4">
       <div class="scrolly-chart">
         <p class="viz-sub-label">Enumerator-observed illicit connection rates by arm and survey wave</p>
         <div class="chart-wrap">
           <canvas id="chart4"></canvas>
+        </div>
+        <div class="chart-note" id="chart4-delta" style="text-align:center; font-family:var(--mono); margin-top:20px; font-size:11px;">
+          ↓2.9pp &nbsp;&nbsp; ↑2.3pp &nbsp;&nbsp; ↓0.8pp &nbsp;&nbsp; ↑8.9pp &nbsp;&nbsp; ↓4.9pp
         </div>
         <div class="scrolly-progress">
           <div class="scrolly-progress-fill" id="progress-chart4"></div>
@@ -760,9 +767,9 @@ img, canvas { max-width: 100%; }
     </div>
     <div class="chart-caption-block fade-up">
       <p class="chart-caption">
-        Bars show the percentage of households where an enumerator observed a hooked (illicit) electrical connection at the time of interview, by randomization arm and survey wave. Observed theft rates are a noisy proxy for actual connection behavior and are subject to enumerator visibility constraints. The control group declined from 20.1 percent at baseline to 17.2 percent at endline. Across treatment arms, responses were heterogeneous: T4 (highest subsidy tier, mean PKR 1,253 per month) and T2 showed net decreases relative to baseline, while T1 and T3 showed net increases. No arm exhibits a statistically clear treatment effect on this measure given the sample sizes and wide confidence intervals.
+        Circular heat cells show the percentage of households where an enumerator observed a hooked (illicit) electrical connection at baseline and endline. Circle size and color intensity are proportional to the observed rate. The control group declined from 20.1 percent to 17.2 percent. T4 (highest subsidy) showed the largest reduction (-4.9pp), while T3 showed a significant increase (+8.9pp). No arm exhibits a statistically clear treatment effect given the sample sizes and wide confidence intervals.
       </p>
-      <p class="chart-note">P1 variable: enumerator observation of hooked connection (1 = Yes, 2 = No). Unsure and do-not-know responses excluded. Control: 288-303 obs; treatment arms: 274-298 obs per wave.</p>
+      <p class="chart-note">P1 variable: enumerator observation of hooked connection. Circle radius = rate x 1.5px. Delta row shows net percentage point change (Endline - Baseline) per arm.</p>
     </div>
 
     <!-- ── SCROLLY 5: Subsidy Disbursement ── -->
@@ -1096,34 +1103,36 @@ function updateChart4(stepIndex) {
   const chart = chartInstances.chart4;
   if (!chart) return;
 
-  const N = 5;
-  const NAVY = '#0D1B2A';
-  const GOLD = '#C9A84C';
-  const NAVY_DIM = 'rgba(13,27,42,0.12)';
-  const GOLD_DIM = 'rgba(201,168,76,0.12)';
+  const hlIdx = [null, 0, 4, 3][stepIndex]; // 0=Control, 4=T4, 3=T3
+  const baselineData = [20.1, 17.5, 16.2, 15.0, 21.9];
+  const endlineData = [17.2, 19.8, 15.4, 23.9, 17.0];
 
-  /* arm indices: 0=Control, 1=T1, 2=T2, 3=T3, 4=T4 */
-  var hlCat;
-  switch (stepIndex) {
-    case 1: hlCat = 0; break;
-    case 2: hlCat = 4; break;
-    case 3: hlCat = 3; break;
-    default: hlCat = null;
-  }
+  chart.data.datasets.forEach((ds, dsIdx) => {
+    const rates = dsIdx === 0 ? baselineData : endlineData;
+    const baseColor = dsIdx === 0 ? '#C9A84C' : '#A8853A';
+    
+    ds.pointRadius = rates.map((v, i) => {
+      let r = v * 1.5;
+      if (hlIdx !== null && i === hlIdx) r *= 1.35;
+      return r;
+    });
 
-  var bgBaseline, bgEndline;
-  if (hlCat !== null) {
-    bgBaseline = new Array(N).fill(NAVY_DIM);
-    bgEndline = new Array(N).fill(GOLD_DIM);
-    bgBaseline[hlCat] = NAVY;
-    bgEndline[hlCat] = GOLD;
-  } else {
-    bgBaseline = new Array(N).fill(NAVY);
-    bgEndline = new Array(N).fill(GOLD);
-  }
+    ds.backgroundColor = rates.map((v, i) => {
+      if (hlIdx !== null) {
+        return i === hlIdx ? baseColor : applyOpacity(baseColor, 0.15);
+      }
+      return baseColor;
+    });
 
-  chart.data.datasets[0].backgroundColor = bgBaseline;
-  chart.data.datasets[1].backgroundColor = bgEndline;
+    // Handle data labels visibility/glow
+    ds.datalabels = {
+      display: (context) => {
+        if (hlIdx === null) return true;
+        return context.dataIndex === hlIdx;
+      }
+    };
+  });
+
   chart.update('active');
 }
 
@@ -1679,101 +1688,81 @@ function createChart3() {
 }
 
 /* =====================================================
-   CHART 4: THEFT RATE BY ARM
+   CHART 4: SMALL MULTIPLES HEAT GRID
    ===================================================== */
 function createChart4() {
-  var ctx = document.getElementById('chart4').getContext('2d');
+  const ctx = document.getElementById('chart4').getContext('2d');
+  
+  const arms = ['Control', 'T1', 'T2', 'T3', 'T4'];
+  const baselineData = [20.1, 17.5, 16.2, 15.0, 21.9];
+  const endlineData = [17.2, 19.8, 15.4, 23.9, 17.0];
 
-  var arms = ['Control', 'T1 (Tier 1)', 'T2 (Tier 2)', 'T3 (Tier 3)', 'T4 (Tier 4)'];
-  var baselineRates = [20.1, 18.1, 19.8, 15.0, 21.9];
-  var endlineRates  = [17.2, 19.9, 18.7, 23.8, 17.0];
+  const gradBaseline = ctx.createRadialGradient(0, 0, 0, 0, 0, 40);
+  gradBaseline.addColorStop(0, '#C9A84C');
+  gradBaseline.addColorStop(1, '#A8853A');
+
+  const gradEndline = ctx.createRadialGradient(0, 0, 0, 0, 0, 40);
+  gradEndline.addColorStop(0, '#A8853A');
+  gradEndline.addColorStop(1, '#7A6B55');
 
   chartInstances.chart4 = new Chart(ctx, {
-    type: 'bar',
+    type: 'scatter',
     data: {
-      labels: arms,
       datasets: [
         {
-          label: 'Baseline (Dec 2022)',
-          data: baselineRates,
-          backgroundColor: new Array(5).fill('#0D1B2A'),
-          borderRadius: 2,
-          barThickness: 28
+          label: 'Baseline',
+          data: baselineData.map((v, i) => ({ x: 0, y: 4 - i, v: v })),
+          backgroundColor: gradBaseline,
+          pointRadius: baselineData.map(v => v * 1.5),
+          pointHoverRadius: baselineData.map(v => v * 1.5 + 4)
         },
         {
-          label: 'Endline (2024)',
-          data: endlineRates,
-          backgroundColor: new Array(5).fill('#C9A84C'),
-          borderRadius: 2,
-          barThickness: 28
+          label: 'Endline',
+          data: endlineData.map((v, i) => ({ x: 1, y: 4 - i, v: v })),
+          backgroundColor: gradEndline,
+          pointRadius: endlineData.map(v => v * 1.5),
+          pointHoverRadius: endlineData.map(v => v * 1.5 + 4)
         }
       ]
     },
+    plugins: [ChartDataLabels, {
+      id: 'heatGridLabels',
+      beforeDraw(chart) {
+        const { ctx, chartArea: { top }, scales: { x, y } } = chart;
+        ctx.save();
+        ctx.font = "bold 11px 'DM Mono', monospace";
+        ctx.fillStyle = '#A8853A';
+        ctx.textAlign = 'center';
+        ctx.fillText('BASELINE', x.getPixelForValue(0), top - 15);
+        ctx.fillText('ENDLINE', x.getPixelForValue(1), top - 15);
+        
+        ctx.font = "bold 12px 'Inter'";
+        ctx.fillStyle = '#0D1B2A';
+        ctx.textAlign = 'right';
+        arms.forEach((arm, i) => {
+          ctx.fillText(arm, x.getPixelForValue(0) - 60, y.getPixelForValue(4 - i) + 5);
+        });
+        ctx.restore();
+      }
+    }],
     options: {
-      indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
-      layout: { padding: { top: 8, right: 80, bottom: 8, left: 8 } },
-      interaction: { mode: 'nearest', intersect: true },
-      plugins: {
-        legend: {
-          position: 'top',
-          align: 'start',
-          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
-        },
-        tooltip: {
-          position: 'followMouse',
-          callbacks: {
-            label: function(c) { return c.dataset.label + ': ' + c.parsed.x.toFixed(1) + '%'; }
-          }
-        },
-        verticalLine: {}
-      },
+      layout: { padding: { top: 40, left: 90, right: 60, bottom: 20 } },
       scales: {
-        x: {
-          min: 0,
-          max: 32,
-          grid: { color: gridColor, borderDash: [4, 4], drawBorder: false },
-          ticks: {
-            ...tickConfig,
-            callback: function(v) { return v + '%'; },
-            font: { family: "'DM Mono', monospace", size: 11 }
-          },
-          border: { display: false },
-          title: {
-            display: true,
-            text: '% households with observed hooked connection',
-            color: '#7A6B55',
-            font: { family: "'Inter', sans-serif", size: 11 },
-            padding: { top: 8 }
-          }
-        },
-        y: {
-          grid: { display: false, drawBorder: false },
-          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
-          border: { display: false }
+        x: { display: false, min: -0.8, max: 1.8 },
+        y: { display: false, min: -0.8, max: 4.8 }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false },
+        datalabels: {
+          color: 'white',
+          font: { weight: 'bold', size: 11 },
+          formatter: (point) => point.v.toFixed(1) + '%'
         }
       }
-    },
-    plugins: [{
-      id: 'theftValueLabels',
-      afterDatasetsDraw: function(chart) {
-        var c = chart.ctx;
-        chart.data.datasets.forEach(function(dataset, di) {
-          var meta = chart.getDatasetMeta(di);
-          meta.data.forEach(function(bar, j) {
-            var val = dataset.data[j].toFixed(1) + '%';
-            c.save();
-            c.fillStyle = '#5A4E3C';
-            c.font = "11px 'DM Mono', monospace";
-            c.textAlign = 'left';
-            var xPos = Math.min(bar.x + 5, chart.chartArea.right - 36);
-            c.fillText(val, xPos, bar.y + 4);
-            c.restore();
-          });
-        });
-      }
-    }]
+    }
   });
 }
 
