@@ -459,7 +459,6 @@ footer {
   background: var(--accent);
   border-radius: 2px;
   transition: width 300ms ease;
-  width: 25%;
 }
 
 /* =====================================================
@@ -478,7 +477,7 @@ footer {
     min-height: 320px;
   }
   .scrolly-chart .chart-wrap {
-    height: 260px !important;
+    height: 320px !important;
     flex: none;
   }
   .scrolly-steps {
@@ -491,11 +490,13 @@ footer {
   }
   .scroll-step.is-active {
     box-shadow: none;
+    background: white;
+    border-left: 2px solid #C9A84C;
   }
 }
 
 @media (max-width: 900px) {
-  .stat-band-inner { grid-template-columns: repeat(3, 1fr); }
+  .stat-band-inner { grid-template-columns: repeat(2, 1fr); }
   .study-header-inner { grid-template-columns: 1fr; }
   .findings-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; text-align: center; }
@@ -558,7 +559,7 @@ img, canvas { max-width: 100%; }
       <span class="stat-label">PKR (000s) in<br>Subsidies Disbursed</span>
     </div>
     <div class="stat-item fade-up">
-      <span class="stat-number" id="stat-5">95.2%</span>
+      <span class="stat-number" data-target="95.2" id="stat-5">0%</span>
       <span class="stat-label">Subsidy Payment<br>Confirmation Rate</span>
     </div>
   </div>
@@ -624,7 +625,7 @@ img, canvas { max-width: 100%; }
           <canvas id="chart1"></canvas>
         </div>
         <div class="scrolly-progress">
-          <div class="scrolly-progress-fill" id="progress-chart1" style="width:25%;"></div>
+          <div class="scrolly-progress-fill" id="progress-chart1"></div>
         </div>
       </div>
       <div class="scrolly-steps">
@@ -661,7 +662,7 @@ img, canvas { max-width: 100%; }
           <canvas id="chart2"></canvas>
         </div>
         <div class="scrolly-progress">
-          <div class="scrolly-progress-fill" id="progress-chart2" style="width:25%;"></div>
+          <div class="scrolly-progress-fill" id="progress-chart2"></div>
         </div>
       </div>
       <div class="scrolly-steps">
@@ -698,7 +699,7 @@ img, canvas { max-width: 100%; }
           <canvas id="chart3"></canvas>
         </div>
         <div class="scrolly-progress">
-          <div class="scrolly-progress-fill" id="progress-chart3" style="width:25%;"></div>
+          <div class="scrolly-progress-fill" id="progress-chart3"></div>
         </div>
       </div>
       <div class="scrolly-steps">
@@ -735,7 +736,7 @@ img, canvas { max-width: 100%; }
           <canvas id="chart4"></canvas>
         </div>
         <div class="scrolly-progress">
-          <div class="scrolly-progress-fill" id="progress-chart4" style="width:25%;"></div>
+          <div class="scrolly-progress-fill" id="progress-chart4"></div>
         </div>
       </div>
       <div class="scrolly-steps">
@@ -772,7 +773,7 @@ img, canvas { max-width: 100%; }
           <canvas id="chart5"></canvas>
         </div>
         <div class="scrolly-progress">
-          <div class="scrolly-progress-fill" id="progress-chart5" style="width:25%;"></div>
+          <div class="scrolly-progress-fill" id="progress-chart5"></div>
         </div>
       </div>
       <div class="scrolly-steps">
@@ -1243,13 +1244,24 @@ document.querySelectorAll('.fade-up').forEach(function(el) { fadeObserver.observ
    ===================================================== */
 function animateCounter(el, target, duration) {
   var start = null;
+  var isDecimal = target % 1 !== 0;
   function step(timestamp) {
     if (!start) start = timestamp;
     var progress = Math.min((timestamp - start) / duration, 1);
     var eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.round(eased * target).toLocaleString();
+    var current = eased * target;
+    
+    if (isDecimal) {
+      el.textContent = current.toFixed(1) + (el.id === 'stat-5' ? '%' : '');
+    } else {
+      el.textContent = Math.round(current).toLocaleString();
+    }
+    
     if (progress < 1) requestAnimationFrame(step);
-    else el.textContent = target.toLocaleString();
+    else {
+      if (isDecimal) el.textContent = target.toFixed(1) + (el.id === 'stat-5' ? '%' : '');
+      else el.textContent = target.toLocaleString();
+    }
   }
   requestAnimationFrame(step);
 }
@@ -1265,7 +1277,7 @@ var statObserver = new IntersectionObserver(function(entries) {
   });
 }, { threshold: 0.3 });
 
-['stat-1', 'stat-2', 'stat-3', 'stat-4'].forEach(function(id) {
+['stat-1', 'stat-2', 'stat-3', 'stat-4', 'stat-5'].forEach(function(id) {
   var el = document.getElementById(id);
   if (el) statObserver.observe(el);
 });
