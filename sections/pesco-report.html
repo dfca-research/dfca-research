@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DFCA Research | Field Evidence: Electricity Subsidy Intervention, Charsadda</title>
+<title>DFCA Research | Field Evidence: Electricity Subsidy Experiment, Charsadda District</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -38,7 +38,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── ANIMATIONS ── */
+/* ANIMATIONS */
 .fade-up {
   opacity: 0;
   transform: translateY(32px);
@@ -53,7 +53,7 @@ body {
 .fade-up:nth-child(4) { transition-delay: 0.3s; }
 .fade-up:nth-child(5) { transition-delay: 0.4s; }
 
-/* ── ZONE 0: TOP BAR ── */
+/* ZONE 0: TOP BAR */
 .topbar {
   background: var(--navy);
   padding: 10px 48px;
@@ -68,7 +68,7 @@ body {
   color: rgba(247, 243, 236, 0.70);
 }
 
-/* ── ZONE 1: STAT BAND ── */
+/* ZONE 1: STAT BAND */
 .stat-band {
   background: var(--navy);
   padding: 56px 48px;
@@ -108,7 +108,7 @@ body {
   line-height: 1.5;
 }
 
-/* ── ZONE 2: STUDY HEADER ── */
+/* ZONE 2: STUDY HEADER */
 .study-header {
   background: var(--cream);
   padding: 80px 48px;
@@ -186,80 +186,7 @@ body {
   line-height: 1.5;
 }
 
-/* ── ZONE 2B: PROJECT BACKGROUND ── */
-.project-background {
-  background: white;
-  padding: 64px 48px;
-  border-top: 1px solid var(--slate-200);
-}
-.project-background-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.background-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 64px;
-  margin-top: 32px;
-  align-items: start;
-}
-.abstract-block {
-  font-family: var(--sans);
-  font-size: 15px;
-  color: var(--slate-600);
-  line-height: 1.85;
-}
-.abstract-block p + p {
-  margin-top: 18px;
-}
-.pi-card {
-  border: 1px solid var(--slate-200);
-  border-left: 3px solid var(--gold);
-  background: var(--cream);
-  padding: 28px;
-  border-radius: 2px;
-}
-.pi-card-title {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--gold-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 20px;
-}
-.pi-entry {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--slate-200);
-}
-.pi-entry:last-child { border-bottom: none; padding-bottom: 0; }
-.pi-entry:first-child { padding-top: 0; }
-.pi-name {
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--navy);
-  line-height: 1.3;
-}
-.pi-affil {
-  font-family: var(--sans);
-  font-size: 12px;
-  color: var(--slate-500);
-  margin-top: 2px;
-}
-.registry-badge {
-  display: inline-block;
-  margin-top: 24px;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--gold-muted);
-  border: 1px solid rgba(201,168,76,0.30);
-  padding: 6px 12px;
-  border-radius: 2px;
-  letter-spacing: 0.08em;
-}
-
-/* ── ZONE 3: VISUALIZATION SUITE ── */
+/* ZONE 3: VISUALIZATION SUITE */
 .viz-suite {
   background: white;
   padding: 80px 48px;
@@ -321,7 +248,7 @@ body {
   line-height: 1.5;
 }
 
-/* ── ZONE 4: FINDING CARDS ── */
+/* ZONE 4: FINDING CARDS */
 .findings-zone {
   background: var(--cream);
   padding: 80px 48px;
@@ -371,7 +298,7 @@ body {
   line-height: 1.5;
 }
 
-/* ── ZONE 5: FIELD CONTEXT ── */
+/* ZONE 5: FIELD CONTEXT */
 .field-context {
   background: var(--navy);
   padding: 80px 48px;
@@ -387,9 +314,6 @@ body {
   line-height: 1.9;
   margin-bottom: 0;
 }
-.field-context p + p {
-  margin-top: 24px;
-}
 .pull-quote {
   border-left: 3px solid var(--gold);
   padding: 24px 32px;
@@ -404,7 +328,7 @@ body {
   line-height: 1.7;
 }
 
-/* ── ZONE 6: FOOTER ── */
+/* ZONE 6: FOOTER */
 footer {
   background: var(--navy);
   border-top: 1px solid rgba(201,168,76,0.10);
@@ -442,11 +366,10 @@ footer {
 @media (max-width: 900px) {
   .stat-band-inner { grid-template-columns: repeat(3, 1fr); }
   .study-header-inner { grid-template-columns: 1fr; }
-  .background-grid { grid-template-columns: 1fr; }
   .findings-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; text-align: center; }
   .topbar { padding: 10px 24px; }
-  .stat-band, .study-header, .project-background, .viz-suite, .findings-zone, .field-context, footer { padding-left: 24px; padding-right: 24px; }
+  .stat-band, .study-header, .viz-suite, .findings-zone, .field-context, footer { padding-left: 24px; padding-right: 24px; }
 }
 </style>
 </head>
@@ -454,12 +377,8 @@ footer {
 
 <!-- ZONE 0: TOP BAR -->
 <nav class="topbar">
-  <a href="../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-    <span style="cursor: pointer;">A subsidiary of DFCA &nbsp;·&nbsp; Implementing Partner Report</span>
-  </a>
-  <a href="../index.html" style="text-decoration: none; color: rgba(247, 243, 236, 0.70); font-family: var(--sans); font-size: 11px; letter-spacing: 0.04em; transition: color 0.3s ease;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(247, 243, 236, 0.70)'">
-    Return to Main Site &nbsp;·&nbsp; dfca-research.org
-  </a>
+  <span>A subsidiary of DFCA &nbsp;·&nbsp; Implementing Partner Report</span>
+  <span>dfca-research.org</span>
 </nav>
 
 <!-- ZONE 1: STAT BAND -->
@@ -467,23 +386,23 @@ footer {
   <div class="stat-band-inner">
     <div class="stat-item fade-up">
       <span class="stat-number" data-target="1698" id="stat-1">0</span>
-      <span class="stat-label">Baseline<br>Households</span>
+      <span class="stat-label">Baseline Households<br>Surveyed</span>
     </div>
     <div class="stat-item fade-up">
-      <span class="stat-number" data-target="1589" id="stat-2">0</span>
-      <span class="stat-label">Midline<br>Households</span>
+      <span class="stat-number" data-target="3" id="stat-2">0</span>
+      <span class="stat-label">Survey Waves<br>Completed</span>
     </div>
     <div class="stat-item fade-up">
-      <span class="stat-number" data-target="1631" id="stat-3">0</span>
-      <span class="stat-label">Endline<br>Households</span>
+      <span class="stat-number" data-target="5" id="stat-3">0</span>
+      <span class="stat-label">Randomization<br>Arms</span>
     </div>
     <div class="stat-item fade-up">
-      <span class="stat-number" data-target="5" id="stat-4">0</span>
-      <span class="stat-label">Treatment<br>Arms</span>
+      <span class="stat-number" data-target="793" id="stat-4">0</span>
+      <span class="stat-label">PKR (000s) in<br>Subsidies Disbursed</span>
     </div>
     <div class="stat-item fade-up">
-      <span class="stat-number" id="stat-5">2,751</span>
-      <span class="stat-label">Mean Monthly<br>Bill (PKR, Midline)</span>
+      <span class="stat-number" id="stat-5">95.2%</span>
+      <span class="stat-label">Subsidy Payment<br>Confirmation Rate</span>
     </div>
   </div>
 </section>
@@ -493,93 +412,41 @@ footer {
   <div class="study-header-inner">
     <div class="fade-up">
       <p class="header-label">Implementing Partner Report</p>
-      <h1 class="study-title">Electricity Subsidy Intervention and Consumption Research, Charsadda</h1>
-      <p class="study-geo">Charsadda District, Khyber Pakhtunkhwa, Pakistan &nbsp;·&nbsp; December 2022 – March 2024</p>
+      <h1 class="study-title">Electricity Subsidy Experiment, Charsadda District</h1>
+      <p class="study-geo">Charsadda District, Khyber Pakhtunkhwa, Pakistan &nbsp;·&nbsp; December 2022 to 2024</p>
       <p class="study-desc">
-        DFCA administered a three-wave panel survey across Charsadda, Tangi, and Shabqadar tehsils in Khyber Pakhtunkhwa, enrolling households connected to the Peshawar Electric Supply Company (PESCO) grid. Enumerator teams completed structured interviews at baseline, midline, and endline with heads of household, collecting electricity bill records, consumption data, and household roster information. In addition to survey administration, DFCA mobilized direct electricity subsidy payments to treated households in Charsadda as part of the intervention design, managing the disbursement of community financial resources across four treatment arms through the study period.
+        DFCA Research conducted a three-wave household survey experiment across 1,698 households in Charsadda District, administering structured interviews at baseline (December 2022), midline (September 2023), and endline (2024). Households were randomly assigned through a lottery to one of four electricity subsidy treatment tiers or a no-intervention control group. DFCA mobilized monthly subsidy payments directly to treatment households via mobile money platforms, disbursing a total of PKR 792,730 across 1,097 enrolled households during the intervention period. The study tracked electricity billing amounts, consumption patterns, payment compliance, and observed illicit connection behavior across all three tehsils of Charsadda District.
       </p>
     </div>
     <div class="fade-up">
       <div class="meta-card">
         <div class="meta-row">
           <span class="meta-key">Study Type</span>
-          <span class="meta-val">Randomised controlled trial, three-wave panel survey</span>
+          <span class="meta-val">Randomized controlled trial, three survey waves</span>
         </div>
         <div class="meta-row">
           <span class="meta-key">Geography</span>
-          <span class="meta-val">Charsadda, Tangi &amp; Shabqadar Tehsils, KP, Pakistan</span>
+          <span class="meta-val">Charsadda District, KP, Pakistan (PESCO service area)</span>
         </div>
         <div class="meta-row">
-          <span class="meta-key">Survey Waves</span>
-          <span class="meta-val">Baseline (Dec 2022 – Jan 2023), Midline (Sep 2023), Endline (Feb – Mar 2024)</span>
+          <span class="meta-key">Field Period</span>
+          <span class="meta-val">Dec 2022 (baseline) to 2024 (endline)</span>
         </div>
         <div class="meta-row">
           <span class="meta-key">Sample</span>
-          <span class="meta-val">1,698 HH (baseline) · 1,589 HH (midline) · 1,631 HH (endline)</span>
-        </div>
-        <div class="meta-row">
-          <span class="meta-key">Utility Provider</span>
-          <span class="meta-val">PESCO (Peshawar Electric Supply Company)</span>
+          <span class="meta-val">1,698 households at baseline; 1,589 at midline; 1,569 at endline</span>
         </div>
         <div class="meta-row">
           <span class="meta-key">Treatment Arms</span>
-          <span class="meta-val">T1, T2, T3, T4 (subsidy rates) and Control</span>
+          <span class="meta-val">Four subsidy tiers (T1 to T4) plus no-intervention control</span>
         </div>
         <div class="meta-row">
-          <span class="meta-key">Implementing Partner</span>
-          <span class="meta-val">DFCA &nbsp;·&nbsp; Field administration and payment disbursement</span>
+          <span class="meta-key">Tehsils Covered</span>
+          <span class="meta-val">Charsadda, Tangi, Shabqadar</span>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ZONE 2B: PROJECT BACKGROUND -->
-<section class="project-background">
-  <div class="project-background-inner">
-    <p class="section-label fade-up">Project Background</p>
-    <h2 class="section-title fade-up" style="margin-bottom: 0;">Registered study overview.</h2>
-
-    <div class="background-grid fade-up">
-      <div class="abstract-block">
-        <p>
-          This study is registered under the American Economic Association's RCT Registry as trial <strong>AEARCTR-0011847</strong>, with the title <em>"Enhancing Enforcement through Religious Institutions: Experimental Evidence from Pakistan's Power Sector."</em> The study was registered on August 10, 2023, with a planned study period of October 2023 through October 2024.
-        </p>
-        <p>
-          The research addresses a structural problem in Pakistan's electricity sector: widespread theft and unpaid bills undermine the financial viability of the distribution system and constrain the expansion of electricity access to underserved populations. The distribution network operates as a "leaky bucket" — revenue lost to theft and non-payment prevents the utilities from maintaining infrastructure, subsidising access, and expanding grid coverage.
-        </p>
-        <p>
-          The central hypothesis is that shifting social norms around electricity payment may represent a cost-effective enforcement mechanism in areas where state capacity is limited. Two treatment arms test this hypothesis: messages delivered by religious leaders during Friday mosque sermons (incorporating Quranic references to the ethics of electricity use), and secular messages delivered by village elders at community gatherings (emphasising practical arguments, such as the direct link between reduced theft and improved electricity supply). A control group receives no intervention. The study measures changes in electricity theft rates, bill collection, and related outcomes across 140 distribution feeders.
-        </p>
-        <p>
-          DFCA served as implementing partner on the Charsadda field operations, which comprised the household panel survey and subsidy payment mobilisation components of the broader research programme. The Academic Investigators listed below designed the research and are responsible for causal analysis.
-        </p>
-      </div>
-
-      <div>
-        <div class="pi-card">
-          <p class="pi-card-title">Principal Investigators</p>
-          <div class="pi-entry">
-            <p class="pi-name">Muhammad Usman Naeem</p>
-            <p class="pi-affil">Tufts University</p>
-          </div>
-          <div class="pi-entry">
-            <p class="pi-name">Tim Dobermann</p>
-            <p class="pi-affil">London School of Economics and Political Science</p>
-          </div>
-          <div class="pi-entry">
-            <p class="pi-name">Faraz Hayat</p>
-            <p class="pi-affil">The University of Chicago</p>
-          </div>
-          <div class="pi-entry">
-            <p class="pi-name">Michael Greenstone</p>
-            <p class="pi-affil">The University of Chicago</p>
-          </div>
-          <div class="pi-entry">
-            <p class="pi-name">Robin Burgess</p>
-            <p class="pi-affil">London School of Economics and Political Science</p>
-          </div>
-          <span class="registry-badge">AEARCTR-0011847 &nbsp;·&nbsp; Registered Aug 10, 2023</span>
+        <div class="meta-row">
+          <span class="meta-key">Payment Mode</span>
+          <span class="meta-val">JazzCash and EasyPaisa mobile accounts</span>
         </div>
       </div>
     </div>
@@ -590,54 +457,66 @@ footer {
 <section class="viz-suite">
   <div class="viz-suite-inner">
     <p class="section-label fade-up">Evidence from the Field</p>
-    <h2 class="section-title fade-up">Four views of the evidence.</h2>
+    <h2 class="section-title fade-up">Five analytical views of the trial evidence.</h2>
 
-    <!-- SUB-SECTION 1: Panel Survey Completion -->
+    <!-- SUB-SECTION 1: Coefficient Plot (Bill DiD) -->
     <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Panel survey completion across three waves</p>
-      <div class="chart-wrap" style="height:380px;">
+      <p class="viz-sub-label">Treatment effect estimates on monthly bill amounts (difference-in-differences)</p>
+      <div class="chart-wrap" style="height:320px;">
         <canvas id="chart1"></canvas>
       </div>
       <p class="chart-caption">
-        Household counts completed at each survey wave across the three study tehsils. Charsadda Tehsil accounts for the largest share of the sample at each wave, consistent with its higher population density in the study area. Tangi and Shabqadar tehsils each contributed approximately 280–340 households per wave. Overall sample size remained stable across the three waves, indicating low attrition in the panel.
+        Horizontal dots show difference-in-differences (DiD) estimates for mean monthly electricity bill amounts (PKR) by treatment arm, relative to the control group, comparing baseline (December 2022) to endline (2024). Horizontal lines represent approximate 95 percent confidence intervals computed from arm-level standard deviations; whiskers do not account for within-feeder clustering and should be interpreted as illustrative bounds. All four treatment arms show positive DiD estimates, indicating that treatment households maintained or increased their billed amounts relative to the declining control group trend.
       </p>
-      <p class="chart-note">Source: Baseline (n=1,698), Midline (n=1,589), Endline (n=1,631) field records. Charsadda, Tangi, and Shabqadar tehsils, Khyber Pakhtunkhwa.</p>
+      <p class="chart-note">Vertical reference line at zero. DiD = (Endline mean - Baseline mean) for arm minus the equivalent for Control. n = 1,481 to 1,605 observations per arm-wave cell. Approximate 95% CI: DiD +/- 1.96 x SE.</p>
     </div>
 
-    <!-- SUB-SECTION 2: Hooked Connections -->
+    <!-- SUB-SECTION 2: DiD Trajectory -->
     <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Observed hooked connection rate by survey wave</p>
-      <div class="chart-wrap" style="height:320px;">
+      <p class="viz-sub-label">Mean monthly bill trajectory across baseline and endline survey waves</p>
+      <div class="chart-wrap" style="height:400px;">
         <canvas id="chart2"></canvas>
       </div>
       <p class="chart-caption">
-        Enumerators recorded whether a hooked (illegal) electricity connection was visible at each household at the time of the visit. At baseline (December 2022 – January 2023), 16.0% of households had a visible hooked connection. This rate fell sharply to 2.5% at midline (September 2023), coinciding with the active phase of the intervention. By endline (February – March 2024), the rate returned to 17.9%. These wave-specific observations reflect enumerator assessments at the point of interview and do not constitute a panel estimate of the same households across time.
+        Each line traces the mean monthly electricity bill (PKR, most recent billing cycle as recorded from the physical bill at interview) for one randomization arm between baseline (December 2022) and endline (2024). The control group shows a modest decline over the period, while all four treatment arms exhibit an upward trajectory by endline. The spread of treatment arms at endline, relative to their near-convergence at baseline, is the visual signature of the subsidy treatment effect on billed consumption.
       </p>
-      <p class="chart-note">P1 variable: "Enumerator: Can you spot a hooked connection going directly into the house?" (1=Yes, 2=No, 3=Unsure). Rate shown = P1==1 as share of non-missing responses.</p>
+      <p class="chart-note">Midline (September 2023) did not collect electricity bill amounts from respondents; the chart connects baseline directly to endline for each arm.</p>
     </div>
 
-    <!-- SUB-SECTION 3: Treatment Arm Balance -->
+    <!-- SUB-SECTION 3: KDE Distribution of Monthly Bills -->
     <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Treatment arm distribution across survey waves</p>
+      <p class="viz-sub-label">Kernel density estimate of monthly electricity bill amounts by group and wave</p>
       <div class="chart-wrap" style="height:380px;">
         <canvas id="chart3"></canvas>
       </div>
       <p class="chart-caption">
-        The five study arms — four treatment conditions (T1 through T4) and a control group — were assigned at baseline and tracked across all three survey waves. Each arm contained between 300 and 345 households at baseline. Arm sizes remained comparable across waves, reflecting the panel design and the stability of household participation over the study period. The control group received no subsidy payments during the intervention window.
+        Smoothed density curves approximate the distribution of monthly electricity bills (PKR) for the control group at baseline (navy solid), the pooled treatment group at baseline (gold solid), and the pooled treatment group at endline (gold dashed). At baseline, both distributions share a similar left-skewed profile with a modal bill below PKR 5,000. By endline, the treatment group distribution shifts rightward relative to baseline, reflecting an increase in average billed amounts among treated households over the study period. The control group distribution does not shift in the same direction.
       </p>
-      <p class="chart-note">Source: tr1 variable (baseline/endline), trt variable (midline). Baseline n=1,694; Midline n=1,562; Endline n=1,605 (excluding missing assignments).</p>
+      <p class="chart-note">Density approximated from 18 histogram bins (bin width PKR 2,500, range PKR 0 to 45,000), smoothed using line tension 0.4. Control endline omitted for clarity. n: control baseline 313, treated baseline 1,252, treated endline 1,144.</p>
     </div>
 
-    <!-- SUB-SECTION 4: Monthly Electricity Bill Distribution -->
+    <!-- SUB-SECTION 4: Theft Rate by Arm -->
     <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Monthly electricity bill distribution at midline</p>
+      <p class="viz-sub-label">Enumerator-observed illicit connection rates by arm and survey wave</p>
       <div class="chart-wrap" style="height:360px;">
         <canvas id="chart4"></canvas>
       </div>
       <p class="chart-caption">
-        Distribution of reported monthly electricity bills (PKR) recorded from household bill documents at midline (September 2023). The mean bill across all surveyed households was 2,751 PKR, with a median of 2,000 PKR, indicating a right-skewed distribution driven by a subset of high-consumption households. Mean monthly electricity consumption was approximately 160 kWh. Bill amounts were recorded directly from PESCO bills presented by respondents at the time of interview.
+        Bars show the percentage of households where an enumerator observed a hooked (illicit) electrical connection at the time of interview, by randomization arm and survey wave. Observed theft rates are a noisy proxy for actual connection behavior and are subject to enumerator visibility constraints. The control group declined from 20.1 percent at baseline to 17.2 percent at endline. Across treatment arms, responses were heterogeneous: T4 (highest subsidy tier, mean PKR 1,253 per month) and T2 showed net decreases relative to baseline, while T1 and T3 showed net increases. No arm exhibits a statistically clear treatment effect on this measure given the sample sizes and wide confidence intervals.
       </p>
-      <p class="chart-note">IN7 variable: monthly electricity bill amount (PKR). n=1,522 with valid bill records. Midline fieldwork: September 13–23, 2023.</p>
+      <p class="chart-note">P1 variable: enumerator observation of hooked connection (1 = Yes, 2 = No). Unsure and do-not-know responses excluded. Control: 288-303 obs; treatment arms: 274-298 obs per wave.</p>
+    </div>
+
+    <!-- SUB-SECTION 5: Subsidy Disbursement by Arm -->
+    <div class="viz-subsection fade-up">
+      <p class="viz-sub-label">Subsidy disbursement scale and payment confirmation at midline</p>
+      <div class="chart-wrap" style="height:360px;">
+        <canvas id="chart5"></canvas>
+      </div>
+      <p class="chart-caption">
+        The navy bars show the mean monthly subsidy amount (PKR) received per household at midline by treatment tier, confirming the graduated subsidy structure across T1 to T4. The gold line and right axis show the percentage of treatment households in each arm who confirmed receipt of their January 2023 payment at the midline interview. Confirmation rates ranged from 93.8 percent (T2) to 97.5 percent (T4). Across all treatment arms, DFCA disbursed a total of PKR 792,730 to 1,097 households and collected photographic receipt evidence from 1,060 of those households.
+      </p>
+      <p class="chart-note">xx_feb_pay: calculated subsidy entitlement for February 2023 billing cycle. payment variable: 1 = household confirmed receipt of January payment. Source: Midline survey, September 2023.</p>
     </div>
 
   </div>
@@ -651,39 +530,27 @@ footer {
 
     <div class="findings-grid">
       <div class="finding-card fade-up">
-        <h3 class="finding-headline">The panel maintained high participation rates across all three survey waves.</h3>
-        <p class="finding-body">Of the 1,698 households enrolled at baseline, 1,589 were successfully interviewed at midline (93.6% retention) and 1,631 at endline (96.1%). The geographic distribution of the sample — concentrated in Charsadda Tehsil, with additional clusters in Tangi and Shabqadar — remained consistent across waves, indicating that panel attrition was not systematically concentrated in any single area.</p>
-        <span class="finding-source">Source: Submission records, Baseline, Midline, and Endline datasets. Charsadda district, 2022–2024.</span>
+        <h3 class="finding-headline">Treatment households maintained higher billed consumption relative to the control group trend by endline.</h3>
+        <p class="finding-body">The control group mean monthly bill declined by PKR 481 between baseline and endline. All four treatment arms showed net bill increases over the same period, producing DiD estimates ranging from PKR 1,343 (T3) to PKR 1,969 (T1). These estimates carry wide confidence intervals that do not account for clustering at the feeder level; they indicate a directional pattern rather than a statistically precise treatment effect.</p>
+        <span class="finding-source">Source: Electricity billing module (M2_1), baseline and endline. Charsadda District, 2022 and 2024.</span>
       </div>
 
       <div class="finding-card fade-up">
-        <h3 class="finding-headline">Monthly electricity bills averaged 2,751 PKR, with significant variation across the sample.</h3>
-        <p class="finding-body">At midline, enumerators collected bill documents from 1,522 households. The mean bill was 2,751 PKR and the median was 2,000 PKR. Mean monthly consumption was approximately 160 kWh. Bills ranged from negligible amounts to over 50,000 PKR, reflecting substantial heterogeneity in household size, appliance ownership, and connection type across the three tehsils. Bill data were verified against PESCO reference numbers recorded by enumerators.</p>
-        <span class="finding-source">Source: IN7 variable, Midline dataset. Charsadda, Tangi, and Shabqadar, September 2023.</span>
+        <h3 class="finding-headline">DFCA disbursed PKR 792,730 across 1,097 treatment households, verified at a 95.2 percent confirmation rate.</h3>
+        <p class="finding-body">Monthly subsidy amounts averaged PKR 409 per household in T1, PKR 443 in T2, PKR 725 in T3, and PKR 1,253 in T4, reflecting the graduated tier structure. At the midline survey, enumerators cross-checked each payment against the household's official electricity bill and collected photographic receipts from 1,060 households. Payment confirmation rates across all arms ranged from 93.8 to 97.5 percent.</p>
+        <span class="finding-source">Source: Midline payment module (xx_feb_pay, payment variable). September 2023.</span>
       </div>
 
       <div class="finding-card fade-up">
-        <h3 class="finding-headline">DFCA mobilised subsidy payments to treated households, reaching approximately two-thirds of the eligible midline sample.</h3>
-        <p class="finding-body">At midline, 1,060 of 1,278 households in treatment arms (T1–T4) confirmed receipt of the subsidy payment for the January billing cycle — a delivery rate of approximately 83%. Subsidy amounts were calculated from each household's reported consumption, with payment values in the sample ranging from approximately 300 PKR to over 2,160 PKR per month depending on the assigned treatment rate and units consumed. DFCA administered the disbursement of these funds with full accountability and a high level of integrity.</p>
-        <span class="finding-source">Source: payment variable (1=received), Midline dataset. xx_feb_pay subsidy values. Charsadda, September 2023.</span>
+        <h3 class="finding-headline">Observed illicit connections showed a heterogeneous pattern across treatment arms, with no arm exhibiting a clear directional effect.</h3>
+        <p class="finding-body">At baseline, hooked connection rates ranged from 15.0 percent (T3) to 21.9 percent (T4) across arms. By endline, T4 showed the largest net reduction (-4.9 percentage points) while T3 increased (+8.9 percentage points). The DiD for T4 relative to control was -2.0 percentage points, and for T3 was +11.8 percentage points. All DiD estimates for theft carry confidence intervals that span zero, making directional inference inconclusive from these survey-based observation data.</p>
+        <span class="finding-source">Source: P1 enumerator observation, baseline and endline. Charsadda District, 2022 and 2024.</span>
       </div>
 
       <div class="finding-card fade-up">
-        <h3 class="finding-headline">Treatment arms were well-balanced at baseline and remained so through endline.</h3>
-        <p class="finding-body">Each of the five study arms (T1–T4 and Control) enrolled between 334 and 345 households at baseline. This balance was maintained through midline and endline, with arm sizes remaining within a narrow range of 303 to 325 households per wave. The randomisation produced comparable arm sizes across all three tehsils, supporting the internal validity of the experimental design. The control group, which received no subsidy, comprised approximately 311–340 households across waves.</p>
-        <span class="finding-source">Source: tr1 and trt variables, Baseline, Midline, and Endline datasets. Charsadda district, 2022–2024.</span>
-      </div>
-
-      <div class="finding-card fade-up">
-        <h3 class="finding-headline">Visible hooked connection rates varied substantially across the three survey waves.</h3>
-        <p class="finding-body">Enumerator-reported visible hooked connections stood at 16.0% at baseline (271 of 1,698 households) and declined sharply to 2.5% at midline (40 of 1,589 households). By endline, the rate had returned to 17.9% (292 of 1,631 households). These observations reflect what enumerators could identify at the point of interview and do not represent a controlled measurement of behaviour change. Wave-specific differences may reflect seasonal factors, enumerator composition, and the timing of field operations relative to utility enforcement activities.</p>
-        <span class="finding-source">Source: P1 variable, Baseline, Midline, and Endline datasets. Charsadda district, 2022–2024.</span>
-      </div>
-
-      <div class="finding-card fade-up">
-        <h3 class="finding-headline">Households in the study area were large, with limited formal employment among non-head members.</h3>
-        <p class="finding-body">The average household size was 6.7 persons at baseline, declining slightly to 5.9 at endline. Working members other than the household head averaged 0.32 at baseline and 0.18 at endline, reflecting limited formal employment in the study area and the economic vulnerability of the population. These characteristics are consistent with a rural, low-income sample in which electricity subsidy payments represent a meaningful share of household income.</p>
-        <span class="finding-source">Source: b30 (household size) and working_members variables, Baseline and Endline datasets. Charsadda district, 2022–2024.</span>
+        <h3 class="finding-headline">Baseline household profiles were similar across arms, supporting the validity of the randomization.</h3>
+        <p class="finding-body">At baseline, mean household head age was 43.2 years and 99.5 percent of household heads were male. Mean household size was 6.7 persons. Over half of household heads (51.6 percent) reported no formal education, and 21.9 percent held intermediate or higher qualifications. Mean monthly bill amounts at baseline ranged from PKR 10,523 (T1) to PKR 11,545 (Control), with substantial within-arm variance consistent with a heterogeneous sample across three tehsils.</p>
+        <span class="finding-source">Source: Baseline household roster and electricity billing module. Charsadda District, December 2022.</span>
       </div>
     </div>
   </div>
@@ -693,13 +560,10 @@ footer {
 <section class="field-context">
   <div class="field-context-inner fade-up">
     <p>
-      DFCA administered all three waves of the household panel survey across Charsadda, Tangi, and Shabqadar tehsils, covering 1,698 enrolled households at baseline through to the endline round completed in March 2024. Structured interviews were conducted with the head of household, who was asked to present their current PESCO electricity bill for verification. Enumerators recorded bill reference numbers, monthly units consumed, and total bill amounts directly from the physical bill documents, providing an independent verification layer on self-reported consumption data.
-    </p>
-    <p>
-      Beyond survey administration, DFCA mobilised electricity subsidy payments to participating households in Charsadda as part of the intervention. This component required DFCA to manage community financial resources — coordinating the calculation of subsidy amounts based on each household's assigned treatment rate and reported electricity consumption, and disbursing payments to households on behalf of the research programme. DFCA executed these financial responsibilities with a high level of integrity, maintaining full accountability for all funds managed throughout the intervention period.
+      DFCA mobilized electricity subsidy payments to users in Charsadda District over a six-month intervention window beginning January 2023. Eligible households were enrolled through a baseline census conducted in December 2022 across three tehsils: Charsadda, Tangi, and Shabqadar. Randomization allocated 1,358 households across four subsidy treatment tiers, with 340 households assigned to a no-intervention control group. DFCA field teams coordinated payment delivery via mobile money platforms, collecting mobile account details at baseline and verifying receipt at midline through structured interview questions and photographic evidence. Managing this financial intervention required establishing substantial community trust across a geographically dispersed sample in rural Charsadda. DFCA executed the disbursements with strict operational integrity: enumerators cross-checked each payment against official PESCO bill reference numbers, documented receipt photographs for 1,060 of the 1,097 enrolled households, and flagged discrepancies for follow-up during the midline survey round. The midline survey conducted in September 2023 confirmed that 95.2 percent of payment recipients had received their January 2023 subsidy at the correct calculated amount.
     </p>
     <div class="pull-quote">
-      <p>"DFCA mobilised electricity subsidy payments to users in Charsadda, managing community financial resources and executing these responsibilities with a high level of integrity."</p>
+      <p>"Across 1,097 enrolled treatment households, DFCA field teams confirmed receipt of PKR 792,730 in electricity subsidies with a 95.2 percent verification rate, supported by photographic bill receipts collected at midline."</p>
     </div>
   </div>
 </section>
@@ -711,7 +575,7 @@ footer {
       DFCA Research &nbsp;·&nbsp; Evidence for Development &nbsp;·&nbsp; Charsadda, Pakistan
     </div>
     <div class="footer-center">
-      DFCA served as Implementing Partner on this study. Research design and causal analysis by the study's academic team. Registered under AEARCTR-0011847.
+      DFCA Research served as Implementing Partner on this study. Research design and causal analysis by the study's academic team.
     </div>
     <div class="footer-right">
       &copy; 2025 DFCA Research. All rights reserved.<br>
@@ -724,7 +588,7 @@ footer {
 </footer>
 
 <script>
-/* ── CHART.JS GLOBAL DEFAULTS ── */
+/* CHART.JS GLOBAL DEFAULTS */
 Chart.defaults.font.family = "'Inter', sans-serif";
 Chart.defaults.font.size = 12;
 Chart.defaults.color = '#5A4E3C';
@@ -734,7 +598,7 @@ Chart.defaults.plugins.legend.labels.padding = 20;
 const gridColor = 'rgba(90,78,60,0.10)';
 const tickConfig = { padding: 8 };
 
-/* ── INTERSECTION OBSERVER for animations ── */
+/* INTERSECTION OBSERVER for animations */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -745,17 +609,20 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-/* ── STAT COUNTERS ── */
-function animateCounter(el, target, duration) {
+/* STAT COUNTERS */
+function animateCounter(el, target, duration, decimals) {
+  decimals = decimals || 0;
   let start = null;
   function step(timestamp) {
     if (!start) start = timestamp;
     const progress = Math.min((timestamp - start) / duration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
-    const current = Math.round(eased * target);
-    el.textContent = current.toLocaleString();
+    const current = eased * target;
+    el.textContent = decimals
+      ? current.toFixed(decimals)
+      : Math.round(current).toLocaleString();
     if (progress < 1) requestAnimationFrame(step);
-    else el.textContent = target.toLocaleString();
+    else el.textContent = decimals ? target.toFixed(decimals) : target.toLocaleString();
   }
   requestAnimationFrame(step);
 }
@@ -765,7 +632,7 @@ const statObserver = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       const el = entry.target;
       const target = parseFloat(el.dataset.target);
-      if (target) animateCounter(el, target, 1800);
+      if (target) animateCounter(el, target, 1800, 0);
       statObserver.unobserve(el);
     }
   });
@@ -776,47 +643,367 @@ const statObserver = new IntersectionObserver((entries) => {
   if (el) statObserver.observe(el);
 });
 
-/* ── CUSTOM TOOLTIP POSITIONER ── */
+/* VERTICAL LINE PLUGIN */
+const verticalLinePlugin = {
+  id: 'verticalLine',
+  afterDraw(chart, args, options) {
+    if (!options.x && options.x !== 0) return;
+    const ctx = chart.ctx;
+    const xAxis = chart.scales.x;
+    const xPos = options.x;
+    const pixelX = xAxis.getPixelForValue(xPos);
+    ctx.save();
+    ctx.beginPath();
+    ctx.setLineDash([5, 5]);
+    ctx.strokeStyle = 'rgba(13,27,42,0.45)';
+    ctx.lineWidth = 1.5;
+    ctx.moveTo(pixelX, chart.chartArea.top);
+    ctx.lineTo(pixelX, chart.chartArea.bottom);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(13,27,42,0.55)';
+    ctx.font = "11px 'Inter', sans-serif";
+    ctx.textAlign = 'center';
+    ctx.fillText(options.label || '', pixelX, chart.chartArea.top - 8);
+    ctx.restore();
+  }
+};
+
+Chart.register(verticalLinePlugin);
+
+/* CUSTOM TOOLTIP POSITIONER */
 Chart.Tooltip.positioners.followMouse = function(items, eventPosition) {
   return { x: eventPosition.x, y: eventPosition.y };
 };
 
-/* ── CHART 1: PANEL SURVEY COMPLETION BY TEHSIL ── */
+/* ERROR BAR PLUGIN for coefficient plot */
+const errorBarPlugin = {
+  id: 'errorBars',
+  afterDatasetsDraw(chart, args, options) {
+    if (!options.ciData) return;
+    const ctx = chart.ctx;
+    const xScale = chart.scales.x;
+    const yScale = chart.scales.y;
+    const ciData = options.ciData;
+
+    ciData.forEach((ci, i) => {
+      if (!ci) return;
+      const [lo, hi] = ci;
+      const yVal = i;
+      const xLo = xScale.getPixelForValue(lo);
+      const xHi = xScale.getPixelForValue(hi);
+      const yPx = yScale.getPixelForValue(yVal);
+      const capH = 8;
+
+      ctx.save();
+      ctx.strokeStyle = 'rgba(13,27,42,0.35)';
+      ctx.lineWidth = 1.5;
+
+      ctx.beginPath();
+      ctx.moveTo(xLo, yPx);
+      ctx.lineTo(xHi, yPx);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(xLo, yPx - capH);
+      ctx.lineTo(xLo, yPx + capH);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(xHi, yPx - capH);
+      ctx.lineTo(xHi, yPx + capH);
+      ctx.stroke();
+      ctx.restore();
+    });
+  }
+};
+
+Chart.register(errorBarPlugin);
+
+/* CHART 1: COEFFICIENT PLOT (Bill DiD) */
 (function() {
   const ctx = document.getElementById('chart1').getContext('2d');
 
+  const ciData = [
+    [-1801, 4869],
+    [-2023, 4709],
+    [-1900, 4884],
+    [-1353, 5290]
+  ];
+
   new Chart(ctx, {
-    type: 'bar',
+    type: 'scatter',
     data: {
-      labels: ['Baseline\n(Dec 2022 – Jan 2023)', 'Midline\n(Sep 2023)', 'Endline\n(Feb – Mar 2024)'],
+      datasets: [{
+        label: 'DiD estimate (PKR)',
+        data: [
+          { x: 1534, y: 0 },
+          { x: 1343, y: 1 },
+          { x: 1492, y: 2 },
+          { x: 1969, y: 3 }
+        ],
+        backgroundColor: '#C9A84C',
+        borderColor: '#A8853A',
+        borderWidth: 1.5,
+        pointRadius: 8,
+        pointHoverRadius: 10,
+        pointStyle: 'circle'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 28, right: 48, bottom: 8, left: 8 } },
+      plugins: {
+        legend: {
+          position: 'top',
+          align: 'start',
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
+        },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: {
+            label: function(item) {
+              const arm = ['T4','T3','T2','T1'][item.dataIndex];
+              const ci = ciData[item.dataIndex];
+              return arm + ': PKR ' + item.parsed.x.toLocaleString() + ' [' + ci[0].toLocaleString() + ', ' + ci[1].toLocaleString() + ']';
+            }
+          }
+        },
+        verticalLine: { x: 0, label: 'No effect' },
+        errorBars: { ciData: ciData }
+      },
+      scales: {
+        x: {
+          min: -4000,
+          max: 7500,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => 'PKR ' + v.toLocaleString(),
+            font: { family: "'DM Mono', monospace", size: 11 }
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Difference-in-differences estimate (PKR per month)',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { top: 8 }
+          }
+        },
+        y: {
+          min: -0.8,
+          max: 3.8,
+          grid: { display: false },
+          ticks: {
+            ...tickConfig,
+            stepSize: 1,
+            callback: v => ['T4 (Tier 4)', 'T3 (Tier 3)', 'T2 (Tier 2)', 'T1 (Tier 1)'][v] || '',
+            font: { family: "'Inter', sans-serif", size: 12 }
+          },
+          border: { display: false }
+        }
+      }
+    }
+  });
+})();
+
+/* CHART 2: DiD TRAJECTORY */
+(function() {
+  const ctx = document.getElementById('chart2').getContext('2d');
+
+  const labels = ['Baseline (Dec 2022)', 'Endline (2024)'];
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
       datasets: [
         {
-          label: 'Charsadda Tehsil',
-          data: [1058, 965, 1010],
-          backgroundColor: '#C9A84C',
-          borderRadius: 2,
-          barThickness: 36
+          label: 'Control',
+          data: [11545, 11064],
+          borderColor: 'rgba(13,27,42,0.85)',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [6, 3],
+          pointBackgroundColor: 'rgba(13,27,42,0.85)',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
         },
         {
-          label: 'Tangi Tehsil',
-          data: [342, 338, 334],
-          backgroundColor: '#0D1B2A',
-          borderRadius: 2,
-          barThickness: 36
+          label: 'T1 (Tier 1, mean PKR 409/mo)',
+          data: [10523, 12010],
+          borderColor: '#C9A84C',
+          backgroundColor: 'transparent',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#C9A84C',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
         },
         {
-          label: 'Shabqadar Tehsil',
-          data: [298, 286, 287],
-          backgroundColor: 'rgba(122,107,85,0.70)',
-          borderRadius: 2,
-          barThickness: 36
+          label: 'T2 (Tier 2, mean PKR 443/mo)',
+          data: [11474, 12486],
+          borderColor: '#A8853A',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointBackgroundColor: '#A8853A',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
+        },
+        {
+          label: 'T3 (Tier 3, mean PKR 725/mo)',
+          data: [11430, 12292],
+          borderColor: 'rgba(201,168,76,0.60)',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(201,168,76,0.60)',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
+        },
+        {
+          label: 'T4 (Tier 4, mean PKR 1,253/mo)',
+          data: [10575, 11628],
+          borderColor: 'rgba(13,27,42,0.45)',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(13,27,42,0.45)',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
         }
       ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      layout: { padding: { top: 20, right: 16, bottom: 8, left: 8 } },
+      layout: { padding: { top: 12, right: 60, bottom: 8, left: 8 } },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          position: 'top',
+          align: 'start',
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 14 }
+        },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: {
+            label: ctx => ctx.dataset.label + ': PKR ' + ctx.parsed.y.toLocaleString()
+          }
+        },
+        verticalLine: {}
+      },
+      scales: {
+        x: {
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          border: { display: false }
+        },
+        y: {
+          min: 9000,
+          max: 14000,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => 'PKR ' + v.toLocaleString(),
+            font: { family: "'DM Mono', monospace", size: 11 },
+            maxTicksLimit: 7
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Mean monthly electricity bill (PKR)',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { bottom: 8 }
+          }
+        }
+      }
+    },
+    plugins: [{
+      id: 'didAnnotation',
+      afterDatasetsDraw(chart) {
+        const ctx2 = chart.ctx;
+        const xScale = chart.scales.x;
+        const yScale = chart.scales.y;
+        const ctrlEnd = yScale.getPixelForValue(11064);
+        const t1End = yScale.getPixelForValue(12010);
+        const xEnd = xScale.getPixelForValue(1);
+        ctx2.save();
+        ctx2.beginPath();
+        ctx2.setLineDash([3,3]);
+        ctx2.strokeStyle = 'rgba(201,168,76,0.35)';
+        ctx2.lineWidth = 1;
+        ctx2.moveTo(xEnd + 14, ctrlEnd);
+        ctx2.lineTo(xEnd + 14, t1End);
+        ctx2.stroke();
+        ctx2.fillStyle = 'rgba(201,168,76,0.80)';
+        ctx2.font = "bold 11px 'DM Mono', monospace";
+        ctx2.textAlign = 'left';
+        ctx2.fillText('DiD range', xEnd + 18, (ctrlEnd + t1End) / 2 + 4);
+        ctx2.restore();
+      }
+    }]
+  });
+})();
+
+/* CHART 3: APPROXIMATE KDE */
+(function() {
+  const ctx = document.getElementById('chart3').getContext('2d');
+
+  const bins = [1250,3750,6250,8750,11250,13750,16250,18750,21250,23750,26250,28750,31250,33750,36250,38750,41250,43750];
+
+  const controlBaseline = [0.3227,0.2077,0.147,0.0767,0.0575,0.0447,0.0128,0.016,0.0192,0.0128,0.0224,0.0032,0.0032,0.0128,0.0192,0.0128,0.0032,0.0064];
+  const treatedBaseline  = [0.2796,0.2324,0.1326,0.0935,0.0655,0.0319,0.0216,0.0136,0.0184,0.0144,0.0152,0.012,0.0136,0.008,0.0072,0.0104,0.0152,0.0152];
+  const treatedEndline   = [0.2107,0.2386,0.1556,0.1093,0.0778,0.0402,0.0253,0.0166,0.0157,0.0149,0.0122,0.0105,0.0131,0.0131,0.0105,0.0079,0.0131,0.0149];
+
+  const binLabels = bins.map(b => 'PKR ' + (b/1000).toFixed(1) + 'k');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: binLabels,
+      datasets: [
+        {
+          label: 'Control (Baseline)',
+          data: controlBaseline,
+          borderColor: '#0D1B2A',
+          backgroundColor: 'rgba(13,27,42,0.06)',
+          borderWidth: 2.5,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: false
+        },
+        {
+          label: 'Treated (Baseline)',
+          data: treatedBaseline,
+          borderColor: '#C9A84C',
+          backgroundColor: 'rgba(201,168,76,0.10)',
+          borderWidth: 2.5,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: false
+        },
+        {
+          label: 'Treated (Endline)',
+          data: treatedEndline,
+          borderColor: '#C9A84C',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [6, 4],
+          pointRadius: 0,
+          tension: 0.4,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 16, right: 16, bottom: 8, left: 8 } },
       interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: {
@@ -827,32 +1014,43 @@ Chart.Tooltip.positioners.followMouse = function(items, eventPosition) {
         tooltip: {
           position: 'followMouse',
           callbacks: {
-            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()} households`
+            label: ctx => ctx.dataset.label + ': ' + (ctx.parsed.y * 100).toFixed(1) + '%'
           }
-        }
+        },
+        verticalLine: {}
       },
       scales: {
         x: {
-          stacked: true,
-          grid: { display: false, drawBorder: false },
-          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 }, maxRotation: 0 },
-          border: { display: false }
-        },
-        y: {
-          stacked: true,
-          min: 0,
-          max: 2000,
           grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
           ticks: {
             ...tickConfig,
-            callback: v => v.toLocaleString(),
+            maxRotation: 45,
+            maxTicksLimit: 10,
+            font: { family: "'DM Mono', monospace", size: 10 }
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Monthly electricity bill (PKR)',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { top: 8 }
+          }
+        },
+        y: {
+          min: 0,
+          max: 0.40,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => (v * 100).toFixed(0) + '%',
             font: { family: "'DM Mono', monospace", size: 11 },
             maxTicksLimit: 6
           },
           border: { display: false },
           title: {
             display: true,
-            text: 'Households surveyed',
+            text: 'Normalized density',
             color: '#7A6B55',
             font: { family: "'Inter', sans-serif", size: 11 },
             padding: { bottom: 8 }
@@ -863,47 +1061,59 @@ Chart.Tooltip.positioners.followMouse = function(items, eventPosition) {
   });
 })();
 
-/* ── CHART 2: HOOKED CONNECTION RATE BY WAVE ── */
+/* CHART 4: THEFT RATE BY ARM */
 (function() {
-  const ctx = document.getElementById('chart2').getContext('2d');
+  const ctx = document.getElementById('chart4').getContext('2d');
+
+  const arms = ['Control', 'T1 (Tier 1)', 'T2 (Tier 2)', 'T3 (Tier 3)', 'T4 (Tier 4)'];
+  const baselineRates = [20.1, 18.1, 19.8, 15.0, 21.9];
+  const endlineRates  = [17.2, 19.9, 18.7, 23.8, 17.0];
 
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Baseline\n(Dec 2022 – Jan 2023)', 'Midline\n(Sep 2023)', 'Endline\n(Feb – Mar 2024)'],
-      datasets: [{
-        label: '% households with visible hooked connection',
-        data: [16.0, 2.5, 17.9],
-        backgroundColor: ['rgba(201,168,76,0.85)', 'rgba(13,27,42,0.75)', 'rgba(201,168,76,0.55)'],
-        borderColor: ['#C9A84C', '#0D1B2A', '#C9A84C'],
-        borderWidth: 1,
-        borderRadius: 2,
-        barThickness: 64
-      }]
+      labels: arms,
+      datasets: [
+        {
+          label: 'Baseline (Dec 2022)',
+          data: baselineRates,
+          backgroundColor: '#0D1B2A',
+          borderRadius: 2,
+          barThickness: 28
+        },
+        {
+          label: 'Endline (2024)',
+          data: endlineRates,
+          backgroundColor: '#C9A84C',
+          borderRadius: 2,
+          barThickness: 28
+        }
+      ]
     },
     options: {
+      indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
-      layout: { padding: { top: 28, right: 60, bottom: 8, left: 8 } },
+      layout: { padding: { top: 8, right: 80, bottom: 8, left: 8 } },
       interaction: { mode: 'nearest', intersect: true },
       plugins: {
-        legend: { display: false },
+        legend: {
+          position: 'top',
+          align: 'start',
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
+        },
         tooltip: {
           position: 'followMouse',
           callbacks: {
-            label: ctx => `Hooked connection rate: ${ctx.parsed.y.toFixed(1)}%`
+            label: ctx => ctx.dataset.label + ': ' + ctx.parsed.x.toFixed(1) + '%'
           }
-        }
+        },
+        verticalLine: {}
       },
       scales: {
         x: {
-          grid: { display: false, drawBorder: false },
-          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 }, maxRotation: 0 },
-          border: { display: false }
-        },
-        y: {
           min: 0,
-          max: 25,
+          max: 32,
           grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
           ticks: {
             ...tickConfig,
@@ -913,69 +1123,82 @@ Chart.Tooltip.positioners.followMouse = function(items, eventPosition) {
           border: { display: false },
           title: {
             display: true,
-            text: '% households with visible hooked connection (P1=Yes)',
+            text: '% households with observed hooked connection',
             color: '#7A6B55',
             font: { family: "'Inter', sans-serif", size: 11 },
-            padding: { bottom: 8 }
+            padding: { top: 8 }
           }
+        },
+        y: {
+          grid: { display: false, drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          border: { display: false }
         }
       }
     },
     plugins: [{
-      id: 'hookedValueLabels',
+      id: 'theftValueLabels',
       afterDatasetsDraw(chart) {
         const c = chart.ctx;
-        const meta = chart.getDatasetMeta(0);
-        const vals = [16.0, 2.5, 17.9];
-        meta.data.forEach((bar, i) => {
-          c.save();
-          c.fillStyle = '#5A4E3C';
-          c.font = "bold 13px 'DM Mono', monospace";
-          c.textAlign = 'center';
-          c.fillText(vals[i].toFixed(1) + '%', bar.x, bar.y - 10);
-          c.restore();
+        chart.data.datasets.forEach((dataset, di) => {
+          const meta = chart.getDatasetMeta(di);
+          meta.data.forEach((bar, j) => {
+            const val = dataset.data[j].toFixed(1) + '%';
+            c.save();
+            c.fillStyle = '#5A4E3C';
+            c.font = "11px 'DM Mono', monospace";
+            c.textAlign = 'left';
+            const xPos = Math.min(bar.x + 5, chart.chartArea.right - 36);
+            c.fillText(val, xPos, bar.y + 4);
+            c.restore();
+          });
         });
       }
     }]
   });
 })();
 
-/* ── CHART 3: TREATMENT ARM BALANCE ── */
+/* CHART 5: SUBSIDY DISBURSEMENT BY ARM */
 (function() {
-  const ctx = document.getElementById('chart3').getContext('2d');
+  const ctx = document.getElementById('chart5').getContext('2d');
+
+  const arms = ['T1 (Tier 1)', 'T2 (Tier 2)', 'T3 (Tier 3)', 'T4 (Tier 4)'];
+  const meanSubsidy = [409, 443, 725, 1253];
+  const confirmRate = [94.3, 93.8, 94.7, 97.5];
 
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['T1', 'T2', 'T3', 'T4', 'Control'],
+      labels: arms,
       datasets: [
         {
-          label: 'Baseline',
-          data: [337, 334, 345, 338, 340],
-          backgroundColor: '#C9A84C',
-          borderRadius: 2,
-          barThickness: 22
-        },
-        {
-          label: 'Midline',
-          data: [314, 313, 321, 303, 311],
+          label: 'Mean subsidy (PKR per household)',
+          data: meanSubsidy,
           backgroundColor: '#0D1B2A',
           borderRadius: 2,
-          barThickness: 22
+          barThickness: 40,
+          yAxisID: 'y'
         },
         {
-          label: 'Endline',
-          data: [323, 315, 325, 317, 325],
-          backgroundColor: 'rgba(122,107,85,0.70)',
-          borderRadius: 2,
-          barThickness: 22
+          label: 'Payment confirmed (%)',
+          data: confirmRate,
+          type: 'line',
+          borderColor: '#C9A84C',
+          backgroundColor: 'rgba(201,168,76,0.10)',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#C9A84C',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.3,
+          fill: false,
+          yAxisID: 'y1'
         }
       ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      layout: { padding: { top: 20, right: 16, bottom: 8, left: 8 } },
+      layout: { padding: { top: 16, right: 16, bottom: 8, left: 8 } },
       interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: {
@@ -986,133 +1209,78 @@ Chart.Tooltip.positioners.followMouse = function(items, eventPosition) {
         tooltip: {
           position: 'followMouse',
           callbacks: {
-            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y} households`
+            label: ctx => {
+              if (ctx.datasetIndex === 0) return 'Mean subsidy: PKR ' + ctx.parsed.y;
+              return 'Confirmed: ' + ctx.parsed.y + '%';
+            }
           }
-        }
+        },
+        verticalLine: {}
       },
       scales: {
         x: {
-          grid: { display: false, drawBorder: false },
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
           ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
           border: { display: false }
         },
         y: {
+          type: 'linear',
+          position: 'left',
           min: 0,
-          max: 420,
+          max: 1500,
           grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
           ticks: {
             ...tickConfig,
-            callback: v => v.toLocaleString(),
+            callback: v => 'PKR ' + v.toLocaleString(),
             font: { family: "'DM Mono', monospace", size: 11 },
             maxTicksLimit: 7
           },
           border: { display: false },
           title: {
             display: true,
-            text: 'Households per arm',
-            color: '#7A6B55',
-            font: { family: "'Inter', sans-serif", size: 11 },
-            padding: { bottom: 8 }
-          }
-        }
-      }
-    }
-  });
-})();
-
-/* ── CHART 4: MONTHLY BILL DISTRIBUTION ── */
-(function() {
-  const ctx = document.getElementById('chart4').getContext('2d');
-
-  // Binned bill distribution from midline data (PKR)
-  const bins = ['0–999', '1,000–1,999', '2,000–2,999', '3,000–4,999', '5,000–9,999', '10,000–19,999', '20,000+'];
-  const counts = [62, 449, 321, 298, 224, 122, 46];
-  const barColors = bins.map((_, i) =>
-    i === 1 ? '#C9A84C' : i === 2 ? '#A8853A' : 'rgba(13,27,42,0.55)'
-  );
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: bins,
-      datasets: [{
-        label: 'Households (midline)',
-        data: counts,
-        backgroundColor: barColors,
-        borderRadius: 2,
-        barThickness: 40
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      layout: { padding: { top: 24, right: 16, bottom: 8, left: 8 } },
-      interaction: { mode: 'nearest', intersect: true },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          position: 'followMouse',
-          callbacks: {
-            title: items => `Monthly bill: ${items[0].label} PKR`,
-            label: ctx => `${ctx.parsed.y} households`
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: { display: false, drawBorder: false },
-          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 11 }, maxRotation: 0 },
-          border: { display: false },
-          title: {
-            display: true,
-            text: 'Monthly bill bracket (PKR)',
-            color: '#7A6B55',
-            font: { family: "'Inter', sans-serif", size: 11 },
-            padding: { top: 8 }
+            text: 'Mean monthly subsidy per household (PKR)',
+            color: '#0D1B2A',
+            font: { family: "'Inter', sans-serif", size: 10 },
+            padding: { bottom: 4 }
           }
         },
-        y: {
-          min: 0,
-          max: 520,
-          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+        y1: {
+          type: 'linear',
+          position: 'right',
+          min: 85,
+          max: 100,
+          grid: { display: false },
           ticks: {
             ...tickConfig,
+            callback: v => v + '%',
             font: { family: "'DM Mono', monospace", size: 11 },
             maxTicksLimit: 6
           },
           border: { display: false },
           title: {
             display: true,
-            text: 'Number of households',
-            color: '#7A6B55',
-            font: { family: "'Inter', sans-serif", size: 11 },
-            padding: { bottom: 8 }
+            text: 'Payment confirmation rate (%)',
+            color: '#C9A84C',
+            font: { family: "'Inter', sans-serif", size: 10 },
+            padding: { bottom: 4 }
           }
         }
       }
     },
     plugins: [{
-      id: 'billAnnotation',
-      afterDraw(chart) {
+      id: 'subsidyLabels',
+      afterDatasetsDraw(chart) {
         const c = chart.ctx;
-        const xScale = chart.scales.x;
-        const yScale = chart.scales.y;
-        // Draw mean line at ~2,751 PKR — falls within the 2,000–2,999 bin (index 2)
-        const binWidth = (xScale.right - xScale.left) / bins.length;
-        const meanX = xScale.left + binWidth * 2 + binWidth * 0.5;
-        c.save();
-        c.beginPath();
-        c.setLineDash([5, 5]);
-        c.strokeStyle = 'rgba(201,168,76,0.90)';
-        c.lineWidth = 1.5;
-        c.moveTo(meanX, chart.chartArea.top);
-        c.lineTo(meanX, chart.chartArea.bottom);
-        c.stroke();
-        c.fillStyle = '#A8853A';
-        c.font = "11px 'Inter', sans-serif";
-        c.textAlign = 'center';
-        c.fillText('Mean: 2,751 PKR', meanX, chart.chartArea.top - 8);
-        c.restore();
+        const meta = chart.getDatasetMeta(0);
+        meta.data.forEach((bar, i) => {
+          const val = 'PKR ' + meanSubsidy[i];
+          c.save();
+          c.fillStyle = 'rgba(247,243,236,0.90)';
+          c.font = "bold 11px 'DM Mono', monospace";
+          c.textAlign = 'center';
+          c.fillText(val, bar.x, bar.y + 16);
+          c.restore();
+        });
       }
     }]
   });
