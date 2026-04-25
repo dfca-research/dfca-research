@@ -428,7 +428,7 @@ footer {
   .scrolly-graphic {
     position: sticky;
     top: 0;
-    height: 45vh;
+    height: 55vh;
     z-index: 10;
     background: white;
     padding-bottom: 20px;
@@ -1089,32 +1089,32 @@ Chart.register(errorBarPlugin);
           label: 'Control (Baseline)',
           data: controlBaseline,
           borderColor: '#0D1B2A',
-          backgroundColor: 'rgba(13,27,42,0.06)',
+          backgroundColor: 'rgba(13,27,42,0.12)',
           borderWidth: 2.5,
           pointRadius: 0,
           tension: 0.4,
-          fill: false
+          fill: true
         },
         {
           label: 'Treated (Baseline)',
           data: treatedBaseline,
           borderColor: '#C9A84C',
-          backgroundColor: 'rgba(201,168,76,0.10)',
+          backgroundColor: 'rgba(201,168,76,0.18)',
           borderWidth: 2.5,
           pointRadius: 0,
           tension: 0.4,
-          fill: false
+          fill: true
         },
         {
           label: 'Treated (Endline)',
           data: treatedEndline,
           borderColor: '#C9A84C',
-          backgroundColor: 'transparent',
+          backgroundColor: 'rgba(201,168,76,0.08)',
           borderWidth: 2,
           borderDash: [6, 4],
           pointRadius: 0,
           tension: 0.4,
-          fill: false
+          fill: true
         }
       ]
     },
@@ -1262,11 +1262,12 @@ Chart.register(errorBarPlugin);
           const meta = chart.getDatasetMeta(di);
           meta.data.forEach((bar, j) => {
             const val = dataset.data[j].toFixed(1) + '%';
+            const xPos = Math.min(bar.x + 5, chart.chartArea.right - 36);
+            const isInside = xPos < bar.x;
             c.save();
-            c.fillStyle = '#5A4E3C';
+            c.fillStyle = isInside ? (di === 0 ? '#FFFFFF' : '#0D1B2A') : '#5A4E3C';
             c.font = "11px 'DM Mono', monospace";
             c.textAlign = 'left';
-            const xPos = Math.min(bar.x + 5, chart.chartArea.right - 36);
             c.fillText(val, xPos, bar.y + 4);
             c.restore();
           });
@@ -1393,10 +1394,10 @@ Chart.register(errorBarPlugin);
         meta.data.forEach((bar, i) => {
           const val = 'PKR ' + meanSubsidy[i];
           c.save();
-          c.fillStyle = 'rgba(247,243,236,0.90)';
+          c.fillStyle = '#0D1B2A';
           c.font = "bold 11px 'DM Mono', monospace";
           c.textAlign = 'center';
-          c.fillText(val, bar.x, bar.y + 16);
+          c.fillText(val, bar.x, bar.y - 8);
           c.restore();
         });
       }
