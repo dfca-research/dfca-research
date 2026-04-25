@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DFCA Research | Field Evidence: Women's Political Participation, District Peshawar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<style>
+:root {
+  --navy:       #0D1B2A;
+  --navy-light: #1A2B4A;
+  --gold:       #C9A84C;
+  --gold-muted: #A8853A;
+  --gold-soft:  #F5EDD6;
+  --cream:      #F7F3EC;
+  --charcoal:   #2E2E2E;
+  --slate-200:  #E8DFCF;
+  --slate-500:  #7A6B55;
+  --slate-600:  #5A4E3C;
+  --serif:      'Playfair Display', Georgia, serif;
+  --sans:       'Inter', system-ui, sans-serif;
+  --mono:       'DM Mono', monospace;
+  --ease:       cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  color: var(--charcoal);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-up:nth-child(2) { transition-delay: 0.1s; }
+.fade-up:nth-child(3) { transition-delay: 0.2s; }
+.fade-up:nth-child(4) { transition-delay: 0.3s; }
+.fade-up:nth-child(5) { transition-delay: 0.4s; }
+
+/* ── ZONE 0: TOP BAR ── */
+.topbar {
+  background: var(--navy);
+  padding: 10px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topbar span {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(247, 243, 236, 0.70);
+}
+
+/* ── ZONE 1: STAT BAND ── */
+.stat-band {
+  background: var(--navy);
+  padding: 56px 48px;
+  border-top: 1px solid rgba(201,168,76,0.15);
+}
+.stat-band-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+.stat-item {
+  text-align: center;
+  padding: 0 24px;
+  border-right: 1px solid rgba(247,243,236,0.08);
+}
+.stat-item:last-child { border-right: none; }
+.stat-number {
+  display: block;
+  font-family: var(--mono);
+  font-size: 3.5rem;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: rgba(247, 243, 236, 0.70);
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+/* ── ZONE 2: STUDY HEADER ── */
+.study-header {
+  background: var(--cream);
+  padding: 80px 48px;
+}
+.study-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 64px;
+  align-items: start;
+}
+.header-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gold-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+.study-title {
+  font-family: var(--serif);
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.study-geo {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--slate-500);
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+.study-desc {
+  font-family: var(--sans);
+  font-size: 16px;
+  color: var(--slate-600);
+  line-height: 1.8;
+  max-width: 600px;
+}
+.meta-card {
+  border: 1px solid var(--slate-200);
+  border-left: 3px solid var(--gold);
+  background: white;
+  padding: 32px;
+  border-radius: 2px;
+}
+.meta-row {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--slate-200);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 12px;
+  align-items: start;
+}
+.meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+.meta-row:first-child { padding-top: 0; }
+.meta-key {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gold-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  padding-top: 2px;
+}
+.meta-val {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--navy);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ── SCROLLYTELLING ── */
+.scrolly-section {
+  background: white;
+  position: relative;
+}
+.scrolly-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+.scrolly-left {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 48px 48px 48px;
+  border-right: 1px solid var(--slate-200);
+}
+.scrolly-chart-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  max-height: 380px;
+}
+.scrolly-chart-panel {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  transition: opacity 0.5s ease;
+}
+.scrolly-chart-panel.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.scrolly-header {
+  margin-bottom: 24px;
+}
+.scrolly-step-counter {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+.scrolly-step-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.3;
+  transition: opacity 0.4s ease;
+}
+.scrolly-chart-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold-muted);
+  margin-top: 16px;
+  line-height: 1.6;
+  transition: opacity 0.4s ease;
+}
+.scrolly-right {
+  padding: 0 48px;
+}
+.scrolly-step {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 0;
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
+}
+.scrolly-step.active {
+  opacity: 1;
+}
+.scrolly-step-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.scrolly-step-num::after {
+  content: '';
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: var(--slate-200);
+}
+.scrolly-step h3 {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+.scrolly-step p {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--slate-600);
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+.scrolly-step .data-callout {
+  background: var(--cream);
+  border-left: 3px solid var(--gold);
+  padding: 16px 20px;
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--navy);
+  line-height: 1.7;
+}
+
+/* ── SCROLLY PROGRESS BAR ── */
+.scrolly-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  background: var(--gold);
+  transition: height 0.3s ease;
+}
+
+/* ── ZONE 3: VISUALIZATION SUITE ── */
+.viz-suite {
+  background: white;
+  padding: 80px 48px;
+}
+.viz-suite-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gold-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 56px;
+  line-height: 1.3;
+}
+.viz-subsection {
+  border-top: 1px solid rgba(201,168,76,0.20);
+  padding-top: 48px;
+  margin-bottom: 72px;
+}
+.viz-subsection:last-child { margin-bottom: 0; }
+.viz-sub-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gold-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 24px;
+}
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.chart-caption {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--slate-500);
+  font-style: italic;
+  line-height: 1.7;
+  max-width: 800px;
+}
+.chart-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold-muted);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* ── NETWORK SECTION ── */
+.network-header {
+  margin-bottom: 36px;
+}
+.network-title {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+.network-desc {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--slate-600);
+  line-height: 1.8;
+  max-width: 780px;
+}
+.network-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.network-img-wrap {
+  position: relative;
+  background: #f9f7f4;
+  border: 1px solid var(--slate-200);
+  overflow: hidden;
+  border-radius: 2px;
+}
+.network-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.network-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 2px;
+  line-height: 1.4;
+}
+.network-img-label {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--slate-500);
+  padding: 14px 16px;
+  line-height: 1.5;
+  border-top: 1px solid var(--slate-200);
+  background: white;
+}
+
+/* ── ZONE 4: FINDING CARDS ── */
+.findings-zone {
+  background: var(--cream);
+  padding: 80px 48px;
+}
+.findings-zone-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.findings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 40px;
+}
+.finding-card {
+  border: 1px solid var(--slate-200);
+  border-left: 3px solid var(--gold);
+  background: var(--cream);
+  padding: 32px;
+  border-radius: 2px;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  cursor: default;
+}
+.finding-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(13,27,42,0.10);
+}
+.finding-headline {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+.finding-body {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--slate-600);
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+.finding-source {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold-muted);
+  line-height: 1.5;
+}
+
+/* ── ZONE 5: FIELD CONTEXT ── */
+.field-context {
+  background: var(--navy);
+  padding: 80px 48px;
+}
+.field-context-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.field-context p {
+  font-family: var(--sans);
+  font-size: 16px;
+  color: var(--cream);
+  line-height: 1.9;
+  margin-bottom: 0;
+}
+
+/* ── ZONE 6: FOOTER ── */
+footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(201,168,76,0.10);
+  padding: 40px 48px;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.footer-left {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: rgba(247,243,236,0.50);
+  line-height: 1.6;
+}
+.footer-center {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: rgba(247,243,236,0.40);
+  text-align: center;
+  line-height: 1.7;
+  max-width: 320px;
+}
+.footer-right {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: rgba(247,243,236,0.50);
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .stat-band-inner { grid-template-columns: repeat(3, 1fr); }
+  .study-header-inner { grid-template-columns: 1fr; }
+  .scrolly-inner { grid-template-columns: 1fr; }
+  .scrolly-left { position: relative; height: auto; }
+  .scrolly-chart-wrap { height: 300px; }
+  .findings-grid { grid-template-columns: 1fr; }
+  .network-gallery { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; text-align: center; }
+  .topbar { padding: 10px 24px; }
+  .stat-band, .study-header, .viz-suite, .findings-zone, .field-context, footer { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ZONE 0: TOP BAR -->
+<nav class="topbar">
+  <span>A subsidiary of DFCA &nbsp;·&nbsp; Implementing Partner Report</span>
+  <span>dfca-research.org</span>
+</nav>
+
+<!-- ZONE 1: STAT BAND -->
+<section class="stat-band">
+  <div class="stat-band-inner">
+    <div class="stat-item fade-up">
+      <span class="stat-number" data-target="3738" id="stat-1">0</span>
+      <span class="stat-label">Households<br>Surveyed</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-number" data-target="37" id="stat-2">0</span>
+      <span class="stat-label">Communities<br>Mapped</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-number" data-target="74" id="stat-3">0</span>
+      <span class="stat-label">Social Networks<br>Documented</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-number" data-target="4892" id="stat-4">0</span>
+      <span class="stat-label">Households in<br>Study Area</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-number" id="stat-5">8.03</span>
+      <span class="stat-label">Avg Social Ties<br>per Household</span>
+    </div>
+  </div>
+</section>
+
+<!-- ZONE 2: STUDY HEADER -->
+<section class="study-header">
+  <div class="study-header-inner">
+    <div class="fade-up">
+      <p class="header-label">Implementing Partner Report</p>
+      <h1 class="study-title">Women's Political Participation and Social Norms in Rural Peshawar</h1>
+      <p class="study-geo">Rural District Peshawar, Khyber Pakhtunkhwa, Pakistan &nbsp;·&nbsp; March–April 2019</p>
+      <p class="study-desc">
+        DFCA Research conducted a door-to-door household census and social network survey across 37 rural settlements in District Peshawar. Gender-separated field teams administered paired interviews to both female and male household heads in Pashto, completing structured surveys in 3,738 of 4,892 households in the study area. In addition to measuring personal beliefs and community perceptions around women's political participation, field teams collected directed network nominations from every respondent, producing 74 separate social network maps covering female and male ties across all 37 communities.
+      </p>
+    </div>
+    <div class="fade-up">
+      <div class="meta-card">
+        <div class="meta-row">
+          <span class="meta-key">Study Type</span>
+          <span class="meta-val">Household census and social network survey</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Geography</span>
+          <span class="meta-val">Rural District Peshawar, KP, Pakistan</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Field Period</span>
+          <span class="meta-val">March and April 2019</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Sample</span>
+          <span class="meta-val">3,738 households (paired interviews)</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Survey Language</span>
+          <span class="meta-val">Pashto; gender-separated administration</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Communities</span>
+          <span class="meta-val">37 rural settlements, avg 132 households</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Network Tie Types</span>
+          <span class="meta-val">Family, socialization, community issues, voting decisions</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Academic Paper</span>
+          <span class="meta-val">Gulzar, Sonnet and Khan (2025)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCROLLYTELLING SECTION -->
+<section class="scrolly-section" id="scrolly-section">
+  <div style="background: var(--navy); padding: 40px 48px 32px; border-bottom: 1px solid rgba(201,168,76,0.15);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <p class="section-label" style="color: rgba(201,168,76,0.8);">Scroll to explore the findings</p>
+      <h2 style="font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--cream); line-height: 1.3;">The pessimism wedge: a step-by-step account.</h2>
+    </div>
+  </div>
+
+  <div class="scrolly-inner">
+    <!-- STICKY LEFT: chart -->
+    <div class="scrolly-left">
+      <div class="scrolly-header">
+        <span class="scrolly-step-counter" id="scrolly-counter">01 / 06</span>
+        <div class="scrolly-step-title" id="scrolly-title">Personal support is high</div>
+      </div>
+
+      <div class="scrolly-chart-wrap" style="height: 340px;">
+        <!-- Beliefs chart (steps 0–3) -->
+        <div class="scrolly-chart-panel" id="panel-beliefs">
+          <canvas id="scrolly-beliefs"></canvas>
+        </div>
+        <!-- Network chart (steps 4–5) -->
+        <div class="scrolly-chart-panel hidden" id="panel-network">
+          <canvas id="scrolly-network"></canvas>
+        </div>
+      </div>
+
+      <div class="scrolly-chart-note" id="scrolly-note">
+        % who agree women should participate. First-order beliefs only.<br>Source: Table 1, Gulzar, Sonnet and Khan (2025).
+      </div>
+    </div>
+
+    <!-- SCROLLABLE RIGHT: narrative steps -->
+    <div class="scrolly-right">
+
+      <div class="scrolly-step active" data-step="0">
+        <div class="scrolly-step-num">01</div>
+        <h3>Personal support for women's participation is high across all three domains.</h3>
+        <p>More than 82% of women personally agreed that women should discuss politics publicly, have the right to vote, and be able to run for office. Men's personal support is even higher — 93.9% agree women should have the right to vote.</p>
+        <div class="data-callout">
+          Women · right to vote: 84.5%<br>
+          Women · discuss politics: 82.4%<br>
+          Women · run for office: 83.2%<br>
+          Source: Table 1, Panel A, first column.
+        </div>
+      </div>
+
+      <div class="scrolly-step" data-step="1">
+        <div class="scrolly-step-num">02</div>
+        <h3>Women systematically underestimate how many other women share this support.</h3>
+        <p>When women were asked to estimate how many other women in their community would agree with these statements, their estimates fell by 15 to 18 percentage points across all three domains. The gold bars represent what women actually believe; the navy bars show what women think others believe.</p>
+        <div class="data-callout">
+          Women's estimate of other women's support:<br>
+          Right to vote: 69.0% (actual: 84.5%, gap: 15.5 pp)<br>
+          Discuss politics: 63.9% (actual: 82.4%, gap: 18.5 pp)<br>
+          Run for office: 64.9% (actual: 83.2%, gap: 18.3 pp)<br>
+          Source: Table 1, Panel A.
+        </div>
+      </div>
+
+      <div class="scrolly-step" data-step="2">
+        <div class="scrolly-step-num">03</div>
+        <h3>Men's estimates of women's support are even more pessimistic — off by 22 to 32 percentage points.</h3>
+        <p>Men's estimates of how many women support participation are lower still. The gap between women's actual first-order beliefs and men's estimates of those beliefs ranges from 21.9 to 32.8 percentage points across the three domains. The slate bars show men's estimates of women's beliefs.</p>
+        <div class="data-callout">
+          Men's estimate of women's support:<br>
+          Right to vote: 62.6% (actual: 84.5%, gap: 21.9 pp)<br>
+          Discuss politics: 49.6% (actual: 82.4%, gap: 32.8 pp)<br>
+          Run for office: 54.4% (actual: 83.2%, gap: 28.8 pp)<br>
+          Source: Table 1, Panel A.
+        </div>
+      </div>
+
+      <div class="scrolly-step" data-step="3">
+        <div class="scrolly-step-num">04</div>
+        <h3>The same pessimism holds for men's beliefs about other men — with even larger gaps.</h3>
+        <p>Men are personally supportive of women's political participation at high rates. But men's estimates of how many other men share this view are dramatically lower. The gap between men's personal beliefs and their estimates of other men's beliefs reaches 35 percentage points for discussing politics.</p>
+        <div class="data-callout">
+          Men's personal vs. estimated community support:<br>
+          Right to vote: 93.9% personal vs. 58.5% estimated (−35.4 pp)<br>
+          Discuss politics: 75.6% personal vs. 40.1% estimated (−35.5 pp)<br>
+          Run for office: 85.0% personal vs. 46.8% estimated (−38.2 pp)<br>
+          Source: Table 1, Panel B.
+        </div>
+      </div>
+
+      <div class="scrolly-step" data-step="4">
+        <div class="scrolly-step-num">05</div>
+        <h3>Female and male social networks barely overlap — even within the same household.</h3>
+        <p>Of the 8.03 average social ties per household, 3.75 are male-only, 3.79 are female-only, and only 0.49 are shared between the male and female head of the same household. Women face a largely distinct social environment from the men they live with.</p>
+        <div class="data-callout">
+          Total ties: 8.03 per household<br>
+          Male-only: 3.75 &nbsp;·&nbsp; Female-only: 3.79 &nbsp;·&nbsp; Shared: 0.49<br>
+          Source: Table 2, Gulzar, Sonnet and Khan (2025).
+        </div>
+      </div>
+
+      <div class="scrolly-step" data-step="5">
+        <div class="scrolly-step-num">06</div>
+        <h3>Social network neighbors — not household members — shape women's community beliefs.</h3>
+        <p>Women's second-order beliefs about community norms show near-zero correlation with the personal beliefs of men in their own household (r = −0.02). In contrast, the beliefs held by women in a woman's own social network show a positive correlation with her community expectations (r = 0.22).</p>
+        <div class="data-callout">
+          Correlation with household men: r = −0.02<br>
+          Correlation with social network women: r = 0.22<br>
+          Source: Introduction, Gulzar, Sonnet and Khan (2025).
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ZONE 3: VISUALIZATION SUITE -->
+<section class="viz-suite">
+  <div class="viz-suite-inner">
+    <p class="section-label fade-up">Evidence from the Field</p>
+    <h2 class="section-title fade-up">Four views of the evidence.</h2>
+
+    <!-- SUB-SECTION 1: Belief Trajectory -->
+    <div class="viz-subsection fade-up">
+      <p class="viz-sub-label">Belief trajectory across vantage points — right to vote</p>
+      <div class="chart-wrap" style="height:400px;">
+        <canvas id="chart1"></canvas>
+      </div>
+      <p class="chart-caption">
+        Both men and women in District Peshawar personally hold high support for women's right to vote. As vantage point shifts from personal belief to estimated community belief, perceived support falls sharply. The gap between personal beliefs (left) and community perceptions (right) represents the pessimism wedge documented across 3,738 households.
+      </p>
+      <p class="chart-note">Values from Table 1, Gulzar, Sonnet and Khan (2025). Right-to-vote domain only. All reported percentages refer to the share of respondents who expressed agreement (weak or strong) on a five-point scale.</p>
+    </div>
+
+    <!-- SUB-SECTION 2: Domain Comparison -->
+    <div class="viz-subsection fade-up">
+      <p class="viz-sub-label">Observed support levels by domain and belief type — women respondents</p>
+      <div class="chart-wrap" style="height:380px;">
+        <canvas id="chart2"></canvas>
+      </div>
+      <p class="chart-caption">
+        Bars show the percentage of respondents who agreed that women should engage in each form of political participation. Personal beliefs (gold) consistently exceeded women's own estimates of community support (navy) by 15 to 18 percentage points. Men's estimates of women's community support (slate) fell further still, by 22 to 32 percentage points below actual first-order beliefs.
+      </p>
+      <p class="chart-note">Values from Table 1, Panel A, Gulzar, Sonnet and Khan (2025). All gaps between first- and second-order beliefs are statistically significant at p &lt; 0.01.</p>
+    </div>
+
+    <!-- SUB-SECTION 3: Pessimism Gap (Table 1 derived) -->
+    <div class="viz-subsection fade-up">
+      <p class="viz-sub-label">Underestimation gap by estimating group — averaged across three domains</p>
+      <div class="chart-wrap" style="height:320px;">
+        <canvas id="chart4"></canvas>
+      </div>
+      <p class="chart-caption">
+        Each bar shows the average percentage-point gap between first-order beliefs (what people actually think) and the corresponding second-order estimates (what a given group predicts others think), averaged across all three political participation domains. All four gaps are positive — every group underestimates actual community support. Men's estimates of other men's beliefs carry the largest underestimation: an average gap of 36.4 percentage points.
+      </p>
+      <p class="chart-note">Computed directly from Table 1, Gulzar, Sonnet and Khan (2025). Gap = first-order beliefs minus second-order estimate, averaged across discussing politics, right to vote, and running for office. These are percentage-point differences on the 0–100% agreement scale, not the 0–10 second-order scale used in Figure 2 of the paper.</p>
+    </div>
+
+    <!-- SUB-SECTION 4: Network Mapping -->
+    <div class="viz-subsection fade-up">
+      <div class="network-header">
+        <p class="section-label">Network Infrastructure</p>
+        <h3 class="network-title">Mapping community networks across 37 settlements.</h3>
+        <p class="network-desc">
+          DFCA Research field teams collected directed social network nominations from every male and female household head across all 37 settlements, asking each respondent to name up to five households they engaged with across four types of social ties. This produced 74 separate network maps — one female-nominated and one male-nominated per settlement — with an average of 8.03 ties per household and only 0.49 ties shared between the male and female heads of the same household. The network data informed the academic team's analysis of how social environment shapes women's beliefs about community norms.
+        </p>
+      </div>
+
+      <div class="network-gallery">
+        <div class="network-img-wrap">
+          <img src="all_networks1.png" alt="Female and male-nominated social networks for a subset of settlements in District Peshawar">
+          <div class="network-img-label"><strong>Female (left) and male-nominated (right) networks &nbsp;·&nbsp; Indegree scale 0–30</strong><br>Smaller settlements in District Peshawar. Node size proportional to indegree centrality. Source: Figure 1, Gulzar, Sonnet and Khan (2025).</div>
+        </div>
+        <div class="network-img-wrap">
+          <img src="all_networks2.png" alt="Female and male-nominated social networks for a further subset of settlements in District Peshawar">
+          <div class="network-img-label"><strong>Female (left) and male-nominated (right) networks &nbsp;·&nbsp; Indegree scale 0–300</strong><br>Larger, denser settlements. Variation in network density across communities is visible throughout. Source: Gulzar, Sonnet and Khan (2025).</div>
+        </div>
+      </div>
+
+      <div class="viz-subsection" style="margin-bottom:0; padding-top: 36px;">
+        <p class="viz-sub-label">Network connectivity and observed voting behavior</p>
+        <div class="network-img-wrap" style="max-width:400px; margin: 0 auto 20px;">
+          <div style="aspect-ratio: 1 / 1; background: white; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <img src="voted24_female_connected.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Proportion of women who voted vs female network connectivity bins">
+          </div>
+          <div class="network-img-label"><strong>5 connectivity bins &nbsp;·&nbsp; Female networks</strong><br>Proportion of women who voted, by the share of connected female households where women voted. Data show a strong monotonic relationship between a woman's embeddedness in active female networks and her own observed voting behavior.</div>
+        </div>
+        <p class="chart-caption">
+          Women embedded in female social networks where voting is common were substantially more likely to vote themselves. The relationship is monotonic across all five connectivity bins, consistent with women's social networks playing a role in mobilizing political participation. Source: Figure 3, Panel A, Gulzar, Sonnet and Khan (2025).
+        </p>
+        <p class="chart-note">Voting outcome data linked to field-mapped network data, District Peshawar. Source: Figure 3, Gulzar, Sonnet and Khan (2025). Exact election cycle not specified in the paper's main text.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONE 4: FINDING CARDS -->
+<section class="findings-zone">
+  <div class="findings-zone-inner">
+    <p class="section-label fade-up">Field observations</p>
+    <h2 class="section-title fade-up" style="margin-bottom:0;">What we observed.</h2>
+
+    <div class="findings-grid">
+      <div class="finding-card fade-up">
+        <h3 class="finding-headline">Personal support for women's political participation was high, but broadly underestimated across communities.</h3>
+        <p class="finding-body">More than 82% of women surveyed personally agreed that women should discuss politics, vote, and run for office. Women's own estimates of how widely that support was shared among other women in their settlement averaged 15 to 18 percentage points lower than the reported reality.</p>
+        <span class="finding-source">Source: Table 1, Panel A. Gulzar, Sonnet and Khan (2025). District Peshawar, 2019.</span>
+      </div>
+
+      <div class="finding-card fade-up">
+        <h3 class="finding-headline">Men's personal support was substantial, yet men's community estimates were the most pessimistic of all groups.</h3>
+        <p class="finding-body">Men personally supported women's right to vote at 93.9%, yet estimated that only 58.5% of other men in their community shared that view. The gap between men's personal beliefs and their estimates of other men's beliefs reached 35 percentage points for discussing politics publicly.</p>
+        <span class="finding-source">Source: Table 1, Panel B. Gulzar, Sonnet and Khan (2025). District Peshawar, 2019.</span>
+      </div>
+
+      <div class="finding-card fade-up">
+        <h3 class="finding-headline">Female and male social networks showed minimal overlap within the same households.</h3>
+        <p class="finding-body">Field mapping found that households maintained an average of 8.03 total social ties. Of these, 3.75 were male-only ties, 3.79 were female-only ties, and only 0.49 were shared between the male and female head of the same household. Women's social environment was largely distinct from that of the men they lived with.</p>
+        <span class="finding-source">Source: Table 2. Gulzar, Sonnet and Khan (2025). District Peshawar, 2019.</span>
+      </div>
+
+      <div class="finding-card fade-up">
+        <h3 class="finding-headline">Women's community expectations tracked their female social neighbors, not the men in their household.</h3>
+        <p class="finding-body">Women's second-order beliefs about community norms showed near-zero correlation with the personal beliefs of men in their own household (r = −0.02). The beliefs held by women in a woman's own social network showed a positive correlation with her community expectations (r = 0.22), and women with higher network centrality formed more accurate beliefs about actual community support levels.</p>
+        <span class="finding-source">Source: Introduction and Appendix D. Gulzar, Sonnet and Khan (2025). District Peshawar, 2019.</span>
+      </div>
+
+      <div class="finding-card fade-up">
+        <h3 class="finding-headline">All four belief wedges were negative — men's pessimism about other men was the most pronounced.</h3>
+        <p class="finding-body">Across all four vantage points, respondents predicted lower support than actually existed. The pessimism was smallest when women estimated other women's beliefs, and largest when men estimated other men's beliefs — consistent with pluralistic ignorance driven by near-complete segregation of male and female social networks. The paper's Figure 2 shows the full distribution of wedges for each group; specific distributional means are not reported in the paper.</p>
+        <span class="finding-source">Source: Figure 2 and Table 1. Gulzar, Sonnet and Khan (2025). District Peshawar, 2019.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONE 5: FIELD CONTEXT -->
+<section class="field-context">
+  <div class="field-context-inner fade-up">
+    <p>
+      DFCA Research conducted a complete door-to-door census across 37 rural settlements in District Peshawar over two months in the spring of 2019. Field teams attempted contact at every household in the study area, reaching 4,892 households and completing paired male-female interviews in 3,738 of them. Instruments were administered in Pashto by gender-matched enumerators who conducted male and female interviews separately within each household, preserving the independence of responses. Network mapping was conducted simultaneously, with each respondent nominating up to five social ties across four distinct relationship types spanning family, socialization, community deliberation, and electoral discussion.
+    </p>
+  </div>
+</section>
+
+<!-- ZONE 6: FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      DFCA Research &nbsp;·&nbsp; Evidence for Development &nbsp;·&nbsp; Peshawar, Pakistan
+    </div>
+    <div class="footer-center">
+      DFCA Research served as Implementing Partner on this study. Research design and causal analysis by the academic team: Gulzar (Stanford), Sonnet (Independent Scholar), and Khan (University of Pittsburgh).
+    </div>
+    <div class="footer-right">
+      &copy; 2025 DFCA Research. All rights reserved.<br>
+      <span style="font-size:10px; color:rgba(247,243,236,0.35);">
+        Data and findings may not be reproduced without written permission.<br>
+        Implementing Partner Report &nbsp;·&nbsp; District Peshawar, KP, Pakistan
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── CHART.JS GLOBAL DEFAULTS ── */
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#5A4E3C';
+Chart.defaults.plugins.legend.labels.boxWidth = 12;
+Chart.defaults.plugins.legend.labels.padding = 20;
+
+const gridColor = 'rgba(90,78,60,0.10)';
+const tickConfig = { padding: 8 };
+
+/* ── INTERSECTION OBSERVER for fade-up animations ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+/* ── STAT COUNTERS ── */
+function animateCounter(el, target, duration) {
+  let start = null;
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target).toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString();
+  }
+  requestAnimationFrame(step);
+}
+
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseFloat(el.dataset.target);
+      if (target) animateCounter(el, target, 1800);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.3 });
+
+['stat-1','stat-2','stat-3','stat-4'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) statObserver.observe(el);
+});
+
+/* ── CUSTOM TOOLTIP POSITIONER ── */
+Chart.Tooltip.positioners.followMouse = function(items, eventPosition) {
+  return { x: eventPosition.x, y: eventPosition.y };
+};
+
+/* ── VALUE LABEL PLUGIN ── */
+const valueLabelPlugin = {
+  id: 'valueLabels',
+  afterDatasetsDraw(chart) {
+    const ctx = chart.ctx;
+    chart.data.datasets.forEach((dataset, i) => {
+      if (dataset.hidden) return;
+      const meta = chart.getDatasetMeta(i);
+      meta.data.forEach((bar, j) => {
+        const value = dataset.data[j];
+        const label = value + '%';
+        ctx.save();
+        ctx.fillStyle = '#5A4E3C';
+        ctx.font = "11px 'DM Mono', monospace";
+        ctx.textAlign = 'left';
+        const xPos = Math.min(bar.x + 5, chart.chartArea.right - ctx.measureText(label).width - 2);
+        ctx.fillText(label, xPos, bar.y + 4);
+        ctx.restore();
+      });
+    });
+  }
+};
+
+/* ── CHART 1: BELIEF TRAJECTORY (line) ── */
+(function() {
+  const ctx = document.getElementById('chart1').getContext('2d');
+  /* Right-to-vote domain only. All values from Table 1.
+     womenLine: women's personal (84.5) → women's est. of other women (69.0) → men's est. of women (62.6)
+     menLine:   men's personal (93.9)   → women's est. of men (64.0)          → men's est. of other men (58.5) */
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [
+        'Personal beliefs',
+        ["Women's community", 'estimate'],
+        ["Men's community", 'estimate']
+      ],
+      datasets: [
+        {
+          label: 'Women respondents',
+          data: [84.5, 69.0, 62.6],
+          borderColor: '#C9A84C',
+          backgroundColor: 'rgba(201,168,76,0.12)',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#C9A84C',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.3,
+          fill: '+1'
+        },
+        {
+          label: 'Men respondents',
+          data: [93.9, 64.0, 58.5],
+          borderColor: '#0D1B2A',
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          pointBackgroundColor: 'white',
+          pointBorderColor: '#0D1B2A',
+          pointBorderWidth: 2,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.3,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 28, right: 16, bottom: 8, left: 8 } },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'top', align: 'start' },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%` }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 }, maxRotation: 0 },
+          border: { display: false }
+        },
+        y: {
+          min: 30, max: 100,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: { ...tickConfig, callback: v => v + '%', font: { family: "'DM Mono', monospace", size: 11 } },
+          border: { display: false },
+          title: {
+            display: true,
+            text: '% who agree women should have the right to vote',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { bottom: 8 }
+          }
+        }
+      }
+    }
+  });
+})();
+
+/* ── CHART 2: DOMAIN COMPARISON (horizontal bar) — Panel A, Table 1 ── */
+(function() {
+  const ctx = document.getElementById('chart2').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [['Discuss politics', 'publicly'], 'Right to vote', ['Run for', 'office']],
+      datasets: [
+        {
+          label: 'Personal beliefs (women, first-order)',
+          data: [82.4, 84.5, 83.2],
+          backgroundColor: '#C9A84C',
+          borderRadius: 2,
+          barThickness: 20
+        },
+        {
+          label: "Women's estimate of other women's support",
+          data: [63.9, 69.0, 64.9],
+          backgroundColor: '#0D1B2A',
+          borderRadius: 2,
+          barThickness: 20
+        },
+        {
+          label: "Men's estimate of women's support",
+          data: [49.6, 62.6, 54.4],
+          backgroundColor: 'rgba(122,107,85,0.65)',
+          borderRadius: 2,
+          barThickness: 20
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 8, right: 60, bottom: 8, left: 8 } },
+      interaction: { mode: 'nearest', intersect: true },
+      plugins: {
+        legend: { position: 'top', align: 'start' },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x}%` }
+        }
+      },
+      scales: {
+        x: {
+          min: 0, max: 100,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: { ...tickConfig, callback: v => v + '%', font: { family: "'DM Mono', monospace", size: 11 } },
+          border: { display: false }
+        },
+        y: {
+          grid: { display: false, drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [valueLabelPlugin]
+  });
+})();
+
+/* ── CHART 4: UNDERESTIMATION GAP — computed from Table 1 ── */
+/*
+  All values are (first-order belief) minus (second-order estimate), averaged across three domains.
+  (A) Women on other women: ((82.4−63.9)+(84.5−69.0)+(83.2−64.9))/3 = (18.5+15.5+18.3)/3 = 17.4
+  (B) Men on women:        ((82.4−49.6)+(84.5−62.6)+(83.2−54.4))/3 = (32.8+21.9+28.8)/3 = 27.8
+  (C) Women on men:        ((75.6−58.3)+(93.9−64.0)+(85.0−57.9))/3 = (17.3+29.9+27.1)/3 = 24.8
+  (D) Men on other men:    ((75.6−40.1)+(93.9−58.5)+(85.0−46.8))/3 = (35.5+35.4+38.2)/3 = 36.4
+  All sourced from Table 1, Gulzar, Sonnet and Khan (2025).
+*/
+(function() {
+  const ctx = document.getElementById('chart4').getContext('2d');
+  const gaps = [17.4, 27.8, 24.8, 36.4];
+  const labels = [
+    ['(A) Women on', 'other women'],
+    ['(B) Men on', 'women'],
+    ['(C) Women on', 'men'],
+    ['(D) Men on', 'other men']
+  ];
+  const colors = [
+    'rgba(201,168,76,0.80)',
+    'rgba(13,27,42,0.75)',
+    'rgba(201,168,76,0.55)',
+    'rgba(13,27,42,0.55)'
+  ];
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Avg. pp gap (first-order minus second-order estimate)',
+        data: gaps,
+        backgroundColor: colors,
+        borderRadius: 2,
+        barThickness: 44
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      layout: { padding: { top: 8, right: 64, bottom: 8, left: 8 } },
+      interaction: { mode: 'nearest', intersect: true },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: { label: ctx => `Avg. gap: ${ctx.parsed.x.toFixed(1)} pp` }
+        }
+      },
+      scales: {
+        x: {
+          min: 0, max: 45,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => v + ' pp',
+            font: { family: "'DM Mono', monospace", size: 11 }
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Avg. percentage-point gap (first-order minus second-order estimate)',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { top: 8 }
+          }
+        },
+        y: {
+          grid: { display: false, drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [{
+      id: 'gapValueLabels',
+      afterDatasetsDraw(chart) {
+        const c = chart.ctx;
+        const meta = chart.getDatasetMeta(0);
+        meta.data.forEach((bar, i) => {
+          const val = gaps[i].toFixed(1) + ' pp';
+          c.save();
+          c.fillStyle = '#5A4E3C';
+          c.font = "bold 11px 'DM Mono', monospace";
+          c.textAlign = 'left';
+          c.fillText(val, bar.x + 6, bar.y + 4);
+          c.restore();
+        });
+      }
+    }]
+  });
+})();
+
+/* ════════════════════════════════════════════
+   SCROLLYTELLING
+   ════════════════════════════════════════════ */
+
+/* Step metadata */
+const STEPS = [
+  {
+    title: 'Personal support is high',
+    note: '% who agree women should participate. First-order beliefs only.\nSource: Table 1, Gulzar, Sonnet and Khan (2025).',
+    panel: 'beliefs'
+  },
+  {
+    title: 'Women underestimate other women',
+    note: 'Gold = personal beliefs. Navy = women\'s estimate of other women.\nSource: Table 1, Panel A.',
+    panel: 'beliefs'
+  },
+  {
+    title: 'Men underestimate women even more',
+    note: 'All three groups shown. Slate = men\'s estimate of women\'s beliefs.\nSource: Table 1, Panel A.',
+    panel: 'beliefs'
+  },
+  {
+    title: 'Men\'s own beliefs face the same pattern',
+    note: 'Men\'s personal beliefs vs. estimates of other men and women\'s estimates of men.\nSource: Table 1, Panel B.',
+    panel: 'beliefs'
+  },
+  {
+    title: 'Networks are almost entirely separate',
+    note: 'Average number of social ties per household, by gender overlap.\nSource: Table 2, Gulzar, Sonnet and Khan (2025).',
+    panel: 'network'
+  },
+  {
+    title: 'Social neighbors shape beliefs, not husbands',
+    note: 'Correlation between women\'s second-order beliefs and two reference groups.\nSource: Introduction, Gulzar, Sonnet and Khan (2025).',
+    panel: 'network'
+  }
+];
+
+/* Beliefs chart data per step */
+const BELIEFS_STEPS = [
+  /* step 0: women's personal beliefs only */
+  {
+    labels: [['Discuss politics', 'publicly'], 'Right to vote', ['Run for', 'office']],
+    datasets: [
+      { label: 'Personal beliefs (women)', data: [82.4, 84.5, 83.2], hidden: false, bg: '#C9A84C' },
+      { label: "Women's estimate of other women", data: [63.9, 69.0, 64.9], hidden: true, bg: '#0D1B2A' },
+      { label: "Men's estimate of women's beliefs", data: [49.6, 62.6, 54.4], hidden: true, bg: 'rgba(122,107,85,0.65)' }
+    ]
+  },
+  /* step 1: add women's estimate */
+  {
+    labels: [['Discuss politics', 'publicly'], 'Right to vote', ['Run for', 'office']],
+    datasets: [
+      { label: 'Personal beliefs (women)', data: [82.4, 84.5, 83.2], hidden: false, bg: '#C9A84C' },
+      { label: "Women's estimate of other women", data: [63.9, 69.0, 64.9], hidden: false, bg: '#0D1B2A' },
+      { label: "Men's estimate of women's beliefs", data: [49.6, 62.6, 54.4], hidden: true, bg: 'rgba(122,107,85,0.65)' }
+    ]
+  },
+  /* step 2: all three Panel A datasets */
+  {
+    labels: [['Discuss politics', 'publicly'], 'Right to vote', ['Run for', 'office']],
+    datasets: [
+      { label: 'Personal beliefs (women)', data: [82.4, 84.5, 83.2], hidden: false, bg: '#C9A84C' },
+      { label: "Women's estimate of other women", data: [63.9, 69.0, 64.9], hidden: false, bg: '#0D1B2A' },
+      { label: "Men's estimate of women's beliefs", data: [49.6, 62.6, 54.4], hidden: false, bg: 'rgba(122,107,85,0.65)' }
+    ]
+  },
+  /* step 3: Panel B — men's perspective */
+  {
+    labels: [['Discuss politics', 'publicly'], 'Right to vote', ['Run for', 'office']],
+    datasets: [
+      { label: 'Personal beliefs (men)', data: [75.6, 93.9, 85.0], hidden: false, bg: '#C9A84C' },
+      { label: "Women's estimate of men's beliefs", data: [58.3, 64.0, 57.9], hidden: false, bg: '#0D1B2A' },
+      { label: "Men's estimate of other men's beliefs", data: [40.1, 58.5, 46.8], hidden: false, bg: 'rgba(122,107,85,0.65)' }
+    ]
+  }
+];
+
+/* Network chart data per step */
+const NETWORK_STEPS = [
+  /* step 4: tie breakdown */
+  {
+    labels: ['Male-only ties', 'Female-only ties', 'Shared ties'],
+    data: [3.75, 3.79, 0.49],
+    colors: ['#0D1B2A', '#C9A84C', 'rgba(122,107,85,0.65)'],
+    xLabel: 'Average ties per household',
+    xMax: 5
+  },
+  /* step 5: r-values */
+  {
+    labels: ['With social network women\n(r = 0.22)', 'With household men\n(r = −0.02)'],
+    data: [0.22, -0.02],
+    colors: ['#C9A84C', 'rgba(122,107,85,0.65)'],
+    xLabel: 'Correlation coefficient (r)',
+    xMax: 0.4
+  }
+];
+
+/* ── Init scrolly beliefs chart ── */
+const sBeliefCtx = document.getElementById('scrolly-beliefs').getContext('2d');
+const scrollyBeliefsChart = new Chart(sBeliefCtx, {
+  type: 'bar',
+  data: {
+    labels: BELIEFS_STEPS[0].labels,
+    datasets: BELIEFS_STEPS[0].datasets.map(d => ({
+      label: d.label,
+      data: d.data,
+      hidden: d.hidden,
+      backgroundColor: d.bg,
+      borderRadius: 2,
+      barThickness: 22
+    }))
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 600, easing: 'easeInOutQuart' },
+    layout: { padding: { top: 4, right: 60, bottom: 4, left: 4 } },
+    plugins: {
+      legend: { position: 'top', align: 'start', labels: { font: { size: 11 }, padding: 12 } },
+      tooltip: {
+        position: 'followMouse',
+        callbacks: { label: c => `${c.dataset.label}: ${c.parsed.x}%` }
+      }
+    },
+    scales: {
+      x: {
+        min: 0, max: 100,
+        grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+        ticks: { callback: v => v + '%', font: { family: "'DM Mono', monospace", size: 10 }, padding: 6 },
+        border: { display: false }
+      },
+      y: {
+        grid: { display: false, drawBorder: false },
+        ticks: { font: { size: 11 }, padding: 6 },
+        border: { display: false }
+      }
+    }
+  },
+  plugins: [valueLabelPlugin]
+});
+
+/* ── Init scrolly network chart ── */
+const sNetCtx = document.getElementById('scrolly-network').getContext('2d');
+const scrollyNetworkChart = new Chart(sNetCtx, {
+  type: 'bar',
+  data: {
+    labels: NETWORK_STEPS[0].labels,
+    datasets: [{
+      data: NETWORK_STEPS[0].data,
+      backgroundColor: NETWORK_STEPS[0].colors,
+      borderRadius: 2,
+      barThickness: 36
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 600, easing: 'easeInOutQuart' },
+    layout: { padding: { top: 4, right: 60, bottom: 4, left: 4 } },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        position: 'followMouse',
+        callbacks: { label: c => `${c.parsed.x}` }
+      }
+    },
+    scales: {
+      x: {
+        min: 0, max: NETWORK_STEPS[0].xMax,
+        grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+        ticks: { font: { family: "'DM Mono', monospace", size: 10 }, padding: 6 },
+        border: { display: false },
+        title: {
+          display: true,
+          text: NETWORK_STEPS[0].xLabel,
+          color: '#7A6B55',
+          font: { size: 10 },
+          padding: { top: 6 }
+        }
+      },
+      y: {
+        grid: { display: false, drawBorder: false },
+        ticks: { font: { size: 11 }, padding: 6 },
+        border: { display: false }
+      }
+    }
+  },
+  plugins: [{
+    id: 'netValueLabels',
+    afterDatasetsDraw(chart) {
+      const c = chart.ctx;
+      const meta = chart.getDatasetMeta(0);
+      meta.data.forEach((bar, i) => {
+        const val = chart.data.datasets[0].data[i];
+        const label = typeof val === 'number' && Math.abs(val) < 1 ? val.toFixed(2) : val.toFixed(2);
+        c.save();
+        c.fillStyle = '#5A4E3C';
+        c.font = "bold 11px 'DM Mono', monospace";
+        c.textAlign = 'left';
+        c.fillText(label, bar.x + 5, bar.y + 4);
+        c.restore();
+      });
+    }
+  }]
+});
+
+/* ── Apply scrolly chart update ── */
+function applyScrollyStep(step) {
+  const titleEl = document.getElementById('scrolly-title');
+  const counterEl = document.getElementById('scrolly-counter');
+  const noteEl = document.getElementById('scrolly-note');
+  const beliefsPanel = document.getElementById('panel-beliefs');
+  const networkPanel = document.getElementById('panel-network');
+
+  counterEl.textContent = `0${step + 1} / 0${STEPS.length}`;
+  titleEl.textContent = STEPS[step].title;
+  noteEl.textContent = STEPS[step].note;
+
+  if (STEPS[step].panel === 'beliefs') {
+    beliefsPanel.classList.remove('hidden');
+    networkPanel.classList.add('hidden');
+
+    const sd = BELIEFS_STEPS[Math.min(step, 3)];
+    sd.datasets.forEach((d, i) => {
+      scrollyBeliefsChart.data.datasets[i].label = d.label;
+      scrollyBeliefsChart.data.datasets[i].data = d.data;
+      scrollyBeliefsChart.data.datasets[i].hidden = d.hidden;
+      scrollyBeliefsChart.data.datasets[i].backgroundColor = d.bg;
+    });
+    scrollyBeliefsChart.data.labels = sd.labels;
+    scrollyBeliefsChart.update();
+  } else {
+    beliefsPanel.classList.add('hidden');
+    networkPanel.classList.remove('hidden');
+
+    const nd = NETWORK_STEPS[step - 4];
+    scrollyNetworkChart.data.labels = nd.labels;
+    scrollyNetworkChart.data.datasets[0].data = nd.data;
+    scrollyNetworkChart.data.datasets[0].backgroundColor = nd.colors;
+    scrollyNetworkChart.options.scales.x.max = nd.xMax;
+    scrollyNetworkChart.options.scales.x.min = nd === NETWORK_STEPS[1] ? -0.15 : 0;
+    scrollyNetworkChart.options.scales.x.title.text = nd.xLabel;
+    scrollyNetworkChart.update();
+  }
+}
+
+/* ── Scrolly step activation ── */
+let currentScrollyStep = 0;
+applyScrollyStep(0);
+
+const scrollyStepEls = document.querySelectorAll('.scrolly-step');
+
+const scrollyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const step = parseInt(entry.target.dataset.step);
+      scrollyStepEls.forEach(el => el.classList.remove('active'));
+      entry.target.classList.add('active');
+      if (step !== currentScrollyStep) {
+        currentScrollyStep = step;
+        applyScrollyStep(step);
+      }
+    }
+  });
+}, {
+  rootMargin: '-35% 0px -35% 0px',
+  threshold: 0
+});
+
+scrollyStepEls.forEach(el => scrollyObserver.observe(el));
+</script>
+
+</body>
+</html>
