@@ -569,11 +569,19 @@ footer {
         </div>
 
         <div class="scrolly-step" data-step="5">
-          <p class="viz-sub-label">Subsidy disbursement scale and payment confirmation at midline</p>
+          <p class="viz-sub-label">Subsidy disbursement scale by treatment tier</p>
           <p class="chart-caption">
-            The navy bars show the mean monthly subsidy amount (PKR) received per household at midline by treatment tier, confirming the graduated subsidy structure across T1 to T4. The gold line and right axis show the percentage of treatment households in each arm who confirmed receipt of their January 2023 payment at the midline interview. Confirmation rates ranged from 93.8 percent (T2) to 97.5 percent (T4). Across all treatment arms, DFCA disbursed a total of PKR 805,570 to 1,116 households and collected photographic receipt evidence from 1,060 of those households.
+            The navy bars show the mean monthly subsidy amount (PKR) received per household at midline by treatment tier. This confirms the graduated subsidy structure across T1 to T4, with mean amounts of PKR 391, PKR 295, PKR 687, and PKR 1,183 respectively. Across all treatment arms, DFCA disbursed a total of PKR 805,570 to 1,116 households during the intervention period.
           </p>
-          <p class="chart-note">xx_feb_pay: calculated subsidy entitlement for February 2023 billing cycle. payment variable: 1 = household confirmed receipt of January payment. Source: Midline survey, September 2023.</p>
+          <p class="chart-note">xx_feb_pay: calculated subsidy entitlement for February 2023 billing cycle. Source: Midline survey, September 2023.</p>
+        </div>
+
+        <div class="scrolly-step" data-step="6">
+          <p class="viz-sub-label">Subsidy payment confirmation rates at midline</p>
+          <p class="chart-caption">
+            The gold line and right axis show the percentage of treatment households in each arm who confirmed receipt of their January 2023 payment at the midline interview. Enumerators cross-checked payments against official PESCO bills and collected photographic receipt evidence from 1,060 households. Confirmation rates were consistently high across all tiers, ranging from 93.8 percent (T2) to 97.5 percent (T4).
+          </p>
+          <p class="chart-note">payment variable: 1 = household confirmed receipt of January payment. Source: Midline survey, September 2023.</p>
         </div>
       </div>
 
@@ -711,12 +719,37 @@ const scrollyObserver = new IntersectionObserver((entries) => {
 
       /* Switch chart layers */
       chartLayers.forEach(layer => {
-        if (layer.dataset.layer === step) {
+        /* Map steps 5 and 6 both to layer 5 */
+        const targetLayer = (step === '6') ? '5' : step;
+        if (layer.dataset.layer === targetLayer) {
           layer.classList.add('active');
         } else {
           layer.classList.remove('active');
         }
       });
+
+      /* DYNAMIC FOCUS FOR CHART 5 */
+      if (window.chart5Instance) {
+        if (step === '5') {
+          /* Focus on bars: Mute the line */
+          window.chart5Instance.data.datasets[1].borderColor = 'rgba(201,168,76,0.15)';
+          window.chart5Instance.data.datasets[1].pointBackgroundColor = 'rgba(201,168,76,0.15)';
+          window.chart5Instance.data.datasets[0].backgroundColor = '#0D1B2A';
+          window.chart5Instance.update();
+        } else if (step === '6') {
+          /* Focus on line: Highlight the line, Mute the bars */
+          window.chart5Instance.data.datasets[1].borderColor = '#C9A84C';
+          window.chart5Instance.data.datasets[1].pointBackgroundColor = '#C9A84C';
+          window.chart5Instance.data.datasets[0].backgroundColor = 'rgba(13,27,42,0.15)';
+          window.chart5Instance.update();
+        } else {
+          /* Reset colors when scrolling away from subsidy steps */
+          window.chart5Instance.data.datasets[1].borderColor = '#C9A84C';
+          window.chart5Instance.data.datasets[1].pointBackgroundColor = '#C9A84C';
+          window.chart5Instance.data.datasets[0].backgroundColor = '#0D1B2A';
+          window.chart5Instance.update();
+        }
+      }
     }
   });
 }, {
@@ -1283,7 +1316,7 @@ Chart.register(errorBarPlugin);
   const meanSubsidy = [391, 295, 687, 1183];
   const confirmRate = [94.3, 93.8, 94.7, 97.5];
 
-  new Chart(ctx, {
+  window.chart5Instance = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: arms,
