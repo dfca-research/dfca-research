@@ -363,6 +363,56 @@ footer {
   text-align: right;
 }
 
+/* SCROLLYTELLING LAYOUT */
+.scrolly-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  position: relative;
+  align-items: start;
+}
+.scrolly-text {
+  padding-bottom: 20vh;
+}
+.scrolly-step {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.35;
+  transition: opacity 0.5s var(--ease);
+  padding: 48px 0;
+}
+.scrolly-step.active {
+  opacity: 1;
+}
+.scrolly-graphic {
+  position: sticky;
+  top: 10vh;
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chart-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.chart-layer.active {
+  opacity: 1;
+  visibility: visible;
+}
+
 @media (max-width: 900px) {
   .stat-band-inner { grid-template-columns: repeat(3, 1fr); }
   .study-header-inner { grid-template-columns: 1fr; }
@@ -370,6 +420,30 @@ footer {
   .footer-inner { grid-template-columns: 1fr; text-align: center; }
   .topbar { padding: 10px 24px; }
   .stat-band, .study-header, .viz-suite, .findings-zone, .field-context, footer { padding-left: 24px; padding-right: 24px; }
+
+  /* MOBILE SCROLLY */
+  .scrolly-container {
+    display: block;
+  }
+  .scrolly-graphic {
+    position: sticky;
+    top: 0;
+    height: 45vh;
+    z-index: 10;
+    background: white;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .scrolly-step {
+    min-height: 60vh;
+    padding: 64px 0;
+    background: white;
+    position: relative;
+    z-index: 5;
+  }
+  .scrolly-text {
+    padding-bottom: 0;
+  }
 }
 </style>
 </head>
@@ -459,66 +533,79 @@ footer {
     <p class="section-label fade-up">Evidence from the Field</p>
     <h2 class="section-title fade-up">Five analytical views of the trial evidence.</h2>
 
-    <!-- SUB-SECTION 1: Coefficient Plot (Bill DiD) -->
-    <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Treatment effect estimates on monthly bill amounts (difference-in-differences)</p>
-      <div class="chart-wrap" style="height:320px;">
-        <canvas id="chart1"></canvas>
-      </div>
-      <p class="chart-caption">
-        Horizontal dots show difference-in-differences (DiD) estimates for mean monthly electricity bill amounts (PKR) by treatment arm, relative to the control group, comparing baseline (December 2022) to endline (2024). Estimates exclude four observations with monthly bills exceeding PKR 100,000 (three in the control group across both waves, one in T2 at endline) as implausible for residential meters. Horizontal lines represent approximate 95 percent confidence intervals; whiskers do not account for within-feeder clustering and should be treated as illustrative bounds. All four treatment arms show positive DiD estimates. All confidence intervals span zero.
-      </p>
-      <p class="chart-note">Vertical reference line at zero. DiD = (Endline mean - Baseline mean) for arm minus the equivalent for Control. Four observations with M2_1 > PKR 100,000 excluded. n: baseline 330 (Control), 332 (T1), 321 (T2), 333 (T3), 326 (T4); endline 309 (Control), 307 (T1), 295 (T2), 308 (T3), 303 (T4). Approximate 95% CI: DiD ± 1.96 × SE.</p>
-    </div>
+    <div class="scrolly-container">
+      <!-- LEFT COLUMN: SCROLLING TEXT -->
+      <div class="scrolly-text">
+        <div class="scrolly-step" data-step="1">
+          <p class="viz-sub-label">Treatment effect estimates on monthly bill amounts (difference-in-differences)</p>
+          <p class="chart-caption">
+            Horizontal dots show difference-in-differences (DiD) estimates for mean monthly electricity bill amounts (PKR) by treatment arm, relative to the control group, comparing baseline (December 2022) to endline (2024). Estimates exclude four observations with monthly bills exceeding PKR 100,000 (three in the control group across both waves, one in T2 at endline) as implausible for residential meters. Horizontal lines represent approximate 95 percent confidence intervals; whiskers do not account for within-feeder clustering and should be treated as illustrative bounds. All four treatment arms show positive DiD estimates. All confidence intervals span zero.
+          </p>
+          <p class="chart-note">Vertical reference line at zero. DiD = (Endline mean - Baseline mean) for arm minus the equivalent for Control. Four observations with M2_1 > PKR 100,000 excluded. n: baseline 330 (Control), 332 (T1), 321 (T2), 333 (T3), 326 (T4); endline 309 (Control), 307 (T1), 295 (T2), 308 (T3), 303 (T4). Approximate 95% CI: DiD ± 1.96 × SE.</p>
+        </div>
 
-    <!-- SUB-SECTION 2: DiD Trajectory -->
-    <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Mean monthly bill trajectory across baseline and endline survey waves</p>
-      <div class="chart-wrap" style="height:400px;">
-        <canvas id="chart2"></canvas>
-      </div>
-      <p class="chart-caption">
-        Each line traces the mean monthly electricity bill (PKR, most recent billing cycle as recorded from the physical bill at interview) for one randomization arm between baseline (December 2022) and endline (2024). Four observations with monthly bills exceeding PKR 100,000 are excluded. The control group shows a slight increase of PKR 315 over the period. All four treatment arms show larger increases, consistent with a positive treatment effect on billed consumption, though all DiD confidence intervals span zero given the wide within-arm variance.
-      </p>
-      <p class="chart-note">Midline (September 2023) did not collect electricity bill amounts from respondents; the chart connects baseline directly to endline for each arm. Four observations with M2_1 > PKR 100,000 excluded from means (3 in Control across waves, 1 in T2 at endline).</p>
-    </div>
+        <div class="scrolly-step" data-step="2">
+          <p class="viz-sub-label">Mean monthly bill trajectory across baseline and endline survey waves</p>
+          <p class="chart-caption">
+            Each line traces the mean monthly electricity bill (PKR, most recent billing cycle as recorded from the physical bill at interview) for one randomization arm between baseline (December 2022) and endline (2024). Four observations with monthly bills exceeding PKR 100,000 are excluded. The control group shows a slight increase of PKR 315 over the period. All four treatment arms show larger increases, consistent with a positive treatment effect on billed consumption, though all DiD confidence intervals span zero given the wide within-arm variance.
+          </p>
+          <p class="chart-note">Midline (September 2023) did not collect electricity bill amounts from respondents; the chart connects baseline directly to endline for each arm. Four observations with M2_1 > PKR 100,000 excluded from means (3 in Control across waves, 1 in T2 at endline).</p>
+        </div>
 
-    <!-- SUB-SECTION 3: KDE Distribution of Monthly Bills -->
-    <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Kernel density estimate of monthly electricity bill amounts by group and wave</p>
-      <div class="chart-wrap" style="height:380px;">
-        <canvas id="chart3"></canvas>
-      </div>
-      <p class="chart-caption">
-        Smoothed density curves approximate the distribution of monthly electricity bills (PKR) for the control group at baseline (navy solid), the pooled treatment group at baseline (gold solid), and the pooled treatment group at endline (gold dashed). At baseline, both distributions share a similar left-skewed profile with a modal bill below PKR 5,000. By endline, the treatment group distribution shifts rightward relative to baseline, reflecting an increase in average billed amounts among treated households over the study period. The control group distribution does not shift in the same direction.
-      </p>
-      <p class="chart-note">Density approximated from 18 histogram bins (bin width PKR 2,500, range PKR 0 to 45,000), smoothed using line tension 0.4. Control endline omitted for clarity. n: control baseline 313, treated baseline 1,252, treated endline 1,144.</p>
-    </div>
+        <div class="scrolly-step" data-step="3">
+          <p class="viz-sub-label">Kernel density estimate of monthly electricity bill amounts by group and wave</p>
+          <p class="chart-caption">
+            Smoothed density curves approximate the distribution of monthly electricity bills (PKR) for the control group at baseline (navy solid), the pooled treatment group at baseline (gold solid), and the pooled treatment group at endline (gold dashed). At baseline, both distributions share a similar left-skewed profile with a modal bill below PKR 5,000. By endline, the treatment group distribution shifts rightward relative to baseline, reflecting an increase in average billed amounts among treated households over the study period. The control group distribution does not shift in the same direction.
+          </p>
+          <p class="chart-note">Density approximated from 18 histogram bins (bin width PKR 2,500, range PKR 0 to 45,000), smoothed using line tension 0.4. Control endline omitted for clarity. n: control baseline 313, treated baseline 1,252, treated endline 1,144.</p>
+        </div>
 
-    <!-- SUB-SECTION 4: Theft Rate by Arm -->
-    <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Enumerator-observed illicit connection rates by arm and survey wave</p>
-      <div class="chart-wrap" style="height:360px;">
-        <canvas id="chart4"></canvas>
-      </div>
-      <p class="chart-caption">
-        Bars show the percentage of households where an enumerator observed a hooked (illicit) electrical connection at the time of interview, by randomization arm and survey wave. Observed theft rates are a noisy proxy for actual connection behavior and are subject to enumerator visibility constraints. The control group declined from 19.0 percent at baseline to 17.2 percent at endline. Across treatment arms, responses were heterogeneous: T4 (highest subsidy tier, mean PKR 1,183 per month) and T2 showed net decreases relative to baseline, while T1 and T3 showed net increases. No arm exhibits a statistically clear treatment effect on this measure given the sample sizes and wide confidence intervals.
-      </p>
-      <p class="chart-note">P1 variable: enumerator observation of hooked connection (1 = Yes, 2 = No). Unsure and do-not-know responses excluded. Control: 288-303 obs; treatment arms: 274-298 obs per wave.</p>
-    </div>
+        <div class="scrolly-step" data-step="4">
+          <p class="viz-sub-label">Enumerator-observed illicit connection rates by arm and survey wave</p>
+          <p class="chart-caption">
+            Bars show the percentage of households where an enumerator observed a hooked (illicit) electrical connection at the time of interview, by randomization arm and survey wave. Observed theft rates are a noisy proxy for actual connection behavior and are subject to enumerator visibility constraints. The control group declined from 19.0 percent at baseline to 17.2 percent at endline. Across treatment arms, responses were heterogeneous: T4 (highest subsidy tier, mean PKR 1,183 per month) and T2 showed net decreases relative to baseline, while T1 and T3 showed net increases. No arm exhibits a statistically clear treatment effect on this measure given the sample sizes and wide confidence intervals.
+          </p>
+          <p class="chart-note">P1 variable: enumerator observation of hooked connection (1 = Yes, 2 = No). Unsure and do-not-know responses excluded. Control: 288-303 obs; treatment arms: 274-298 obs per wave.</p>
+        </div>
 
-    <!-- SUB-SECTION 5: Subsidy Disbursement by Arm -->
-    <div class="viz-subsection fade-up">
-      <p class="viz-sub-label">Subsidy disbursement scale and payment confirmation at midline</p>
-      <div class="chart-wrap" style="height:360px;">
-        <canvas id="chart5"></canvas>
+        <div class="scrolly-step" data-step="5">
+          <p class="viz-sub-label">Subsidy disbursement scale and payment confirmation at midline</p>
+          <p class="chart-caption">
+            The navy bars show the mean monthly subsidy amount (PKR) received per household at midline by treatment tier, confirming the graduated subsidy structure across T1 to T4. The gold line and right axis show the percentage of treatment households in each arm who confirmed receipt of their January 2023 payment at the midline interview. Confirmation rates ranged from 93.8 percent (T2) to 97.5 percent (T4). Across all treatment arms, DFCA disbursed a total of PKR 805,570 to 1,116 households and collected photographic receipt evidence from 1,060 of those households.
+          </p>
+          <p class="chart-note">xx_feb_pay: calculated subsidy entitlement for February 2023 billing cycle. payment variable: 1 = household confirmed receipt of January payment. Source: Midline survey, September 2023.</p>
+        </div>
       </div>
-      <p class="chart-caption">
-        The navy bars show the mean monthly subsidy amount (PKR) received per household at midline by treatment tier, confirming the graduated subsidy structure across T1 to T4. The gold line and right axis show the percentage of treatment households in each arm who confirmed receipt of their January 2023 payment at the midline interview. Confirmation rates ranged from 93.8 percent (T2) to 97.5 percent (T4). Across all treatment arms, DFCA disbursed a total of PKR 805,570 to 1,116 households and collected photographic receipt evidence from 1,060 of those households.
-      </p>
-      <p class="chart-note">xx_feb_pay: calculated subsidy entitlement for February 2023 billing cycle. payment variable: 1 = household confirmed receipt of January payment. Source: Midline survey, September 2023.</p>
-    </div>
 
+      <!-- RIGHT COLUMN: STICKY GRAPHIC -->
+      <div class="scrolly-graphic">
+        <div class="chart-layer" data-layer="1">
+          <div class="chart-wrap" style="height:320px;">
+            <canvas id="chart1"></canvas>
+          </div>
+        </div>
+        <div class="chart-layer" data-layer="2">
+          <div class="chart-wrap" style="height:400px;">
+            <canvas id="chart2"></canvas>
+          </div>
+        </div>
+        <div class="chart-layer" data-layer="3">
+          <div class="chart-wrap" style="height:380px;">
+            <canvas id="chart3"></canvas>
+          </div>
+        </div>
+        <div class="chart-layer" data-layer="4">
+          <div class="chart-wrap" style="height:360px;">
+            <canvas id="chart4"></canvas>
+          </div>
+        </div>
+        <div class="chart-layer" data-layer="5">
+          <div class="chart-wrap" style="height:360px;">
+            <canvas id="chart5"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -608,6 +695,37 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.08 });
 
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+/* SCROLLYTELLING OBSERVER */
+const scrollySteps = document.querySelectorAll('.scrolly-step');
+const chartLayers = document.querySelectorAll('.chart-layer');
+
+const scrollyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const step = entry.target.dataset.step;
+      
+      /* Update text steps appearance */
+      scrollySteps.forEach(s => s.classList.remove('active'));
+      entry.target.classList.add('active');
+
+      /* Switch chart layers */
+      chartLayers.forEach(layer => {
+        if (layer.dataset.layer === step) {
+          layer.classList.add('active');
+        } else {
+          layer.classList.remove('active');
+        }
+      });
+    }
+  });
+}, {
+  /* Trigger when step is centered in viewport */
+  rootMargin: '-40% 0% -40% 0%',
+  threshold: 0
+});
+
+scrollySteps.forEach(step => scrollyObserver.observe(step));
 
 /* STAT COUNTERS */
 function animateCounter(el, target, duration, decimals) {
