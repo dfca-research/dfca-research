@@ -413,21 +413,22 @@ footer {
   visibility: visible;
 }
 
-/* RESPONSIVE REFINEMENTS */
 @media (max-width: 900px) {
-  .topbar { padding: 10px 24px; }
-  .stat-band, .study-header, .viz-suite, .findings-zone, .field-context, footer { padding-left: 24px; padding-right: 24px; }
   .stat-band-inner { grid-template-columns: repeat(3, 1fr); }
-  .study-header-inner { grid-template-columns: 1fr; gap: 40px; }
+  .study-header-inner { grid-template-columns: 1fr; }
   .findings-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; text-align: center; }
+  .topbar { padding: 10px 24px; }
+  .stat-band, .study-header, .viz-suite, .findings-zone, .field-context, footer { padding-left: 24px; padding-right: 24px; }
 
   /* MOBILE SCROLLY */
-  .scrolly-container { display: block; }
+  .scrolly-container {
+    display: block;
+  }
   .scrolly-graphic {
     position: sticky;
     top: 0;
-    height: 50vh;
+    height: 55vh;
     z-index: 10;
     background: white;
     padding-bottom: 20px;
@@ -440,31 +441,9 @@ footer {
     position: relative;
     z-index: 5;
   }
-  .scrolly-text { padding-bottom: 0; }
-  .scrolly-graphic .chart-wrap { height: 100% !important; max-height: 40vh; }
-}
-
-@media (max-width: 600px) {
-  .topbar { flex-direction: column; gap: 4px; padding: 12px 16px; text-align: center; }
-  .stat-band, .study-header, .viz-suite, .findings-zone, .field-context, footer { padding-left: 16px; padding-right: 16px; padding-top: 48px; padding-bottom: 48px; }
-  .study-title { font-size: 2rem; }
-  .stat-number { font-size: 2.5rem; }
-  .stat-band-inner { grid-template-columns: repeat(2, 1fr); gap: 24px 0; }
-  .stat-item { padding: 0 12px; }
-  .stat-item:nth-child(2n) { border-right: none; }
-  .meta-card { padding: 24px 16px; }
-  .meta-row { grid-template-columns: 1fr; gap: 4px; }
-  .section-title { font-size: 1.6rem; margin-bottom: 32px; }
-  .pull-quote { padding: 20px; }
-  .pull-quote p { font-size: 1.15rem; }
-  .footer-right { text-align: center; margin-top: 16px; }
-}
-
-@media (max-width: 380px) {
-  .stat-band-inner { grid-template-columns: 1fr; }
-  .stat-item { border-right: none; border-bottom: 1px solid rgba(247,243,236,0.08); padding-bottom: 24px; }
-  .stat-item:last-child { border-bottom: none; }
-  .study-title { font-size: 1.75rem; }
+  .scrolly-text {
+    padding-bottom: 0;
+  }
 }
 </style>
 </head>
@@ -688,13 +667,17 @@ footer {
 <footer>
   <div class="footer-inner">
     <div class="footer-left">
-      DFCA Research &nbsp;·&nbsp; Evidence for Development
+      DFCA Research &nbsp;·&nbsp; Evidence for Development &nbsp;·&nbsp; Charsadda, Pakistan
     </div>
     <div class="footer-center">
-      Implementing Partner Report. Research design and causal analysis by the study's academic team.
+      DFCA Research served as Implementing Partner on this study. Research design and causal analysis by the study's academic team.
     </div>
     <div class="footer-right">
-      &copy; 2025 DFCA Research. All rights reserved.
+      &copy; 2025 DFCA Research. All rights reserved.<br>
+      <span style="font-size:10px; color:rgba(247,243,236,0.35);">
+        Data and findings may not be reproduced without written permission.<br>
+        Implementing Partner Report &nbsp;·&nbsp; Charsadda District, KP, Pakistan
+      </span>
     </div>
   </div>
 </footer>
@@ -710,10 +693,12 @@ Chart.defaults.plugins.legend.labels.padding = 20;
 const gridColor = 'rgba(90,78,60,0.10)';
 const tickConfig = { padding: 8 };
 
-/* INTERSECTION OBSERVER */
+/* INTERSECTION OBSERVER for animations */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
   });
 }, { threshold: 0.08 });
 
@@ -727,29 +712,51 @@ const scrollyObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const step = entry.target.dataset.step;
+      
+      /* Update text steps appearance */
       scrollySteps.forEach(s => s.classList.remove('active'));
       entry.target.classList.add('active');
+
+      /* Switch chart layers */
       chartLayers.forEach(layer => {
+        /* Map steps 5 and 6 both to layer 5 */
         const targetLayer = (step === '6') ? '5' : step;
-        if (layer.dataset.layer === targetLayer) layer.classList.add('active');
-        else layer.classList.remove('active');
+        if (layer.dataset.layer === targetLayer) {
+          layer.classList.add('active');
+        } else {
+          layer.classList.remove('active');
+        }
       });
+
+      /* DYNAMIC FOCUS FOR CHART 5 */
       if (window.chart5Instance) {
         if (step === '5') {
+          /* Focus on bars: Mute the line */
           window.chart5Instance.data.datasets[1].borderColor = 'rgba(201,168,76,0.15)';
           window.chart5Instance.data.datasets[1].pointBackgroundColor = 'rgba(201,168,76,0.15)';
           window.chart5Instance.data.datasets[0].backgroundColor = '#0D1B2A';
           window.chart5Instance.update();
         } else if (step === '6') {
+          /* Focus on line: Highlight the line, Mute the bars */
           window.chart5Instance.data.datasets[1].borderColor = '#C9A84C';
           window.chart5Instance.data.datasets[1].pointBackgroundColor = '#C9A84C';
           window.chart5Instance.data.datasets[0].backgroundColor = 'rgba(13,27,42,0.15)';
+          window.chart5Instance.update();
+        } else {
+          /* Reset colors when scrolling away from subsidy steps */
+          window.chart5Instance.data.datasets[1].borderColor = '#C9A84C';
+          window.chart5Instance.data.datasets[1].pointBackgroundColor = '#C9A84C';
+          window.chart5Instance.data.datasets[0].backgroundColor = '#0D1B2A';
           window.chart5Instance.update();
         }
       }
     }
   });
-}, { rootMargin: '-40% 0% -40% 0%', threshold: 0 });
+}, {
+  /* Trigger when step is centered in viewport */
+  rootMargin: '-40% 0% -40% 0%',
+  threshold: 0
+});
 
 scrollySteps.forEach(step => scrollyObserver.observe(step));
 
@@ -762,7 +769,9 @@ function animateCounter(el, target, duration, decimals) {
     const progress = Math.min((timestamp - start) / duration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
     const current = eased * target;
-    el.textContent = decimals ? current.toFixed(decimals) : Math.round(current).toLocaleString();
+    el.textContent = decimals
+      ? current.toFixed(decimals)
+      : Math.round(current).toLocaleString();
     if (progress < 1) requestAnimationFrame(step);
     else el.textContent = decimals ? target.toFixed(decimals) : target.toLocaleString();
   }
@@ -791,21 +800,33 @@ const verticalLinePlugin = {
   afterDraw(chart, args, options) {
     if (!options.x && options.x !== 0) return;
     const ctx = chart.ctx;
-    const xPos = chart.scales.x.getPixelForValue(options.x);
+    const xAxis = chart.scales.x;
+    const xPos = options.x;
+    const pixelX = xAxis.getPixelForValue(xPos);
     ctx.save();
     ctx.beginPath();
     ctx.setLineDash([5, 5]);
     ctx.strokeStyle = 'rgba(13,27,42,0.45)';
     ctx.lineWidth = 1.5;
-    ctx.moveTo(xPos, chart.chartArea.top);
-    ctx.lineTo(xPos, chart.chartArea.bottom);
+    ctx.moveTo(pixelX, chart.chartArea.top);
+    ctx.lineTo(pixelX, chart.chartArea.bottom);
     ctx.stroke();
+    ctx.fillStyle = 'rgba(13,27,42,0.55)';
+    ctx.font = "11px 'Inter', sans-serif";
+    ctx.textAlign = 'center';
+    ctx.fillText(options.label || '', pixelX, chart.chartArea.top - 8);
     ctx.restore();
   }
 };
+
 Chart.register(verticalLinePlugin);
 
-/* ERROR BAR PLUGIN */
+/* CUSTOM TOOLTIP POSITIONER */
+Chart.Tooltip.positioners.followMouse = function(items, eventPosition) {
+  return { x: eventPosition.x, y: eventPosition.y };
+};
+
+/* ERROR BAR PLUGIN for coefficient plot */
 const errorBarPlugin = {
   id: 'errorBars',
   afterDatasetsDraw(chart, args, options) {
@@ -813,65 +834,605 @@ const errorBarPlugin = {
     const ctx = chart.ctx;
     const xScale = chart.scales.x;
     const yScale = chart.scales.y;
-    options.ciData.forEach((ci, i) => {
+    const ciData = options.ciData;
+
+    ciData.forEach((ci, i) => {
       if (!ci) return;
       const [lo, hi] = ci;
+      const yVal = i;
       const xLo = xScale.getPixelForValue(lo);
       const xHi = xScale.getPixelForValue(hi);
-      const yPx = yScale.getPixelForValue(i);
+      const yPx = yScale.getPixelForValue(yVal);
+      const capH = 8;
+
       ctx.save();
       ctx.strokeStyle = 'rgba(13,27,42,0.35)';
       ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.moveTo(xLo, yPx); ctx.lineTo(xHi, yPx); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(xLo, yPx-4); ctx.lineTo(xLo, yPx+4); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(xHi, yPx-4); ctx.lineTo(xHi, yPx+4); ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(xLo, yPx);
+      ctx.lineTo(xHi, yPx);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(xLo, yPx - capH);
+      ctx.lineTo(xLo, yPx + capH);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(xHi, yPx - capH);
+      ctx.lineTo(xHi, yPx + capH);
+      ctx.stroke();
       ctx.restore();
     });
   }
 };
+
 Chart.register(errorBarPlugin);
 
-/* INITIALIZE CHARTS */
+/* CHART 1: COEFFICIENT PLOT (Bill DiD) */
 (function() {
-  const c1 = document.getElementById('chart1').getContext('2d');
-  new Chart(c1, {
+  const ctx = document.getElementById('chart1').getContext('2d');
+
+  const ciData = [
+    [-2641, 3610],
+    [-2582, 3725],
+    [-2651, 3725],
+    [-1927, 4295]
+  ];
+
+  new Chart(ctx, {
     type: 'scatter',
-    data: { datasets: [{ label: 'DiD estimate (PKR)', data: [{x:484,y:0},{x:571,y:1},{x:537,y:2},{x:1184,y:3}], backgroundColor: '#C9A84C' }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { verticalLine: {x:0}, errorBars: {ciData:[[-2641,3610],[-2582,3725],[-2651,3725],[-1927,4295]]} }, scales: { y: { ticks: { callback: v => ['T4','T3','T2','T1'][v] || '' } } } }
+    data: {
+      datasets: [{
+        label: 'DiD estimate (PKR)',
+        data: [
+          { x: 484,  y: 0 },
+          { x: 571,  y: 1 },
+          { x: 537,  y: 2 },
+          { x: 1184, y: 3 }
+        ],
+        backgroundColor: '#C9A84C',
+        borderColor: '#A8853A',
+        borderWidth: 1.5,
+        pointRadius: 8,
+        pointHoverRadius: 10,
+        pointStyle: 'circle'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 28, right: 48, bottom: 8, left: 8 } },
+      plugins: {
+        legend: {
+          position: 'top',
+          align: 'start',
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
+        },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: {
+            label: function(item) {
+              const arm = ['T4','T3','T2','T1'][item.dataIndex];
+              const ci = ciData[item.dataIndex];
+              return arm + ': PKR ' + item.parsed.x.toLocaleString() + ' [' + ci[0].toLocaleString() + ', ' + ci[1].toLocaleString() + ']';
+            }
+          }
+        },
+        verticalLine: { x: 0, label: 'No effect' },
+        errorBars: { ciData: ciData }
+      },
+      scales: {
+        x: {
+          min: -4000,
+          max: 6500,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => 'PKR ' + v.toLocaleString(),
+            font: { family: "'DM Mono', monospace", size: 11 }
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Difference-in-differences estimate (PKR per month)',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { top: 8 }
+          }
+        },
+        y: {
+          min: -0.8,
+          max: 3.8,
+          grid: { display: false },
+          ticks: {
+            ...tickConfig,
+            stepSize: 1,
+            callback: v => ['T4 (Tier 4)', 'T3 (Tier 3)', 'T2 (Tier 2)', 'T1 (Tier 1)'][v] || '',
+            font: { family: "'Inter', sans-serif", size: 12 }
+          },
+          border: { display: false }
+        }
+      }
+    }
   });
+})();
 
-  const c2 = document.getElementById('chart2').getContext('2d');
-  new Chart(c2, {
+/* CHART 2: DiD TRAJECTORY */
+(function() {
+  const ctx = document.getElementById('chart2').getContext('2d');
+
+  const labels = ['Baseline (Dec 2022)', 'Endline (2024)'];
+
+  new Chart(ctx, {
     type: 'line',
-    data: { labels: ['Baseline', 'Endline'], datasets: [
-      { label: 'Control', data: [10462, 10777], borderColor: '#0D1B2A', borderDash: [5,5] },
-      { label: 'T1', data: [10238, 11737], borderColor: '#C9A84C' }
-    ] },
-    options: { responsive: true, maintainAspectRatio: false }
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Control',
+          data: [10462, 10777],
+          borderColor: 'rgba(13,27,42,0.85)',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [6, 3],
+          pointBackgroundColor: 'rgba(13,27,42,0.85)',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
+        },
+        {
+          label: 'T1 (Tier 1, mean PKR 391/mo)',
+          data: [10238, 11737],
+          borderColor: '#C9A84C',
+          backgroundColor: 'transparent',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#C9A84C',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
+        },
+        {
+          label: 'T2 (Tier 2, mean PKR 295/mo)',
+          data: [11296, 12147],
+          borderColor: '#A8853A',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointBackgroundColor: '#A8853A',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
+        },
+        {
+          label: 'T3 (Tier 3, mean PKR 687/mo)',
+          data: [11087, 11973],
+          borderColor: 'rgba(201,168,76,0.60)',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(201,168,76,0.60)',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
+        },
+        {
+          label: 'T4 (Tier 4, mean PKR 1,183/mo)',
+          data: [10445, 11244],
+          borderColor: 'rgba(13,27,42,0.45)',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(13,27,42,0.45)',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 12, right: 60, bottom: 8, left: 8 } },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          position: 'top',
+          align: 'start',
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 14 }
+        },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: {
+            label: ctx => ctx.dataset.label + ': PKR ' + ctx.parsed.y.toLocaleString()
+          }
+        },
+        verticalLine: {}
+      },
+      scales: {
+        x: {
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          border: { display: false }
+        },
+        y: {
+          min: 9000,
+          max: 14000,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => 'PKR ' + v.toLocaleString(),
+            font: { family: "'DM Mono', monospace", size: 11 },
+            maxTicksLimit: 7
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Mean monthly electricity bill (PKR)',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { bottom: 8 }
+          }
+        }
+      }
+    },
+    plugins: [{
+      id: 'didAnnotation',
+      afterDatasetsDraw(chart) {
+        const ctx2 = chart.ctx;
+        const xScale = chart.scales.x;
+        const yScale = chart.scales.y;
+        const ctrlEnd = yScale.getPixelForValue(10777);
+        const t1End = yScale.getPixelForValue(11737);
+        const xEnd = xScale.getPixelForValue(1);
+        ctx2.save();
+        ctx2.beginPath();
+        ctx2.setLineDash([3,3]);
+        ctx2.strokeStyle = 'rgba(201,168,76,0.35)';
+        ctx2.lineWidth = 1;
+        ctx2.moveTo(xEnd + 14, ctrlEnd);
+        ctx2.lineTo(xEnd + 14, t1End);
+        ctx2.stroke();
+        ctx2.fillStyle = 'rgba(201,168,76,0.80)';
+        ctx2.font = "bold 11px 'DM Mono', monospace";
+        ctx2.textAlign = 'left';
+        ctx2.fillText('DiD range', xEnd + 18, (ctrlEnd + t1End) / 2 + 4);
+        ctx2.restore();
+      }
+    }]
   });
+})();
 
-  const c3 = document.getElementById('chart3').getContext('2d');
-  new Chart(c3, {
+/* CHART 3: APPROXIMATE KDE */
+(function() {
+  const ctx = document.getElementById('chart3').getContext('2d');
+
+  const bins = [1250,3750,6250,8750,11250,13750,16250,18750,21250,23750,26250,28750,31250,33750,36250,38750,41250,43750];
+
+  const controlBaseline = [0.3227,0.2077,0.147,0.0767,0.0575,0.0447,0.0128,0.016,0.0192,0.0128,0.0224,0.0032,0.0032,0.0128,0.0192,0.0128,0.0032,0.0064];
+  const treatedBaseline  = [0.2796,0.2324,0.1326,0.0935,0.0655,0.0319,0.0216,0.0136,0.0184,0.0144,0.0152,0.012,0.0136,0.008,0.0072,0.0104,0.0152,0.0152];
+  const treatedEndline   = [0.2107,0.2386,0.1556,0.1093,0.0778,0.0402,0.0253,0.0166,0.0157,0.0149,0.0122,0.0105,0.0131,0.0131,0.0105,0.0079,0.0131,0.0149];
+
+  const binLabels = bins.map(b => 'PKR ' + (b/1000).toFixed(1) + 'k');
+
+  new Chart(ctx, {
     type: 'line',
-    data: { labels: Array.from({length:18}, (_,i)=>(i*2500/1000).toFixed(1)+'k'), datasets: [{ label: 'Treated Endline', data: [0.21,0.24,0.16,0.11,0.08,0.04,0.03,0.02,0.02,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01], borderColor: '#C9A84C', fill: true }] },
-    options: { responsive: true, maintainAspectRatio: false }
+    data: {
+      labels: binLabels,
+      datasets: [
+        {
+          label: 'Control (Baseline)',
+          data: controlBaseline,
+          borderColor: '#0D1B2A',
+          backgroundColor: 'rgba(13,27,42,0.12)',
+          borderWidth: 2.5,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: 'Treated (Baseline)',
+          data: treatedBaseline,
+          borderColor: '#C9A84C',
+          backgroundColor: 'rgba(201,168,76,0.18)',
+          borderWidth: 2.5,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: 'Treated (Endline)',
+          data: treatedEndline,
+          borderColor: '#C9A84C',
+          backgroundColor: 'rgba(201,168,76,0.08)',
+          borderWidth: 2,
+          borderDash: [6, 4],
+          pointRadius: 0,
+          tension: 0.4,
+          fill: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 16, right: 16, bottom: 8, left: 8 } },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          position: 'top',
+          align: 'start',
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
+        },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: {
+            label: ctx => ctx.dataset.label + ': ' + (ctx.parsed.y * 100).toFixed(1) + '%'
+          }
+        },
+        verticalLine: {}
+      },
+      scales: {
+        x: {
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            maxRotation: 45,
+            maxTicksLimit: 10,
+            font: { family: "'DM Mono', monospace", size: 10 }
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Monthly electricity bill (PKR)',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { top: 8 }
+          }
+        },
+        y: {
+          min: 0,
+          max: 0.40,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => (v * 100).toFixed(0) + '%',
+            font: { family: "'DM Mono', monospace", size: 11 },
+            maxTicksLimit: 6
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Normalized density',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { bottom: 8 }
+          }
+        }
+      }
+    }
   });
+})();
 
-  const c4 = document.getElementById('chart4').getContext('2d');
-  new Chart(c4, {
+/* CHART 4: THEFT RATE BY ARM */
+(function() {
+  const ctx = document.getElementById('chart4').getContext('2d');
+
+  const arms = ['Control', 'T1 (Tier 1)', 'T2 (Tier 2)', 'T3 (Tier 3)', 'T4 (Tier 4)'];
+  const baselineRates = [19.0, 17.9, 19.1, 14.2, 21.1];
+  const endlineRates  = [17.2, 19.9, 18.7, 23.8, 17.0];
+
+  new Chart(ctx, {
     type: 'bar',
-    data: { labels: ['Control', 'T1', 'T2', 'T3', 'T4'], datasets: [{ label: 'Endline', data: [17.2, 19.9, 18.7, 23.8, 17.0], backgroundColor: '#C9A84C' }] },
-    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
+    data: {
+      labels: arms,
+      datasets: [
+        {
+          label: 'Baseline (Dec 2022)',
+          data: baselineRates,
+          backgroundColor: '#0D1B2A',
+          borderRadius: 2
+        },
+        {
+          label: 'Endline (2024)',
+          data: endlineRates,
+          backgroundColor: '#C9A84C',
+          borderRadius: 2
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 8, right: 80, bottom: 8, left: 8 } },
+      interaction: { mode: 'nearest', intersect: true },
+      plugins: {
+        legend: {
+          position: 'top',
+          align: 'start',
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
+        },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: {
+            label: ctx => ctx.dataset.label + ': ' + ctx.parsed.x.toFixed(1) + '%'
+          }
+        },
+        verticalLine: {}
+      },
+      scales: {
+        x: {
+          min: 0,
+          max: 32,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => v + '%',
+            font: { family: "'DM Mono', monospace", size: 11 }
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: '% households with observed hooked connection',
+            color: '#7A6B55',
+            font: { family: "'Inter', sans-serif", size: 11 },
+            padding: { top: 8 }
+          }
+        },
+        y: {
+          grid: { display: false, drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [{
+      id: 'theftValueLabels',
+      afterDatasetsDraw(chart) {
+        const c = chart.ctx;
+        chart.data.datasets.forEach((dataset, di) => {
+          const meta = chart.getDatasetMeta(di);
+          meta.data.forEach((bar, j) => {
+            const val = dataset.data[j].toFixed(1) + '%';
+            const xPos = Math.min(bar.x + 5, chart.chartArea.right - 36);
+            const isInside = xPos < bar.x;
+            c.save();
+            c.fillStyle = isInside ? (di === 0 ? '#FFFFFF' : '#0D1B2A') : '#5A4E3C';
+            c.font = "11px 'DM Mono', monospace";
+            c.textAlign = 'left';
+            c.fillText(val, xPos, bar.y + 4);
+            c.restore();
+          });
+        });
+      }
+    }]
   });
+})();
 
-  const c5 = document.getElementById('chart5').getContext('2d');
-  window.chart5Instance = new Chart(c5, {
+/* CHART 5: SUBSIDY DISBURSEMENT BY ARM */
+(function() {
+  const ctx = document.getElementById('chart5').getContext('2d');
+
+  const arms = ['T1 (Tier 1)', 'T2 (Tier 2)', 'T3 (Tier 3)', 'T4 (Tier 4)'];
+  const meanSubsidy = [391, 295, 687, 1183];
+  const confirmRate = [94.3, 93.8, 94.7, 97.5];
+
+  window.chart5Instance = new Chart(ctx, {
     type: 'bar',
-    data: { labels: ['T1', 'T2', 'T3', 'T4'], datasets: [
-      { label: 'Mean subsidy', data: [391, 295, 687, 1183], backgroundColor: '#0D1B2A', yAxisID: 'y' },
-      { label: 'Confirmed %', data: [94.3, 93.8, 94.7, 97.5], type: 'line', borderColor: '#C9A84C', yAxisID: 'y1' }
-    ] },
-    options: { responsive: true, maintainAspectRatio: false, scales: { y1: { position: 'right', min: 80, max: 100 } } }
+    data: {
+      labels: arms,
+      datasets: [
+        {
+          label: 'Mean subsidy (PKR per household)',
+          data: meanSubsidy,
+          backgroundColor: '#0D1B2A',
+          borderRadius: 2,
+          barThickness: 40,
+          yAxisID: 'y'
+        },
+        {
+          label: 'Payment confirmed (%)',
+          data: confirmRate,
+          type: 'line',
+          borderColor: '#C9A84C',
+          backgroundColor: 'rgba(201,168,76,0.10)',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#C9A84C',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0.3,
+          fill: false,
+          yAxisID: 'y1'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 16, right: 16, bottom: 8, left: 8 } },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          position: 'top',
+          align: 'start',
+          labels: { font: { family: "'Inter', sans-serif", size: 12 }, padding: 16 }
+        },
+        tooltip: {
+          position: 'followMouse',
+          callbacks: {
+            label: ctx => {
+              if (ctx.datasetIndex === 0) return 'Mean subsidy: PKR ' + ctx.parsed.y;
+              return 'Confirmed: ' + ctx.parsed.y + '%';
+            }
+          }
+        },
+        verticalLine: {}
+      },
+      scales: {
+        x: {
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: { ...tickConfig, font: { family: "'Inter', sans-serif", size: 12 } },
+          border: { display: false }
+        },
+        y: {
+          type: 'linear',
+          position: 'left',
+          min: 0,
+          max: 1500,
+          grid: { color: gridColor, borderDash: [4,4], drawBorder: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => 'PKR ' + v.toLocaleString(),
+            font: { family: "'DM Mono', monospace", size: 11 },
+            maxTicksLimit: 7
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Mean monthly subsidy per household (PKR)',
+            color: '#0D1B2A',
+            font: { family: "'Inter', sans-serif", size: 10 },
+            padding: { bottom: 4 }
+          }
+        },
+        y1: {
+          type: 'linear',
+          position: 'right',
+          min: 85,
+          max: 100,
+          grid: { display: false },
+          ticks: {
+            ...tickConfig,
+            callback: v => v + '%',
+            font: { family: "'DM Mono', monospace", size: 11 },
+            maxTicksLimit: 6
+          },
+          border: { display: false },
+          title: {
+            display: true,
+            text: 'Payment confirmation rate (%)',
+            color: '#C9A84C',
+            font: { family: "'Inter', sans-serif", size: 10 },
+            padding: { bottom: 4 }
+          }
+        }
+      }
+    },
+    plugins: [{
+      id: 'subsidyLabels',
+      afterDatasetsDraw(chart) {
+        const c = chart.ctx;
+        const meta = chart.getDatasetMeta(0);
+        meta.data.forEach((bar, i) => {
+          const val = 'PKR ' + meanSubsidy[i];
+          c.save();
+          c.fillStyle = '#0D1B2A';
+          c.font = "bold 11px 'DM Mono', monospace";
+          c.textAlign = 'center';
+          c.fillText(val, bar.x, bar.y - 8);
+          c.restore();
+        });
+      }
+    }]
   });
 })();
 </script>

@@ -37,7 +37,7 @@
 
     <!-- Pakistan Field Operations Map (D3.js Implementation) -->
     <div class="hero-visual">
-      <div class="map-frame">
+      <div class="map-frame" style="position: relative;">
         <div class="map-label-top">
           <span class="map-label-top-left">Administered Operational Coverage</span>
           <span class="map-label-top-right">
@@ -46,29 +46,31 @@
           </span>
         </div>
 
-        <svg id="d3-map" width="400" height="500" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet"></svg>
+        <svg id="d3-map" width="400" height="500" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: auto;"></svg>
 
         <div class="map-legend">
           <div class="map-legend-item">
-            <span class="map-legend-swatch kpk"></span>Khyber Pakhtunkhwa
+            <span class="map-legend-swatch kpk"></span>Khyber Pakhtunkhwa Deployment
           </div>
           <div class="map-legend-item">
-            <span class="map-legend-swatch punj"></span>Punjab
+            <span class="map-legend-swatch punj"></span>Punjab Deployment
           </div>
         </div>
+      </div>
+    </div>
 
         <div class="map-bottom-strip">
           <div class="map-stat">
             <div class="map-stat-num">23</div>
-            <div class="map-stat-label">KPK Districts</div>
+            <div class="map-stat-label">KPK Districts Administered</div>
           </div>
           <div class="map-stat">
             <div class="map-stat-num">11</div>
-            <div class="map-stat-label">Punjab Districts</div>
+            <div class="map-stat-label">Punjab Districts Administered</div>
           </div>
           <div class="map-stat">
             <div class="map-stat-num">2K+</div>
-            <div class="map-stat-label">Enumerators</div>
+            <div class="map-stat-label">Trained Field Enumerators on Roster</div>
           </div>
         </div>
       </div>
