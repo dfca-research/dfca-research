@@ -233,9 +233,10 @@ function initD3Map() {
     ["100%", "#2F6FBF", 0.72]
   ]);
 
-  // Pin gradients — lit face / shaded side
-  linearGrad("grad-pin-kpk",    [["0%", "#F2DFA4", 1], ["55%", "#C9A84C", 1], ["100%", "#8A6C24", 1]]);
-  linearGrad("grad-pin-punjab", [["0%", "#A9CCF5", 1], ["55%", "#3B82F6", 1], ["100%", "#1D4E9B", 1]]);
+  // Pin gradient — red for every site, lit face / shaded side.
+  // Red is used for both provinces so markers stay legible against
+  // the gold and blue surfaces alike.
+  linearGrad("grad-pin", [["0%", "#F2726F", 1], ["55%", "#D92D20", 1], ["100%", "#8A1410", 1]]);
 
   // Bevel relief: blur the alpha, light it, mask it back, add over the fill
   const bevel = defs.append("filter")
@@ -293,6 +294,7 @@ function initD3Map() {
       );
       root.selectAll(".pin").attr("transform", pinTransform(k));
       root.selectAll(".pin-shadow").attr("transform", shadowTransform(k));
+      root.selectAll(".pin-label").attr("transform", labelTransform(k));
       extrudeG.selectAll("path").attr("transform", d =>
         `translate(0, ${(d.__layer * EXTRUDE_STEP) / k})`
       );
@@ -312,6 +314,14 @@ function initD3Map() {
 
   /* Ground shadow sits at the pin tip and squashes flat */
   const shadowTransform = (k) => (d) => {
+    const s = 1 / k;
+    const p = projection(d.coords);
+    return `translate(${p[0]}, ${p[1]}) scale(${s})`;
+  };
+
+  /* District labels — anchored at the pin tip, counter-scaled so the
+     type stays the same size on screen at every zoom level. */
+  const labelTransform = (k) => (d) => {
     const s = 1 / k;
     const p = projection(d.coords);
     return `translate(${p[0]}, ${p[1]}) scale(${s})`;
@@ -488,7 +498,7 @@ function initD3Map() {
       .transition().delay(1150).duration(700).ease(d3.easeCubicOut)
       .style("opacity", 1);
 
-    renderD3Markers(root, projection, pinTransform, shadowTransform, {
+    renderD3Markers(root, projection, pinTransform, shadowTransform, labelTransform, {
       showTip, hideTip, showDetail, zoomToPoint,
       clearFocus: () => {
         focusedFeature = null;
@@ -496,14 +506,19 @@ function initD3Map() {
       }
     });
 
-    initMapFilters(root, provinceG);
+    // Selecting a province also flies the camera to it; "All" resets
+    initMapFilters(root, provinceG, (f) => {
+      if (f === 'all') return resetView();
+      const feature = data.features.find(d => (isPunjab(d) ? 'Punjab' : 'KPK') === f);
+      if (feature) zoomToBounds(path.bounds(feature), 6);
+    });
   }).catch(err => {
     console.error("[DFCA] D3 GeoJSON Error:", err);
   });
 }
 
 /* ── Province filter toggles ────────────────────────────── */
-function initMapFilters(root, provinceG) {
+function initMapFilters(root, provinceG, onFilter) {
   const buttons = document.querySelectorAll('.map-filter');
   if (!buttons.length) return;
 
@@ -511,6 +526,7 @@ function initMapFilters(root, provinceG) {
     btn.addEventListener('click', () => {
       const f = btn.dataset.filter;
       buttons.forEach(b => b.classList.toggle('active', b === btn));
+      if (onFilter) onFilter(f);
 
       root.selectAll('.pin')
         .transition().duration(400)
@@ -540,7 +556,7 @@ function initMapFilters(root, provinceG) {
 }
 
 /* ── D3 Markers ─────────────────────────────────────────── */
-function renderD3Markers(root, projection, pinTransform, shadowTransform, ui) {
+function renderD3Markers(root, projection, pinTransform, shadowTransform, labelTransform, ui) {
   const sites = [
     // KPK Districts (23)
     { name: 'Peshawar',     coords: [71.5249, 34.0151], type: 'KPK' },
@@ -581,6 +597,28 @@ function renderD3Markers(root, projection, pinTransform, shadowTransform, ui) {
     { name: 'D.G. Khan',    coords: [70.6355, 30.0489], type: 'Punjab' }
   ];
 
+  // District name labels — hidden until the pin is hovered
+  const labelG = root.append("g")
+    .attr("class", "pin-labels")
+    .style("pointer-events", "none");
+
+  const labels = labelG.selectAll(".pin-label")
+    .data(sites)
+    .enter()
+    .append("g")
+    .attr("class", "pin-label")
+    .attr("transform", labelTransform(1));
+
+  labels.append("text")
+    .attr("class", "pin-label-halo")
+    .attr("x", 7).attr("y", -7)
+    .text(d => d.name);
+
+  labels.append("text")
+    .attr("class", "pin-label-text")
+    .attr("x", 7).attr("y", -7)
+    .text(d => d.name);
+
   // Ground shadows sit beneath the pins so each marker appears lifted
   const shadowG = root.append("g")
     .attr("class", "pin-shadows")
@@ -608,9 +646,9 @@ function renderD3Markers(root, projection, pinTransform, shadowTransform, ui) {
     .append("path")
     .attr("class", "pin")
     .attr("d", pinPath)
-    .attr("fill", d => d.type === 'KPK' ? 'url(#grad-pin-kpk)' : 'url(#grad-pin-punjab)')
-    .attr("stroke", "#fff")
-    .attr("stroke-width", 0.5)
+    .attr("fill", "url(#grad-pin)")
+    .attr("stroke", "#7A0F0C")
+    .attr("stroke-width", 0.6)
     .style("cursor", "pointer")
     .style("opacity", 0)
     .attr("transform", pinTransform(1))
@@ -623,10 +661,13 @@ function renderD3Markers(root, projection, pinTransform, shadowTransform, ui) {
         event
       );
       d3.select(this).classed('pin-hover', true);
+      // Reveal only this pin's district label
+      labels.classed('visible', l => l === d);
     })
     .on("mouseout", function () {
       ui.hideTip();
       d3.select(this).classed('pin-hover', false);
+      labels.classed('visible', false);
     })
     .on("click", function (event, d) {
       event.stopPropagation();
@@ -657,6 +698,9 @@ function renderD3Markers(root, projection, pinTransform, shadowTransform, ui) {
       .duration(600)
       .style("opacity", 0.22);
   });
+
+  // Labels draw above the markers so a revealed name is never occluded
+  labelG.raise();
 }
 
 /* ── RCT stat counter (reused on every slide transition) ── */

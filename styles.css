@@ -722,6 +722,33 @@ nav#main-nav.scrolled {
 #d3-map .pin { transition: filter 0.2s ease; }
 #d3-map .pin.pin-hover { filter: drop-shadow(0 2px 5px rgba(13,27,42,0.45)); }
 
+/* ── District labels (revealed on pin hover) ─────────── */
+#d3-map .pin-label {
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+#d3-map .pin-label.visible { opacity: 1; }
+
+#d3-map .pin-label text {
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  paint-order: stroke;
+}
+
+/* Halo keeps the name legible over gold, blue, or the plate */
+#d3-map .pin-label-halo {
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+  opacity: 0.92;
+}
+
+#d3-map .pin-label-text { fill: var(--navy); }
+
 /* ── Zoom controls ───────────────────────────────────── */
 .map-zoom-controls {
   position: absolute;
