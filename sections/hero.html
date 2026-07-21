@@ -37,7 +37,7 @@
 
     <!-- Pakistan Field Operations Map (D3.js Implementation) -->
     <div class="hero-visual">
-      <div class="map-frame" style="position: relative;">
+      <div class="map-frame">
         <div class="map-label-top">
           <span class="map-label-top-left">Administered Operational Coverage</span>
           <span class="map-label-top-right">
@@ -46,7 +46,36 @@
           </span>
         </div>
 
-        <svg id="d3-map" width="400" height="500" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: auto;"></svg>
+        <!-- Province filter toggles -->
+        <div class="map-controls" role="group" aria-label="Filter deployments by province">
+          <button type="button" class="map-filter active" data-filter="all">All</button>
+          <button type="button" class="map-filter" data-filter="KPK">KPK</button>
+          <button type="button" class="map-filter" data-filter="Punjab">Punjab</button>
+        </div>
+
+        <div class="map-canvas">
+          <svg id="d3-map" width="400" height="500" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet"></svg>
+
+          <!-- Zoom / pan controls -->
+          <div class="map-zoom-controls">
+            <button type="button" class="map-zoom-btn" data-zoom="in"    aria-label="Zoom in">+</button>
+            <button type="button" class="map-zoom-btn" data-zoom="out"   aria-label="Zoom out">−</button>
+            <button type="button" class="map-zoom-btn" data-zoom="reset" aria-label="Reset view">⟲</button>
+          </div>
+
+          <!-- Hover tooltip (positioned by scripts.js) -->
+          <div class="map-tooltip" id="map-tooltip" aria-hidden="true"></div>
+
+          <!-- Click-to-focus detail panel -->
+          <div class="map-detail" id="map-detail" aria-live="polite">
+            <button type="button" class="map-detail-close" aria-label="Close detail">×</button>
+            <div class="map-detail-eyebrow"></div>
+            <div class="map-detail-name"></div>
+            <div class="map-detail-meta"></div>
+          </div>
+
+          <div class="map-hint">Scroll to zoom · drag to pan · click a site for detail</div>
+        </div>
 
         <div class="map-legend">
           <div class="map-legend-item">
@@ -56,8 +85,6 @@
             <span class="map-legend-swatch punj"></span>Punjab Deployment
           </div>
         </div>
-      </div>
-    </div>
 
         <div class="map-bottom-strip">
           <div class="map-stat">

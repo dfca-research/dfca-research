@@ -142,13 +142,13 @@ function initParallax() {
   }, { passive: true });
 }
 
-/* ── Scroll-driven cream background shift ───────────────── */
+/* ── Scroll-driven background shift (light blue family) ─── */
 function initScrollColorTransition() {
   const root = document.documentElement;
   let rafId  = null;
   const interp = (a, b, t) => Math.round(a + (b - a) * t);
-  const c0 = [247, 243, 236]; // --cream baseline
-  const c1 = [242, 236, 225]; // warmer/deeper end-of-page cream
+  const c0 = [238, 244, 250]; // --cream baseline  (#EEF4FA light blue tint)
+  const c1 = [230, 238, 247]; // slightly deeper blue at end of page (#E6EEF7)
 
   window.addEventListener('scroll', () => {
     if (rafId) return;
@@ -203,25 +203,151 @@ function initD3Map() {
 
   const path = d3.geoPath().projection(projection);
 
+  // Single transformed root so provinces and pins zoom/pan together
+  const root       = svg.append("g").attr("class", "map-root");
+  const provinceG  = root.append("g").attr("class", "provinces");
+
+  // Shared zoom state — pins and strokes counter-scale so they hold
+  // a constant on-screen size as the user zooms in.
+  const zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .translateExtent([[0, 0], [width, height]])
+    .on("zoom", (event) => {
+      const k = event.transform.k;
+      root.attr("transform", event.transform);
+      provinceG.selectAll("path").attr("stroke-width", d =>
+        (d === focusedFeature ? 2.5 : 1.5) / k
+      );
+      root.selectAll(".pin").attr("transform", pinTransform(k));
+    });
+
+  svg.call(zoom);
+
+  let focusedFeature = null;
+
+  /* Pin geometry: the 24×24 pin path has its tip at (12,22) in local
+     units, so this places the tip exactly on the projected coordinate. */
+  const pinTransform = (k) => (d) => {
+    const s = 0.5 / k;
+    const p = projection(d.coords);
+    return `translate(${p[0] - 12 * s}, ${p[1] - 22 * s}) scale(${s})`;
+  };
+
+  /* ── Tooltip ──────────────────────────────────────────── */
+  const canvas  = document.querySelector('.map-canvas');
+  const tipEl   = document.getElementById('map-tooltip');
+
+  function showTip(html, event) {
+    if (!tipEl || !canvas) return;
+    const r = canvas.getBoundingClientRect();
+    tipEl.innerHTML = html;
+    tipEl.classList.add('visible');
+    const x = event.clientX - r.left;
+    const y = event.clientY - r.top;
+    // Flip to the left near the right edge so the card never overflows
+    tipEl.style.left = (x > r.width - 150 ? x - 14 : x + 14) + 'px';
+    tipEl.style.top  = (y - 12) + 'px';
+    tipEl.style.transform = x > r.width - 150 ? 'translate(-100%, -100%)' : 'translateY(-100%)';
+  }
+  function hideTip() { if (tipEl) tipEl.classList.remove('visible'); }
+
+  /* ── Detail panel ─────────────────────────────────────── */
+  const detailEl = document.getElementById('map-detail');
+  function showDetail(eyebrow, name, meta) {
+    if (!detailEl) return;
+    detailEl.querySelector('.map-detail-eyebrow').textContent = eyebrow;
+    detailEl.querySelector('.map-detail-name').textContent    = name;
+    detailEl.querySelector('.map-detail-meta').textContent    = meta;
+    detailEl.classList.add('visible');
+  }
+  function hideDetail() { if (detailEl) detailEl.classList.remove('visible'); }
+
+  /* ── Camera helpers ───────────────────────────────────── */
+  function zoomToBounds(bounds, maxK) {
+    const [[x0, y0], [x1, y1]] = bounds;
+    const k = Math.min(maxK, 0.85 / Math.max((x1 - x0) / width, (y1 - y0) / height));
+    const t = d3.zoomIdentity
+      .translate(width / 2, height / 2)
+      .scale(k)
+      .translate(-(x0 + x1) / 2, -(y0 + y1) / 2);
+    svg.transition().duration(750).ease(d3.easeCubicInOut).call(zoom.transform, t);
+  }
+
+  function zoomToPoint(coords, k) {
+    const p = projection(coords);
+    const t = d3.zoomIdentity
+      .translate(width / 2, height / 2)
+      .scale(k)
+      .translate(-p[0], -p[1]);
+    svg.transition().duration(750).ease(d3.easeCubicInOut).call(zoom.transform, t);
+  }
+
+  function resetView() {
+    focusedFeature = null;
+    provinceG.selectAll("path").classed('focused', false);
+    hideDetail();
+    svg.transition().duration(600).ease(d3.easeCubicInOut)
+       .call(zoom.transform, d3.zoomIdentity);
+  }
+
+  // Clicking empty map background clears the focus
+  svg.on("click", (event) => { if (event.target === svg.node()) resetView(); });
+
+  // Zoom / reset buttons
+  document.querySelectorAll('.map-zoom-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.zoom;
+      if (mode === 'reset') return resetView();
+      svg.transition().duration(300)
+         .call(zoom.scaleBy, mode === 'in' ? 1.6 : 1 / 1.6);
+    });
+  });
+
+  detailEl?.querySelector('.map-detail-close')
+    ?.addEventListener('click', resetView);
+
   // Local GeoJSON — filtered to KPK (N.W.F.P.) + Punjab, no external dependency
   d3.json('data/pakistan-kpk-punjab.geojson').then(data => {
     const isPunjab = d => d.properties.NAME_1 === 'Punjab';
+    const fillOf   = d => isPunjab(d)
+      ? 'rgba(59, 130, 246, 0.12)'
+      : 'rgba(201, 168, 76, 0.14)';
 
-    const paths = svg.append("g")
+    const paths = provinceG
       .selectAll("path")
       .data(data.features)
       .enter()
       .append("path")
       .attr("d", path)
       .attr("class", d => isPunjab(d) ? 'province-punjab' : 'province-kpk')
+      .attr("data-province", d => isPunjab(d) ? 'Punjab' : 'KPK')
       .attr("fill", "transparent")
-      .attr("stroke", d => isPunjab(d) ? '#3B82F6' : '#10B981')
+      .attr("stroke", d => isPunjab(d) ? '#3B82F6' : '#C9A84C')
       .attr("stroke-width", 1.5)
-      .on("mouseover", function() {
-        d3.select(this).style("fill-opacity", 0.3).attr("stroke-width", 2.5);
+      .style("cursor", "pointer")
+      .on("mousemove", function (event, d) {
+        const prov  = isPunjab(d) ? 'Punjab' : 'Khyber Pakhtunkhwa';
+        const count = isPunjab(d) ? 11 : 23;
+        showTip(
+          `<span class="tip-eyebrow">Province</span>` +
+          `<span class="tip-name">${prov}</span>` +
+          `<span class="tip-meta">${count} districts administered</span>`,
+          event
+        );
+        d3.select(this).style("fill-opacity", 0.55);
       })
-      .on("mouseout", function() {
-        d3.select(this).style("fill-opacity", 1).attr("stroke-width", 1.5);
+      .on("mouseout", function () {
+        hideTip();
+        d3.select(this).style("fill-opacity", 1);
+      })
+      .on("click", function (event, d) {
+        event.stopPropagation();
+        focusedFeature = d;
+        provinceG.selectAll("path").classed('focused', p => p === d);
+        const prov  = isPunjab(d) ? 'Punjab' : 'Khyber Pakhtunkhwa';
+        const count = isPunjab(d) ? 11 : 23;
+        showDetail('Province', prov, `${count} districts administered · field operations active`);
+        zoomToBounds(path.bounds(d), 6);
       });
 
     // Province-by-province stroke draw-on, then fill fade-in
@@ -238,22 +364,53 @@ function initD3Map() {
         .ease(d3.easeCubicOut)
         .attr("stroke-dashoffset", 0)
         .on("end", () => {
-          const fill = isPunjab(d)
-            ? 'rgba(59, 130, 246, 0.12)'
-            : 'rgba(16, 185, 129, 0.14)';
-          sel.transition().duration(500).style("fill", fill)
-            .on("end", () => sel.style("transition", "all 0.3s ease"));
+          sel.transition().duration(500).style("fill", fillOf(d))
+            .on("end", () => sel.style("transition", "fill-opacity 0.3s ease"));
         });
     });
 
-    renderD3Markers(svg, projection);
+    renderD3Markers(root, projection, pinTransform, {
+      showTip, hideTip, showDetail, zoomToPoint,
+      clearFocus: () => {
+        focusedFeature = null;
+        provinceG.selectAll("path").classed('focused', false);
+      }
+    });
+
+    initMapFilters(root, provinceG);
   }).catch(err => {
     console.error("[DFCA] D3 GeoJSON Error:", err);
   });
 }
 
+/* ── Province filter toggles ────────────────────────────── */
+function initMapFilters(root, provinceG) {
+  const buttons = document.querySelectorAll('.map-filter');
+  if (!buttons.length) return;
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      buttons.forEach(b => b.classList.toggle('active', b === btn));
+
+      root.selectAll('.pin')
+        .transition().duration(400)
+        .style('opacity', d => (f === 'all' || d.type === f) ? 1 : 0.08);
+
+      provinceG.selectAll('path')
+        .transition().duration(400)
+        .style('fill-opacity', function () {
+          return (f === 'all' || this.getAttribute('data-province') === f) ? 1 : 0.15;
+        })
+        .style('stroke-opacity', function () {
+          return (f === 'all' || this.getAttribute('data-province') === f) ? 1 : 0.25;
+        });
+    });
+  });
+}
+
 /* ── D3 Markers ─────────────────────────────────────────── */
-function renderD3Markers(svg, projection) {
+function renderD3Markers(root, projection, pinTransform, ui) {
   const sites = [
     // KPK Districts (23)
     { name: 'Peshawar',     coords: [71.5249, 34.0151], type: 'KPK' },
@@ -294,7 +451,7 @@ function renderD3Markers(svg, projection) {
     { name: 'D.G. Khan',    coords: [70.6355, 30.0489], type: 'Punjab' }
   ];
 
-  const g = svg.append("g").attr("class", "markers");
+  const g = root.append("g").attr("class", "markers");
 
   // Material Design Pin Path
   const pinPath = "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z";
@@ -310,24 +467,42 @@ function renderD3Markers(svg, projection) {
     .attr("stroke-width", 0.5)
     .style("cursor", "pointer")
     .style("opacity", 0)
-    .attr("transform", d => {
-      const p = projection(d.coords);
-      return `translate(${p[0] - 6}, ${p[1] - 11}) scale(0.5)`;
+    .attr("transform", pinTransform(1))
+    .on("mousemove", function (event, d) {
+      event.stopPropagation();
+      ui.showTip(
+        `<span class="tip-eyebrow">Field Site</span>` +
+        `<span class="tip-name">${d.name}</span>` +
+        `<span class="tip-meta">${d.type === 'KPK' ? 'Khyber Pakhtunkhwa' : 'Punjab'} · active site</span>`,
+        event
+      );
+      d3.select(this).classed('pin-hover', true);
+    })
+    .on("mouseout", function () {
+      ui.hideTip();
+      d3.select(this).classed('pin-hover', false);
+    })
+    .on("click", function (event, d) {
+      event.stopPropagation();
+      ui.clearFocus();
+      ui.showDetail(
+        'Field Site',
+        `${d.name} District`,
+        `${d.type === 'KPK' ? 'Khyber Pakhtunkhwa' : 'Punjab'} · administered under active deployment`
+      );
+      ui.zoomToPoint(d.coords, 5);
     });
-
-  markers.append("title").text(d => `${d.name} District (Active Site)`);
 
   // Staggered fade-in and drop-down animation
   markers.each(function(d, i) {
     const sel = d3.select(this);
-    const p = projection(d.coords);
-    
+
     sel.transition()
       .delay(1200 + i * 40)
       .duration(600)
       .ease(d3.easeBackOut.overshoot(1.5))
       .style("opacity", 1)
-      .attr("transform", `translate(${p[0] - 6}, ${p[1] - 11}) scale(0.5)`);
+      .attr("transform", pinTransform(1)(d));
   });
 }
 
