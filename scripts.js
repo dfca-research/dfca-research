@@ -203,12 +203,85 @@ function initD3Map() {
 
   const path = d3.geoPath().projection(projection);
 
-  // Single transformed root so provinces and pins zoom/pan together
+  /* ── Depth defs: gradients, bevel lighting, vignette ──────
+     Light source is upper-left (azimuth 225°) to agree with the
+     hero's existing radial gradient. */
+  const EXTRUDE_LAYERS = 6;   // stacked clones that form the slab edge
+  const EXTRUDE_STEP   = 1;   // px between clones, counter-scaled on zoom
+
+  const defs = svg.append("defs");
+
+  function linearGrad(id, stops) {
+    const g = defs.append("linearGradient")
+      .attr("id", id)
+      .attr("x1", "0%").attr("y1", "0%")
+      .attr("x2", "100%").attr("y2", "100%");
+    stops.forEach(s => g.append("stop")
+      .attr("offset", s[0]).attr("stop-color", s[1]).attr("stop-opacity", s[2]));
+    return g;
+  }
+
+  // Province surface gradients — light top-left → saturated bottom-right
+  linearGrad("grad-kpk", [
+    ["0%",   "#F0DFA8", 0.95],
+    ["45%",  "#D8B863", 0.80],
+    ["100%", "#A8853A", 0.72]
+  ]);
+  linearGrad("grad-punjab", [
+    ["0%",   "#BFD9F7", 0.95],
+    ["45%",  "#7FB0E8", 0.80],
+    ["100%", "#2F6FBF", 0.72]
+  ]);
+
+  // Pin gradients — lit face / shaded side
+  linearGrad("grad-pin-kpk",    [["0%", "#F2DFA4", 1], ["55%", "#C9A84C", 1], ["100%", "#8A6C24", 1]]);
+  linearGrad("grad-pin-punjab", [["0%", "#A9CCF5", 1], ["55%", "#3B82F6", 1], ["100%", "#1D4E9B", 1]]);
+
+  // Bevel relief: blur the alpha, light it, mask it back, add over the fill
+  const bevel = defs.append("filter")
+    .attr("id", "map-bevel")
+    .attr("x", "-25%").attr("y", "-25%")
+    .attr("width", "150%").attr("height", "150%");
+
+  bevel.append("feGaussianBlur")
+    .attr("in", "SourceAlpha").attr("stdDeviation", 2.5).attr("result", "blur");
+
+  const lighting = bevel.append("feDiffuseLighting")
+    .attr("in", "blur")
+    .attr("surfaceScale", 5)
+    .attr("diffuseConstant", 1.05)
+    .attr("lighting-color", "#ffffff")
+    .attr("result", "light");
+  lighting.append("feDistantLight").attr("azimuth", 225).attr("elevation", 55);
+
+  bevel.append("feComposite")
+    .attr("in", "light").attr("in2", "SourceAlpha")
+    .attr("operator", "in").attr("result", "litShape");
+
+  bevel.append("feComposite")
+    .attr("in", "litShape").attr("in2", "SourceGraphic")
+    .attr("operator", "arithmetic")
+    .attr("k1", 1).attr("k2", 0).attr("k3", 1).attr("k4", -0.35);
+
+  // Canvas vignette — seats the map plate in a recess
+  const vig = defs.append("radialGradient").attr("id", "map-vignette");
+  vig.append("stop").attr("offset", "55%").attr("stop-color", "#0D1B2A").attr("stop-opacity", 0);
+  vig.append("stop").attr("offset", "100%").attr("stop-color", "#0D1B2A").attr("stop-opacity", 0.13);
+
+  svg.append("rect")
+    .attr("class", "map-vignette")
+    .attr("width", width).attr("height", height)
+    .attr("fill", "url(#map-vignette)")
+    .style("pointer-events", "none");
+
+  // Single transformed root so provinces and pins zoom/pan together.
+  // Draw order: extruded slab → province surfaces → pin shadows → pins.
   const root       = svg.append("g").attr("class", "map-root");
+  const extrudeG   = root.append("g").attr("class", "extrude").style("pointer-events", "none");
   const provinceG  = root.append("g").attr("class", "provinces");
 
-  // Shared zoom state — pins and strokes counter-scale so they hold
-  // a constant on-screen size as the user zooms in.
+  // Shared zoom state — pins, strokes and slab depth counter-scale so
+  // they hold a constant on-screen size as the user zooms in.
   const zoom = d3.zoom()
     .scaleExtent([1, 8])
     .translateExtent([[0, 0], [width, height]])
@@ -219,6 +292,10 @@ function initD3Map() {
         (d === focusedFeature ? 2.5 : 1.5) / k
       );
       root.selectAll(".pin").attr("transform", pinTransform(k));
+      root.selectAll(".pin-shadow").attr("transform", shadowTransform(k));
+      extrudeG.selectAll("path").attr("transform", d =>
+        `translate(0, ${(d.__layer * EXTRUDE_STEP) / k})`
+      );
     });
 
   svg.call(zoom);
@@ -231,6 +308,13 @@ function initD3Map() {
     const s = 0.5 / k;
     const p = projection(d.coords);
     return `translate(${p[0] - 12 * s}, ${p[1] - 22 * s}) scale(${s})`;
+  };
+
+  /* Ground shadow sits at the pin tip and squashes flat */
+  const shadowTransform = (k) => (d) => {
+    const s = 1 / k;
+    const p = projection(d.coords);
+    return `translate(${p[0]}, ${p[1]}) scale(${s})`;
   };
 
   /* ── Tooltip ──────────────────────────────────────────── */
@@ -309,9 +393,34 @@ function initD3Map() {
   // Local GeoJSON — filtered to KPK (N.W.F.P.) + Punjab, no external dependency
   d3.json('data/pakistan-kpk-punjab.geojson').then(data => {
     const isPunjab = d => d.properties.NAME_1 === 'Punjab';
-    const fillOf   = d => isPunjab(d)
-      ? 'rgba(59, 130, 246, 0.12)'
-      : 'rgba(201, 168, 76, 0.14)';
+    const fillOf   = d => isPunjab(d) ? 'url(#grad-punjab)' : 'url(#grad-kpk)';
+
+    /* ── Extruded slab ────────────────────────────────────
+       Six stacked clones per province, 1px apart and darkening
+       with depth, so the landmass reads as a raised solid rather
+       than a flat shape with a single offset ghost. */
+    const slab = [];
+    for (let layer = EXTRUDE_LAYERS; layer >= 1; layer--) {
+      data.features.forEach(f => {
+        slab.push({ feature: f, __layer: layer });
+      });
+    }
+
+    extrudeG.selectAll("path")
+      .data(slab)
+      .enter()
+      .append("path")
+      .attr("d", d => path(d.feature))
+      .attr("data-province", d => isPunjab(d.feature) ? 'Punjab' : 'KPK')
+      .attr("transform", d => `translate(0, ${d.__layer * EXTRUDE_STEP})`)
+      .attr("fill", d => {
+        // Deepest layer darkest; top layer nearly meets the surface
+        const t = d.__layer / EXTRUDE_LAYERS;
+        return isPunjab(d.feature)
+          ? `rgba(21, 52, 99, ${0.20 + 0.42 * t})`
+          : `rgba(72, 55, 18, ${0.20 + 0.42 * t})`;
+      })
+      .attr("stroke", "none");
 
     const paths = provinceG
       .selectAll("path")
@@ -321,7 +430,8 @@ function initD3Map() {
       .attr("d", path)
       .attr("class", d => isPunjab(d) ? 'province-punjab' : 'province-kpk')
       .attr("data-province", d => isPunjab(d) ? 'Punjab' : 'KPK')
-      .attr("fill", "transparent")
+      .attr("fill", d => fillOf(d))
+      .style("fill-opacity", 0)
       .attr("stroke", d => isPunjab(d) ? '#3B82F6' : '#C9A84C')
       .attr("stroke-width", 1.5)
       .style("cursor", "pointer")
@@ -364,12 +474,21 @@ function initD3Map() {
         .ease(d3.easeCubicOut)
         .attr("stroke-dashoffset", 0)
         .on("end", () => {
-          sel.transition().duration(500).style("fill", fillOf(d))
+          sel.transition().duration(500).style("fill-opacity", 1)
             .on("end", () => sel.style("transition", "fill-opacity 0.3s ease"));
         });
     });
 
-    renderD3Markers(root, projection, pinTransform, {
+    // Relief is applied to the group, not per path, so the lighting
+    // filter costs one raster pass instead of one per province.
+    provinceG.attr("filter", "url(#map-bevel)");
+
+    // Slab rises once the outlines have finished drawing
+    extrudeG.style("opacity", 0)
+      .transition().delay(1150).duration(700).ease(d3.easeCubicOut)
+      .style("opacity", 1);
+
+    renderD3Markers(root, projection, pinTransform, shadowTransform, {
       showTip, hideTip, showDetail, zoomToPoint,
       clearFocus: () => {
         focusedFeature = null;
@@ -397,6 +516,17 @@ function initMapFilters(root, provinceG) {
         .transition().duration(400)
         .style('opacity', d => (f === 'all' || d.type === f) ? 1 : 0.08);
 
+      root.selectAll('.pin-shadow')
+        .transition().duration(400)
+        .style('opacity', d => (f === 'all' || d.type === f) ? 0.22 : 0.02);
+
+      // The extruded slab dims with its province
+      root.selectAll('.extrude path')
+        .transition().duration(400)
+        .style('opacity', function () {
+          return (f === 'all' || this.getAttribute('data-province') === f) ? 1 : 0.12;
+        });
+
       provinceG.selectAll('path')
         .transition().duration(400)
         .style('fill-opacity', function () {
@@ -410,7 +540,7 @@ function initMapFilters(root, provinceG) {
 }
 
 /* ── D3 Markers ─────────────────────────────────────────── */
-function renderD3Markers(root, projection, pinTransform, ui) {
+function renderD3Markers(root, projection, pinTransform, shadowTransform, ui) {
   const sites = [
     // KPK Districts (23)
     { name: 'Peshawar',     coords: [71.5249, 34.0151], type: 'KPK' },
@@ -451,6 +581,22 @@ function renderD3Markers(root, projection, pinTransform, ui) {
     { name: 'D.G. Khan',    coords: [70.6355, 30.0489], type: 'Punjab' }
   ];
 
+  // Ground shadows sit beneath the pins so each marker appears lifted
+  const shadowG = root.append("g")
+    .attr("class", "pin-shadows")
+    .style("pointer-events", "none");
+
+  shadowG.selectAll(".pin-shadow")
+    .data(sites)
+    .enter()
+    .append("ellipse")
+    .attr("class", "pin-shadow")
+    .attr("rx", 3.2)
+    .attr("ry", 1.1)
+    .attr("fill", "#0D1B2A")
+    .style("opacity", 0)
+    .attr("transform", shadowTransform(1));
+
   const g = root.append("g").attr("class", "markers");
 
   // Material Design Pin Path
@@ -462,7 +608,7 @@ function renderD3Markers(root, projection, pinTransform, ui) {
     .append("path")
     .attr("class", "pin")
     .attr("d", pinPath)
-    .attr("fill", d => d.type === 'KPK' ? '#C9A84C' : '#3B82F6')
+    .attr("fill", d => d.type === 'KPK' ? 'url(#grad-pin-kpk)' : 'url(#grad-pin-punjab)')
     .attr("stroke", "#fff")
     .attr("stroke-width", 0.5)
     .style("cursor", "pointer")
@@ -493,16 +639,23 @@ function renderD3Markers(root, projection, pinTransform, ui) {
       ui.zoomToPoint(d.coords, 5);
     });
 
-  // Staggered fade-in and drop-down animation
-  markers.each(function(d, i) {
-    const sel = d3.select(this);
+  // Staggered fade-in and drop-down animation, shadow following the pin
+  const shadows = shadowG.selectAll(".pin-shadow");
 
-    sel.transition()
+  markers.each(function(d, i) {
+    d3.select(this).transition()
       .delay(1200 + i * 40)
       .duration(600)
       .ease(d3.easeBackOut.overshoot(1.5))
       .style("opacity", 1)
       .attr("transform", pinTransform(1)(d));
+  });
+
+  shadows.each(function(d, i) {
+    d3.select(this).transition()
+      .delay(1200 + i * 40)
+      .duration(600)
+      .style("opacity", 0.22);
   });
 }
 
